@@ -202,7 +202,8 @@ cd site &amp;&amp; quarto render      # pre-render runs build.py again, then ren
   (function () {
     var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
     if (!links.length) return;
-    function folder(path) { var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
     var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
     var root = folder((wm || links[0]).pathname);
     var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
