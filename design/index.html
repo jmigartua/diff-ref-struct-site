@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <li><b>A Fortran or C++ kernel</b> under either of the above. Where FullProf's and GSAS's numerics come from.</li>
 </ul>
 <p><em>First opinion:</em> Rust for the core, with Python bindings for scripting, because a refinement program lives or dies by the speed of its inner loop and the Mac app is best as one signed binary. To be confirmed against the feature matrix.</p>
+<p><span class="status status-done">decided (<a href="../log/index.html#L021">L021</a>)</span> <b>The core is written in Rust</b>, linked straight into the Tauri app and built as one command-line binary. <b>Python is the scripting interface</b>: bindings to the Rust core (PyO3) in version 2 (P48). No physics is written in Python.</p>
 
 <h2 class="anchored">Q2 · The space groups</h2>
 <p>R12 asks for the complete set with all the needed information. The tables can be generated from generators (Hall symbols) rather than typed in, and checked against an independent source (the International Tables, Vol. A; spglib; cctbx's sgtbx) for all 230 groups and their settings. Magnetic groups (the 1651 Shubnikov groups) are needed if magnetic refinement is in scope, which the study will tell.</p>

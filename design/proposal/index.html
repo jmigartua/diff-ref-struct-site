@@ -832,7 +832,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="m">P53</span><br>
 <strong>Command line, then scripting</strong></td>
 <td>Every feature on the command line from the start (CLAUDE.md); a Python scripting interface to the core in version 2.<br>
-<span class="nc">open:</span> <span class="m">The Python interface could move to version 1 if Q1 chooses a Python core.</span></td>
+<span class="status status-done">decided</span> <span class="m">Q1 (L021): the core is Rust; the Python interface is bindings to it (PyO3), in version 2.</span></td>
 <td><span class="status tier-v1">Version 1</span></td>
 <td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Command-line run<br>
 <a href="../../background/gsas2/index.html">GSAS-II gap</a>: Python scripting API</td>
@@ -914,7 +914,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </table>
 </div>
 <h2 class="anchored">Kept for later (L012)</h2><p>Kept for later, as set in L012: magnetic structures, modulated and superspace structures, stacking faults, indexing, structure solution, 2D image integration, PDF and total scattering. FullProf has each (one line each on the FullProf page); none is in versions 1 or 2. The data model of version 1 should not close the door to magnetic phases (moments on atoms, magnetic space groups), which FullProf users expect next.</p>
-<h2 class="anchored">Decided by Josu (L020)</h2><ul class="k-list"><li><strong>TOF</strong> (P05): version 2. Version 1 is constant wavelength only.</li><li><strong>Joint X-ray + neutron</strong> (P06): version 2, with a data model that allows several patterns from the start.</li><li><strong>Rigid bodies</strong> (P41): version 2. Distance, angle and linear restraints are in version 1.</li><li><strong>The minimiser</strong> (P42): Levenberg–Marquardt with SVD against correlations, as GSAS-II.</li><li><strong>The control file</strong> (P47, Q3): a new readable text format of our own, with a .pcr importer.</li><li><strong>The reference refinements</strong> that define 'version 1 is done': the four tutorials named above (Y2O3, MgAl2O4, Co-doped YBCO, quantitative phase analysis).</li><li>Still open: <strong>Q1, the language of the core</strong>, on which P48 (Python scripting in version 1 or 2) depends.</li></ul>
+<h2 class="anchored">Decided by Josu (L020, L021)</h2><ul class="k-list"><li><strong>TOF</strong> (P05): version 2. Version 1 is constant wavelength only.</li><li><strong>Joint X-ray + neutron</strong> (P06): version 2, with a data model that allows several patterns from the start.</li><li><strong>Rigid bodies</strong> (P41): version 2. Distance, angle and linear restraints are in version 1.</li><li><strong>The minimiser</strong> (P42): Levenberg–Marquardt with SVD against correlations, as GSAS-II.</li><li><strong>The control file</strong> (P47, Q3): a new readable text format of our own, with a .pcr importer.</li><li><strong>The reference refinements</strong> that define 'version 1 is done': the four tutorials named above (Y2O3, MgAl2O4, Co-doped YBCO, quantitative phase analysis).</li><li><strong>Q1, the language of the core</strong> (L021): Rust, with Python as the scripting interface through bindings in version 2 (P48).</li></ul>
 </article>
 
 
