@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>GSAS-II · diff-ref-struct – diff-ref-struct · Rietveld refinement for the Mac</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<!-- Site header, family kit. Root-absolute hrefs are rewritten by Quarto to
+     page-relative links at render time. -->
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">diff <span class="accent">ref</span> struct
+      <span class="wordmark-sub">Rietveld refinement for the Mac · powder diffraction with X-rays, synchrotron and neutrons · started October 2026</span>
+    </a>
+    <!-- The entries are the groups of data/nav.yml, in the same order; the two navigations say the same thing. -->
+    <nav class="site-nav">
+      <a href="../../index.html">Overview</a>
+      <a href="../../brief/index.html">Brief</a>
+      <a href="../../background/index.html">Background</a>
+      <span class="nav-pair"><a href="../../design/index.html">Design</a><span class="sl">/</span><a href="../../roadmap/index.html">Roadmap</a></span>
+      <a href="../../manual/index.html">Manual</a>
+      <span class="nav-right">
+        <span class="nav-pair"><a href="../../about/index.html">Method</a><span class="sl">/</span><a href="../../log/index.html">Log</a></span>
+        <a href="../../releases/index.html">Release notes</a>
+      </span>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/build.py: left navigation + opening of the reading column -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../../index.html">Overview</a></li></ul></details>
+<details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../../brief/index.html">The brief, organised</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../../background/index.html">The programs that inspire</a></li><li><a href="../../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../../background/gsas2/index.html">GSAS-II</a></li><li><a href="../../background/jana/index.html">Jana2020</a></li></ul></details>
+<details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../../design/index.html">Design: open questions</a></li><li><a href="../../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../../manual/index.html">About the manual</a></li></ul></details>
+<details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../../about/index.html">How this site works</a></li><li><a href="../../log/index.html">The log, every dated step</a></li></ul></details>
+<details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../../releases/index.html">Release notes</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">GSAS-II</h1>
+
+</header>
+
+
+<article class="page-wide">
+<h1>GSAS-II</h1>
+<p class="lede">B. H. Toby and R. B. Von Dreele, Advanced Photon Source, Argonne. Open-source Python with Fortran kernels, successor of GSAS/EXPGUI. Read against the <a href="../fullprof/index.html">FullProf baseline</a> (<a href="../../log/index.html#L012">L012</a>): only what GSAS-II has and FullProf lacks within the scope, in physics and in workflow, each row saying what FullProf has instead (log <a href="../../log/index.html#L014">L014</a>). GSAS-II sources link to the line in GitHub; FullProf sources are named in <code>manuals/fullprof/</code>.</p>
+<p class="sub"><b>Sources read.</b> GSAS-II source at commit c13e730 and the GSAS-II-tutorials repository at commit 924e9eb, both cloned from GitHub on 2026-10-09; the help pages are cited from their Markdown sources (MDhelp/docs), from which the in-program HTML help is generated. The published tutorial and help site (advancedphotonsource.github.io/GSAS-II-tutorials) is blocked from this session and is built from the second repository, so its sources were read instead. Every GSAS-II claim below was checked against the cited lines in the clones. The FullProf side is the baseline inventory (data/study/fullprof.yml, 158 entries and its not-found list) and the material in manuals/fullprof/: the 2001 manual, FP_COMMANDS.pdf, the eleven tutorial folders and FP_tests; each candidate gap was searched for in the text of all these PDFs and in the .pcr, .irf, .inf and .bat files before being kept. A capability that both programs have in comparable form is not listed; the ones set aside that way are named in L014.</p>
+<p class="sub">36 entries.</p>
+<h2 id="data" class="anchored">Data, radiations and patterns</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Binary vendor and HDF5 powder formats</strong></td>
+<td>Importers, found as plug-ins at run time, read Bruker .brml and .RAW, Panalytical .xrdml, Rigaku .ras and .txt, CSV, GSAS .fxye (including TOF TIME-MAP), TOPAS .xye, FullProf .dat, powder CIF, MAX IV NeXus HDF5 and MIDAS zarr; most import menus can guess the format from the file.</td>
+<td>FullProf reads its own free and instrument formats (Ins=0–14, GSAS files, Socabim .uxd); WinPLOTR reads ASCII formats only, including Panalytical .udf/.xrdml/.csv and Rigaku RINT .txt, and converts them. No binary Bruker .brml/.RAW, HDF5/NeXus or powder-CIF reader appears in the material.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L101-L102">mainmenu.md L101–102</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L129-L134">mainmenu.md L129–134</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/imports/G2pwd_HDF5.py#L34">G2pwd_HDF5.py L34</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/imports/G2pwd_MIDAS.py#L49">G2pwd_MIDAS.py L49</a> · FullProf_Manual.pdf, pp. 73–74 · FPS_dec2015_WinPLOTR_TR.pdf, p. 3 · FPS_dec2015_WinPLOTR_TR.pdf, p. 12</td>
+</tr>
+<tr class="even">
+<td><strong>Auto Import from a watched directory</strong></td>
+<td>A window watches a directory and imports powder files as they appear, filtered by a pattern such as "*June23*.fxye", so a running experiment can be followed in the project.</td>
+<td>not found in manuals/fullprof/; FullProf's sequential mode and FullProfAPP's batch import work on files that already exist.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L140">mainmenu.md L140</a> · FullProf_Manual.pdf, p. 7 · Presentation.pdf, p. 3</td>
+</tr>
+<tr class="odd">
+<td><strong>Corrections to 2<span class="math inline">\(\theta\)</span>, intensity or weights at import</strong></td>
+<td>An .instprm instrument file may carry Python code (CorrectionCode) that is run on import and changes the 2<span class="math inline">\(\theta\)</span>, intensity or weight arrays, e.g. a quadratic 2<span class="math inline">\(\theta\)</span> calibration correction applied to every pattern from that instrument.</td>
+<td>FullProf's Cor=1/2 corrections multiply the calculated intensities by a tabulated or polynomial factor of the scattering variable; there is no correction of the observed x axis or weights at read time.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L124-L127">mainmenu.md L124–127</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/others.md?plain=1#L125-L145">others.md L125–145</a> · FullProf_Manual.pdf, p. 71 · FullProf_Manual.pdf, pp. 130–131</td>
+</tr>
+<tr class="even">
+<td><strong>Phase import from many structure formats</strong></td>
+<td>Phases are read from CIF, SHELX .ins/.res, GSAS .EXP, JANA .m50, PDB, ICDD .str, RMCProfile .rmc6f, RRUFF DIF, XYZ and other GSAS-II projects; the coordinates of an existing phase can later be reset from any importable file (Reimport atoms).</td>
+<td>WinPLOTR and EdPCR convert CIF and SHELX .ins to .pcr; FullProfAPP fetches CIFs from the COD. No other structure formats are named.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L111-L120">mainmenu.md L111–120</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/imports/G2phase_RRUFF.py#L19">G2phase_RRUFF.py L19</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phaseatoms.md?plain=1#L52">phaseatoms.md L52</a> · FPS_dec2015_WinPLOTR_TR.pdf, p. 9 · Tutorial-Y2O3.pdf, pp. 13–17 · Exercise-EgyptMakeup.pdf, p. 1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="structure" class="anchored">The crystal structure</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Hydrogen atoms placed from geometry</strong></td>
+<td>Calc H atoms inserts H atoms at standard positions on selected atoms from their bonding pattern; Update H atoms resets them to the bonding geometry after a refinement.</td>
+<td>not found in manuals/fullprof/; hydrogen atoms are typed in by hand or carried by rigid bodies and satellite groups (e.g. methyl groups), and FIX_SPC H fixes them.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phaseatoms.md?plain=1#L41">phaseatoms.md L41</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phaseatoms.md?plain=1#L48">phaseatoms.md L48</a> · FullProf-Tutorial-RigidBody.pdf, p. 12 · FP_COMMANDS.pdf, p. 3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="profile" class="anchored">Peak shapes, instrument and peak positions</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pink-beam profile</strong></td>
+<td>A constant-wavelength histogram type 'B' for pink (wide-bandpass) beams: back-to-back exponentials convolved with a pseudo-Voigt, with α = α0 + α1·tanθ and β = β0 + β1·tanθ for X-rays (sinθ for neutrons), plus U, V, W, X, Y, Z (Von Dreele, Clarke &amp; Walsh 2021; Von Dreele 2024).</td>
+<td>FullProf uses back-to-back exponentials ⊗ pseudo-Voigt only for TOF (Npr=9, 10); its CW profiles are Gaussian, Lorentzian, pseudo-Voigt, Pearson VII, TCH with FCJ asymmetry, split and numerical. 'Pink beam' is not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIpwdGUI.py#L3070-L3075">GSASIIpwdGUI.py L3070–3075</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIpwd.py#L934-L937">GSASIIpwd.py L934–937</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIpwd.py#L1426-L1434">GSASIIpwd.py L1426–1434</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L4093-L4094">GSASIIstrMath.py L4093–4094</a> · FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, pp. 111–112</td>
+</tr>
+<tr class="even">
+<td><strong>Instrument profile from fundamental parameters</strong></td>
+<td>For a CW (usually Bragg–Brentano) instrument the NIST FPA code computes peaks from Topas-style inputs (divergence, Soller angles, goniometer radius, filament, sample and receiving-slit lengths, absorption, thickness, tube tails, PSD range, incident-beam monochromator) and a source spectrum, then fits U, V, W, X, Y and SH/L to them and saves an instrument parameter file. FPA is not used inside the Rietveld fit.</td>
+<td>FullProf's resolution file (IRF) is obtained by refining a standard such as LaB6; the only geometric term is the Finger–Cox–Jephcoat axial divergence (S_L, D_L). Fundamental-parameter peak shapes are on the baseline's not-found list.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L142-L144">mainmenu.md L142–144</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/others.md?plain=1#L82-L122">others.md L82–122</a> · FullProf_Manual.pdf, pp. 131–132 · FullProf_Manual.pdf, pp. 112–113</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="background" class="anchored">Background</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Background peaks</strong></td>
+<td>Any number of pseudo-Voigt background peaks, each with refinable position, integrated intensity, Gaussian width and Lorentzian width, added to a smooth function; meant for broad lumps such as Kapton or container scattering.</td>
+<td>FullProf models a parasitic peak as an extra phase with fixed relative intensities read from an .hkl file and a refined scale (Jbt=3, Irf=2), or absorbs humps with Debye-like terms or a background file; no free-standing refinable background peak.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderbkg.md?plain=1#L31-L35">powderbkg.md L31–35</a> · HoBaCuO-HT.pcr L216–225 · FullProf_Manual.pdf, pp. 45–46</td>
+</tr>
+<tr class="even">
+<td><strong>Background function fitted to fixed points, with auto-background</strong></td>
+<td>Fixed points are placed with the mouse or generated by pybaselines (arpls or iarpls, with a log(λ) smoothing slider); Fit Background then refines the chosen function (e.g. Chebyshev with a few terms) to the points before any Rietveld cycle. The auto-background can instead be saved as a fixed background histogram subtracted point by point.</td>
+<td>WinPLOTR picks background points by hand or automatically (about √n points, "not recommended for advanced analysis") and saves them to paste into the .pcr, where they become a linear-interpolation or spline background; FullProfAPP extracts background points (method not stated). The points are not used to fit a polynomial or Chebyshev series.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderbkg.md?plain=1#L92-L118">powderbkg.md L92–118</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderbkg.md?plain=1#L63">powderbkg.md L63</a> · FPS_dec2015_WinPLOTR_TR.pdf, pp. 38–40 · FullProf_Manual.pdf, p. 78 · Exercise-LiFePO4.pdf, p. 2</td>
+</tr>
+<tr class="odd">
+<td><strong>Background in powers of Q, and inverse or logarithmic interpolation</strong></td>
+<td>Besides Chebyshev and cosine series, the background function can be a power series in Q<span class="math inline">\(^{2}\)</span> or in Q<span class="math inline">\(^{-2}\)</span>, or an interpolation through points spaced equally in 1/x or in log x (inv interpolate, log interpolate), with 1 to 36 terms.</td>
+<td>FullProf offers a polynomial in (T/Bkpos − 1), Chebyshev (up to 24 terms), cosine Fourier series, linear interpolation and cubic splines through user points; no Q-power series and no inverse or logarithmic point spacing.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIpwdGUI.py#L2280">GSASIIpwdGUI.py L2280</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIpwd.py#L1030">GSASIIpwd.py L1030</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderbkg.md?plain=1#L9-L18">powderbkg.md L9–18</a> · FullProf_Manual.pdf, pp. 45–46 · pbso4_cheb.pcr L26</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="microstructure" class="anchored">Size and strain broadening</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Gauss–Lorentz mixing of anisotropic size broadening</strong></td>
+<td>Isotropic, uniaxial and ellipsoidal size broadening each carry an LGmix parameter that splits the size width between Lorentzian and Gaussian parts (1 = pure Lorentzian), as microstrain does: <span class="math inline">\(\gamma\)</span> = S·mx_size + M·mx_strain, <span class="math inline">\(\sigma\)</span>² = (S(1−mx_size))² + (M(1−mx_strain))².</td>
+<td>FullProf has a Gaussian isotropic size term (IG/GauSiz) and a mixing parameter ξ for anisotropic strain, but its anisotropic size models are Lorentzian only ("the anisotropic size is supposed to contribute to the Lorentzian").</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasedata.md?plain=1#L29-L38">phasedata.md L29–38</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L3330-L3332">GSASIIstrMath.py L3330–3332</a> · FullProf_Manual.pdf, p. 23 · FullProf_Manual.pdf, p. 21</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="corrections" class="anchored">Intensity corrections</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Spherical-harmonic preferred orientation</strong></td>
+<td>Per phase and histogram, a cylindrically symmetric spherical-harmonic orientation distribution of chosen even order, constrained to the crystal symmetry, as an alternative to March–Dollase; the fitted distribution can be checked as a ψ-scan or inverse pole figure in multiples of random distribution.</td>
+<td>FullProf has the exponential (Nor=0) and modified March–Dollase (Nor=1) functions about one direction, with an untextured fraction; texture beyond these is on the baseline's not-found list.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasedata.md?plain=1#L64-L77">phasedata.md L64–77</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L3010-L3036">GSASIIstrMath.py L3010–3036</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L3183-L3190">GSASIIstrMath.py L3183–3190</a> · FullProf_Manual.pdf, pp. 54–55</td>
+</tr>
+<tr class="even">
+<td><strong>Texture analysis with generalised spherical harmonics</strong></td>
+<td>A phase-wide orientation distribution function (Bunge; Von Dreele 1997) of even order up to 34, with sample symmetry cylindrical, 2/m, mmm or none and refinable sample-orientation zeros, applied to all histograms of the phase recorded at different sample orientations; it takes precedence over the per-histogram corrections. The texture index J is reported, pole figures, inverse pole figures and 3D pole distributions are drawn, and a texture restraint is offered.</td>
+<td>not found in manuals/fullprof/; the QPA tutorial's paper on textured alloys obtained ODFs from pole figures measured and computed outside FullProf, then compared them with March–Dollase in the Rietveld fit.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasetexture.md?plain=1#L7-L13">phasetexture.md L7–13</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasetexture.md?plain=1#L112-L128">phasetexture.md L112–128</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L3184-L3185">GSASIIstrMath.py L3184–3185</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIrestrGUI.py#L2540-L2544">GSASIIrestrGUI.py L2540–2544</a> · Quantitative-prefOrient.pdf, pp. 2–3</td>
+</tr>
+<tr class="odd">
+<td><strong>Extinction for constant-wavelength powder data</strong></td>
+<td>One extinction coefficient per phase and histogram for CW X-ray and neutron as well as TOF powder data, combining Bragg and Laue components weighted by sin<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> and cos<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> (Sabine-type), with analytic derivatives.</td>
+<td>FullProf has one powder extinction parameter for TOF data only, and a SHELX-type parameter for single-crystal and integrated data; CW powder extinction is on the baseline's not-found list.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L3121-L3146">GSASIIstrMath.py L3121–3146</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMath.py#L3194-L3196">GSASIIstrMath.py L3194–3196</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasedata.md?plain=1#L79">phasedata.md L79</a> · FullProf_Manual.pdf, p. 108 · FullProf_Manual.pdf, p. 110 · FullProf_Manual.pdf, p. 63</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="lebail" class="anchored">Le Bail and Pawley fits</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pawley refinement</strong></td>
+<td>Reflection intensities are least-squares parameters refined with the cell and profile, between a Pawley dmin and dmax, with an optional penalty weight on negative intensities; reflections are created, estimated from peak heights, and negative ones reset and unflagged. Intensities thus get standard uncertainties and enter the covariance matrix; the histogram scale must be held.</td>
+<td>FullProf implements Le Bail extraction (Jbt=2: intensities iterated from the Rietveld partition, not refined); the manual names Pawley's method only as a relative of profile matching.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasegeneral.md?plain=1#L75-L78">phasegeneral.md L75–78</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasepawley.md?plain=1#L12-L14">phasepawley.md L12–14</a> · FullProf_Manual.pdf, pp. 14–15 · FullProf_Manual.pdf, p. 89</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="constraints" class="anchored">Constraints, restraints, rigid bodies</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Linear constraint equations and New Var parameters</strong></td>
+<td>Four user constraint types on named parameters: Hold, Equivalence (fixed ratios), Constraint equation (Σ mᵢpᵢ = constant, removing one degree of freedom from any number of parameters, e.g. three cations on one site summing to 1 with two free) and New Var (a new refined parameter defined as a weighted sum). Symmetry-generated constraints are shown separately; the processed relations, errors and warnings can be displayed; constraints export to and import from .constr text files; Make atoms equivalent sets up a shared site in one step.</td>
+<td>FullProf ties parameters by sharing a refinement code with multipliers, or by EQUAL/PEQU keywords; each group has one free shift, so a sum over three or more parameters with more than one free direction cannot be imposed exactly; FullProf offers soft linear restraints (NLI) for that.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L108-L120">commontreeitems.md L108–120</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L131-L179">commontreeitems.md L131–179</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L185-L187">commontreeitems.md L185–187</a> · FullProf_Manual.pdf, p. 19 · FP_COMMANDS.pdf, p. 3 · FullProf-Tutorial-RigidBody.pdf, pp. 4–5</td>
+</tr>
+<tr class="even">
+<td><strong>Histogram wildcards in sequential constraints</strong></td>
+<td>In sequential refinement a constraint can name a histogram as * (p:*:name) so it applies to every histogram in turn; three modes decide whether numbered constraints are converted to *, ignored, or used as written.</td>
+<td>not found in manuals/fullprof/; a FullProf sequential run reuses the single .pcr, whose codes apply to whichever pattern is being refined.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L193-L199">commontreeitems.md L193–199</a> · FPS_dec2015_WinPLOTR_TR.pdf, pp. 18–19</td>
+</tr>
+<tr class="odd">
+<td><strong>General restraints as Python expressions</strong></td>
+<td>A restraint on any quantity computed by a user-supplied Python expression of GSAS-II parameters, with target and s.u.; conditional (if) logic makes one-sided minimum or maximum restraints. Each restraint type has its own weight factor and on/off switch.</td>
+<td>FullProf restrains distances, angles and linear combinations of refined parameters (NLI), all two-sided, with the restraint term weighted by the current reduced <span class="math inline">\(\chi^2\)</span>.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L239">commontreeitems.md L239</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L213-L214">commontreeitems.md L213–214</a> · FullProf_Manual.pdf, p. 42 · FullProf_Manual.pdf, pp. 123–125 · FullProf-Tutorial-RigidBody.pdf, pp. 4–5</td>
+</tr>
+<tr class="even">
+<td><strong>Plane and chiral-volume restraints</strong></td>
+<td>Restraints that keep a chosen set of atoms nearly coplanar, and restraints on the chiral volume of an atom, available for every phase type (torsion and Ramachandran restraints only for macromolecular phases).</td>
+<td>FullProf has distance, angle and linear restraints only; plane and chiral restraints are not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIrestrGUI.py#L2503-L2511">GSASIIrestrGUI.py L2503–2511</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L234-L237">commontreeitems.md L234–237</a> · FullProf_Manual.pdf, pp. 123–125</td>
+</tr>
+<tr class="odd">
+<td><strong>Restraints imported from Mogul</strong></td>
+<td>Bond and angle restraint targets and s.u.s are read from the .csv written by the CCDC Mercury/Mogul geometry check (or a file in that layout), i.e. from statistics of the Cambridge Structural Database.</td>
+<td>FullProf writes candidate restraint lines from its own distance calculation (DCONSTRn.hlp, CFML_Restraints.tpcr) for pasting into the .pcr; Mogul is not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L222-L225">commontreeitems.md L222–225</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L242-L263">commontreeitems.md L242–263</a> · FullProf_Manual.pdf, p. 124 · CFML_Restraints_1.tpcr L1–11</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="engine" class="anchored">The least-squares engine</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Levenberg–Marquardt least squares with SVD</strong></td>
+<td>The default minimiser builds the Hessian from analytic derivatives histogram by histogram, inverts it by singular-value decomposition with a zero tolerance (default <span class="math inline">\(10^{-6}\)</span>), so near-singular directions are dropped and the parameters causing them are named, and up-weights the Hessian diagonal (Marquardt λ) when a cycle fails to lower <span class="math inline">\(\chi^2\)</span>. Alternatives: SVD without Marquardt, MINPACK leastsq with analytic or numerical derivatives (the latter to check code). Stops on Min ΔM/M (default 0.001) or Max cycles.</td>
+<td>FullProf solves the Gauss–Newton normal equations, damping shifts with class relaxation factors and code multipliers; a singular matrix stops the run and the manual advises restarting with scale factors only; Dum=2 stops when <span class="math inline">\(\chi^2\)</span> rises. No SVD or Marquardt step is mentioned.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L36-L50">commontreeitems.md L36–50</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIImath.py#L164-L246">GSASIImath.py L164–246</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIstrMain.py#L405-L436">GSASIIstrMain.py L405–436</a> · FullProf_Manual.pdf, pp. 42–43 · FullProf_Manual.pdf, p. 77 · FullProf_Manual.pdf, p. 16 · FullProf_Manual.pdf, p. 68</td>
+</tr>
+<tr class="even">
+<td><strong>Parameter impact</strong></td>
+<td>Ranks the parameters not being refined by the improvement in reduced <span class="math inline">\(\chi^2\)</span> each would give if refined (Toby, J. Appl. Cryst. 57, 175–180, 2024); also callable from scripts as ComputeWorstFit.</td>
+<td>not found in manuals/fullprof/; FullProf documents a fixed refinement order (scale; zero, background, cell; positions; shape; occupancies; displacements; microstructure).</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L85">mainmenu.md L85</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/docs/source/GSASIIscriptable.rst#L317">GSASIIscriptable.rst L317</a> · FullProf_Manual.pdf, p. 14</td>
+</tr>
+<tr class="odd">
+<td><strong>Any expression with its s.u. from the full covariance</strong></td>
+<td>Evaluate Expression and s.u. computes a user expression of several parameters (e.g. the total amount of an element spread over sites) with a standard uncertainty propagated through the covariance matrix, so correlations are included.</td>
+<td>FullProf prints s.u.s of refined parameters and of its own derived quantities (distances, weight fractions); in the symmetry-mode output, atom-position s.u.s are propagated "neglecting the correlation between the refined amplitudes". No user expressions.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L87">mainmenu.md L87</a> · FullProf_Manual.pdf, p. 43 · FullProf-Tutorial-Symmetry-Modes.pdf, p. 4</td>
+</tr>
+<tr class="even">
+<td><strong>Normal probability plot</strong></td>
+<td>Error Analysis draws a normal probability plot of the weighted residuals within the limits; the slope over the central ~68 % of points (−1 to 1) is the GOF of the well-fitting points and the intercept shows bias.</td>
+<td>FullProf reports Durbin–Watson d, the Bérar factor for serially correlated residuals, Akaike and Schwarz criteria and an expected-R analysis (Ana=1); a normal probability plot is not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderparent.md?plain=1#L21">powderparent.md L21</a> · FullProf_Manual.pdf, p. 45 · FullProf_Manual.pdf, pp. 61–62 · LaMnO3ref.out L796–799</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="workflow" class="anchored">Workflow: running, sequences, programs around it, the live display</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>One project file with a data tree</strong></td>
+<td>Everything — data, instrument and sample parameters, phases, constraints, restraints, rigid bodies, results, covariance, sequential tables, notebook — lives in one .gpx file shown as a data tree; any number of phases and histograms, limited by memory; each save during refinement keeps a numbered backup &lt;project&gt;.bak&lt;i&gt;.gpx that can be reopened.</td>
+<td>FullProf keeps model and flags in a .pcr text file, data in separate files and results in .out, .sum, .prf and other files; the .pcr is rewritten after a run (Pcr=1) or written to CODFIL.new (Pcr=2); up to 16 phases.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/datatree.md?plain=1#L5">datatree.md L5</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/datatree.md?plain=1#L34-L36">datatree.md L34–36</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L14-L15">mainmenu.md L14–15</a> · FullProf_Manual.pdf, pp. 8–9 · FullProf_Manual.pdf, p. 72 · FullProf_Manual.pdf, p. 87</td>
+</tr>
+<tr class="even">
+<td><strong>Python scripting API</strong></td>
+<td>GSASIIscriptable reads and writes the same .gpx files as the GUI: add histograms (real or simulated), phases, images and PDFs; set values and flags; run lists of refinement steps; add Hold, Equivalence, Equation and New Var constraints; read covariance; rank parameters. It runs without the GUI packages, e.g. on a cluster, but does not cover every GUI feature.</td>
+<td>FullProf is driven by the .pcr and the command line (fp2k code data log), WinPLOTR command files for data handling, and the FullProfAPP GUI for batches; no programming interface to FullProf is described.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/docs/source/GSASIIscriptable.rst#L12-L19">GSASIIscriptable.rst L12–19</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/docs/source/GSASIIscriptable.rst#L54-L58">GSASIIscriptable.rst L54–58</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/docs/source/GSASIIscriptable.rst#L248-L322">GSASIIscriptable.rst L248–322</a> · FullProf_Manual.pdf, pp. 6–7 · FPS_dec2015_WinPLOTR_TR.pdf, pp. 42–44 · Presentation.pdf, p. 3</td>
+</tr>
+<tr class="odd">
+<td><strong>Pseudo-variables and parametric fits of sequential results</strong></td>
+<td>Sequential results form a table (one row per histogram, one column per parameter); clicking a column plots it with error bars against histogram or any column such as temperature; pseudo-variables (formulas, distances, angles) add derived columns, and parametric equations (e.g. a thermal-expansion law) are fitted to columns with errors propagated from each refinement's covariance; rows reopen their fit and covariance.</td>
+<td>FullProf's sequential mode stores the refined parameters of each pattern in a .seq table that WinPLOTR plots; derived quantities and fits of equations to the series are not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/sequential.md?plain=1#L19-L55">sequential.md L19–55</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/sequential.md?plain=1#L66-L70">sequential.md L66–70</a> · FullProf_Manual.pdf, p. 7 · FPS_dec2015_WinPLOTR_TR.pdf, pp. 18–22</td>
+</tr>
+<tr class="even">
+<td><strong>Accept or reject a refinement</strong></td>
+<td>After a fit the user sees a table of how each parameter changed and either loads the results or rejects them, leaving the project unchanged so that flags or settings can be changed and the fit tried again.</td>
+<td>FullProf overwrites the .pcr with the refined values (Pcr=1) or writes them to CODFIL.new (Pcr=2), leaving the choice to file handling; wfp2k only asks whether to continue or stop.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L78-L80">mainmenu.md L78–80</a> · FullProf_Manual.pdf, p. 72 · FullProf_Manual.pdf, p. 16</td>
+</tr>
+<tr class="odd">
+<td><strong>Project notebook with logged parameters</strong></td>
+<td>A time-stamped log of refinements, Fourier maps and peak fits, with user comments, filters and a plot of Rw, reduced <span class="math inline">\(\chi^2\)</span> or chosen logged parameters against refinement number; saved as &lt;project&gt;-notebook.txt.</td>
+<td>FullProf writes per-run summaries (.sum, .rpa appended run after run) and comment headers with <span class="math inline">\(\chi^2\)</span> and R_Bragg in the rewritten .pcr; no log plotted across refinements.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L9-L20">commontreeitems.md L9–20</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L71-L72">mainmenu.md L71–72</a> · FullProf_Manual.pdf, p. 9 · FullProf_Manual.pdf, pp. 65–66</td>
+</tr>
+<tr class="even">
+<td><strong>Limits and excluded regions set on the plot</strong></td>
+<td>Data limits and excluded regions are drawn as vertical lines on the pattern and set by dragging, by menu clicks or by pressing e at each end; limits can also be dragged in Q or d.</td>
+<td>FullProf takes excluded regions as low/high pairs typed on line 11 of the .pcr (WinPLOTR draws them); setting them graphically is not described.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderlimits.md?plain=1#L11-L14">powderlimits.md L11–14</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderlimits.md?plain=1#L52-L59">powderlimits.md L52–59</a> · FullProf_Manual.pdf, p. 78 · FPS_dec2015_WinPLOTR_TR.pdf, p. 13</td>
+</tr>
+<tr class="odd">
+<td><strong>Updates and regression through git</strong></td>
+<td>The Help menu checks for and installs newer versions and can regress to any earlier version, e.g. to reproduce an old result or avoid a new bug.<br>
+<span class="m">Software distribution rather than refinement; kept because the scope counts workflow.</span></td>
+<td>not found in manuals/fullprof/; FullProf and FullProfAPP are downloaded as installers from the ILL site.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L194-L198">mainmenu.md L194–198</a> · Presentation.pdf, p. 5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="output" class="anchored">Output files</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In FullProf</th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Fit-diagnostic plot modes</strong></td>
+<td>Key commands on the Rietveld plot switch the difference curve to (obs − calc)/<span class="math inline">\(\sigma\)</span> (w), superimpose a cumulative <span class="math inline">\(\chi^2\)</span> curve showing where the misfit accumulates (X), add magnified regions (a), subtract the background (b), plot phase partials (p), and show d or Q axes; hovering over a tick mark shows its hkl, and right-click labels persist in the project.</td>
+<td>WinPLOTR plots the .prf with linear, log, √ and I·Q<span class="math inline">\(^{2}\)</span> scales, x in 2<span class="math inline">\(\theta\)</span>, TOF, energy, Q or d, and hkl on click; weighted differences and cumulative <span class="math inline">\(\chi^2\)</span> are not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powder.md?plain=1#L85-L106">powder.md L85–106</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powder.md?plain=1#L75-L78">powder.md L75–78</a> · FPS_dec2015_WinPLOTR_TR.pdf, pp. 3–4 · FPS_dec2015_WinPLOTR_TR.pdf, p. 7</td>
+</tr>
+<tr class="even">
+<td><strong>Interactive correlation and shift displays</strong></td>
+<td>The Covariance item draws the correlation matrix as a colour map (−1 to 1) with parameter names and values on hover, and bar charts of shift/s.u. over the last refinement or the last cycle.</td>
+<td>FullProf writes the correlation matrix to the .out (Mat=1) or prints the matrix diagonal each cycle (Mat=2); no plot.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/commontreeitems.md?plain=1#L83-L97">commontreeitems.md L83–97</a> · FullProf_Manual.pdf, p. 72</td>
+</tr>
+<tr class="odd">
+<td><strong>Publication plots</strong></td>
+<td>The P button opens an editable copy of the Rietveld plot (colours, line widths, limits, text) exported as bitmap, PDF, PostScript, SVG, Grace, Igor Pro, Origin or CSV.</td>
+<td>WinPLOTR saves graphics as bitmap or PostScript, or in its own .wpl/.pgf formats.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powder.md?plain=1#L162-L166">powder.md L162–166</a> · FPS_dec2015_WinPLOTR_TR.pdf, p. 4 · FPS_dec2015_WinPLOTR_TR.pdf, p. 42</td>
+</tr>
+<tr class="even">
+<td><strong>Plots of the refined size, strain and orientation models</strong></td>
+<td>The Phase/Data tab draws 3D surfaces of the crystallite-size and microstrain models, and the preferred-orientation model as a ψ-scan or an inverse pole figure.</td>
+<td>FullProf lists apparent size and strain per reflection in the .mic file and in the .out; plots of the models are not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasedata.md?plain=1#L88">phasedata.md L88</a> · FullProf_Manual.pdf, pp. 11–12 · Microstructural_effects_FP.pdf, p. 8</td>
+</tr>
+<tr class="odd">
+<td><strong>Sequential results as multi-block CIF and CSV</strong></td>
+<td>A sequential refinement exports as one CIF with a block per histogram (or per phase and histogram), as Cinema: Debye-Scherrer files, or as CSV of the whole table.</td>
+<td>FullProf writes a CIF per run and sequential summaries (.rpa/.sav, .seq); a combined CIF for a series is not found in manuals/fullprof/.</td>
+<td class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/sequential.md?plain=1#L56-L62">sequential.md L56–62</a> · FullProf_Manual.pdf, p. 9 · FullProf_Manual.pdf, p. 72 · PPH3-sls.cif L1–6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="later" class="anchored">Kept for later</h2><ul class="k-list"><li><b>Magnetic structures.</b> Magnetic phases with moment parameters AMx, AMy, AMz; magnetic subgroups from Bilbao k-SUBGROUPSMAG, stepped through on the powder plot; k-vector search; five Magnetic tutorials. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIobj.py#L629">GSASIIobj.py L629</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powdercells.md?plain=1#L47-L52">powdercells.md L47–52</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powder.md?plain=1#L155-L160">powder.md L155–160</a></span></li><li><b>Modulated structures and superspace.</b> (3+1)-dimensional incommensurate structures with modulations of site fraction, position, displacement and moment (Fourier, crenel, zigzag/block) in the Wave Data tab. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasewave.md?plain=1#L5">phasewave.md L5</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIobj.py#L699-L713">GSASIIobj.py L699–713</a></span></li><li><b>Stacking faults.</b> The Layers tab drives a modified DIFFaX for simulations and parameter sequences; fitting a pattern is "not available yet". <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phaselayers.md?plain=1#L5-L15">phaselayers.md L5–15</a></span></li><li><b>Indexing.</b> Peak search and fit, autoindexing on chosen Bravais lattices with M20/X20, cell refinement, space-group trials, SUBGROUPS and cell-symmetry search; peaks exportable to PreDict. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powdercells.md?plain=1#L16-L25">powdercells.md L16–25</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/powderpeaks.md?plain=1#L75-L87">powderpeaks.md L75–87</a></span></li><li><b>Structure solution.</b> Charge flipping (also 4D) from single-crystal or Pawley/Le Bail-extracted intensities, Monte Carlo/simulated annealing with rigid bodies, Fourier and Patterson maps with peak search, maximum-entropy maps via Dysnomia. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasegeneral.md?plain=1#L18-L22">phasegeneral.md L18–22</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasemcsa.md?plain=1#L5">phasemcsa.md L5</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasedysnomia.md?plain=1#L5">phasedysnomia.md L5</a></span></li><li><b>2D image integration.</b> Calibration, masks, dark/background/gain corrections and integration of area-detector images to powder patterns; polarisation calibration, 2D strain and texture from images. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/image.md?plain=1#L35-L40">image.md L35–40</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/image.md?plain=1#L20-L22">image.md L20–22</a></span></li><li><b>PDF / total scattering.</b> G(r) computed from a powder histogram with an optimiser for background and Ruland width; modelling through PDFfit2, RMCProfile and fullrmc. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/pairdistribution.md?plain=1#L5-L6">pairdistribution.md L5–6</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phaseRMC.md?plain=1#L5-L6">phaseRMC.md L5–6</a></span></li></ul>
+<h2 id="out" class="anchored">Out of scope</h2><ul class="k-list"><li><b>Single-crystal data.</b> HKLF histograms (CW X-ray, CW and TOF neutron), refinement on F<span class="math inline">\(^{2}\)</span> or |F|, extinction models, merohedral twins, Flack parameter, joint single-crystal and powder fits. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/singlecrystal.md?plain=1#L5">singlecrystal.md L5</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/docs/source/objvarorg.rst#L1053-L1058">objvarorg.rst L1053–1058</a></span></li><li><b>3D electron diffraction.</b> Single-crystal histogram type SEC for CW electrons (micro-ED) with a microED extinction choice. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/docs/source/objvarorg.rst#L1053-L1058">objvarorg.rst L1053–1058</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIddataGUI.py#L599-L601">GSASIIddataGUI.py L599–601</a></span></li><li><b>Small-angle scattering.</b> SASD histograms with size distributions, particle fits, pair-distance and bead models. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/smallanglescattering.md?plain=1#L85-L90">smallanglescattering.md L85–90</a></span></li><li><b>Reflectometry.</b> REFD histograms with layered models fitted by four methods. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/reflectometry.md?plain=1#L85-L91">reflectometry.md L85–91</a></span></li><li><b>Macromolecules.</b> PDB import, residue rigid bodies, torsion and Ramachandran restraints, Babinet solvent, errat protein-quality check; judged out as protein crystallography rather than powder structure refinement of the kind in scope. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasegeneral.md?plain=1#L49-L50">phasegeneral.md L49–50</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/phasedata.md?plain=1#L81">phasedata.md L81</a></span></li><li><b>Atom deformation (charge density).</b> Orbital softness, populations and spherical-harmonic deformation parameters per atom; a charge-density refinement, not routine powder work. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/c13e7308142f26f0c22ded684f016d87ca02d7aa/GSASII/GSASIIobj.py#L630-L637">GSASIIobj.py L630–637</a></span></li><li><b>Cluster and outlier analysis.</b> Unsupervised grouping of PWDR or PDF datasets with scipy and scikit-learn; it acts on raw data, not on refinement results. <span class="cite"><a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/cluster.md?plain=1#L5-L9">cluster.md L5–9</a> · <a href="https://github.com/AdvancedPhotonSource/GSAS-II-tutorials/blob/924e9eb82dc6bdeebf55b2867ea30558ee530d7c/MDhelp/docs/mainmenu.md?plain=1#L89">mainmenu.md L89</a></span></li></ul>
+<h2 id="not-reached" class="anchored">Sources not reached</h2><ul class="k-list"><li>The published GSAS-II sites (tutorials, help, readthedocs) were not opened; their sources in the two clones were read instead.</li><li>Neither program was run: GUI behaviour is taken from the help pages and code, not observed.</li><li>The FullProf side is limited to manuals/fullprof/ (2001 manual, FP_COMMANDS 2012–2023, tutorials up to 2025). Features of current FullProf releases not described there (e.g. the FullProfAPP manual at fullprofapp.readthedocs.io) may close some of these gaps.</li><li>GSAS-II's third CW profile type 'A' (back-to-back exponentials with FCJ asymmetry, getExpFCJVoigt3) is in the code but undocumented in the help, so it was not listed.</li><li>Papers cited by GSAS-II (Toby 2024; Von Dreele 1997, 2024; Von Dreele, Clarke &amp; Walsh 2021; Mendenhall, Mullen &amp; Cline 2015) were not opened.</li></ul>
+</article>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">What this is</h4>
+        <p>The working site of one project: to build a Mac app for Rietveld refinement of powder diffraction data, after a study of the programs the community uses for it. It holds the brief, that study, the design, a dated log of every step, the release notes and the manuals of the core and the app.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
+      </div>
+      <div><h4 class="anchored">This site</h4><ul>
+        <li><a href="../../index.html">Overview</a></li><li><a href="../../brief/index.html">Brief</a></li><li><a href="../../background/index.html">Background</a></li><li><a href="../../design/index.html">Design</a></li><li><a href="../../roadmap/index.html">Roadmap</a></li><li><a href="../../log/index.html">Log</a></li><li><a href="../../about/index.html">Method</a></li></ul></div>
+      <div><h4 class="anchored">Sources</h4><ul>
+        <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
+        <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
+        <li><a href="https://advancedphotonsource.github.io/GSAS-II-tutorials/">GSAS-II</a></li>
+        <li><a href="https://it.iucr.org/A/">International Tables, Vol. A</a></li></ul></div>
+      <div><h4 class="anchored">Status</h4><ul>
+        <li>Published at <a href="https://jmigartua.github.io/diff-ref-struct-site/">jmigartua.github.io/diff-ref-struct-site</a>; the sources are private</li>
+        <li>Rebuilt from <code>data/*.yml</code> on every render</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua · work in progress</span>
+      <span>Quarto · family design kit</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

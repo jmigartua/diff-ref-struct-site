@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>FullProf · diff-ref-struct – diff-ref-struct · Rietveld refinement for the Mac</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<!-- Site header, family kit. Root-absolute hrefs are rewritten by Quarto to
+     page-relative links at render time. -->
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">diff <span class="accent">ref</span> struct
+      <span class="wordmark-sub">Rietveld refinement for the Mac · powder diffraction with X-rays, synchrotron and neutrons · started October 2026</span>
+    </a>
+    <!-- The entries are the groups of data/nav.yml, in the same order; the two navigations say the same thing. -->
+    <nav class="site-nav">
+      <a href="../../index.html">Overview</a>
+      <a href="../../brief/index.html">Brief</a>
+      <a href="../../background/index.html">Background</a>
+      <span class="nav-pair"><a href="../../design/index.html">Design</a><span class="sl">/</span><a href="../../roadmap/index.html">Roadmap</a></span>
+      <a href="../../manual/index.html">Manual</a>
+      <span class="nav-right">
+        <span class="nav-pair"><a href="../../about/index.html">Method</a><span class="sl">/</span><a href="../../log/index.html">Log</a></span>
+        <a href="../../releases/index.html">Release notes</a>
+      </span>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/build.py: left navigation + opening of the reading column -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../../index.html">Overview</a></li></ul></details>
+<details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../../brief/index.html">The brief, organised</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../../background/index.html">The programs that inspire</a></li><li><a href="../../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../../background/gsas2/index.html">GSAS-II</a></li><li><a href="../../background/jana/index.html">Jana2020</a></li></ul></details>
+<details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../../design/index.html">Design: open questions</a></li><li><a href="../../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../../manual/index.html">About the manual</a></li></ul></details>
+<details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../../about/index.html">How this site works</a></li><li><a href="../../log/index.html">The log, every dated step</a></li></ul></details>
+<details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../../releases/index.html">Release notes</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">FullProf</h1>
+
+</header>
+
+
+<article class="page-wide">
+<h1>FullProf, the baseline</h1>
+<p class="lede">J. Rodríguez-Carvajal (ILL, formerly LLB); the FullProf Suite with WinPLOTR, EdPCR and FullProfAPP. The complete inventory of what it does for crystal-structure refinement from powder diffraction (log <a href="../../log/index.html#L013">L013</a>). One row per capability: what it does, where it is set in the <code>.pcr</code> control file, and the sources in <code>manuals/fullprof/</code> (path, page or line). That folder is kept in the private repository and not published, so the sources are named, not linked. GSAS-II and Jana2020 are read against this list for what FullProf lacks (<a href="../../log/index.html#L012">L012</a>).</p>
+<p class="sub"><b>Sources read.</b> The FullProf manual "An introduction to the program FullProf", version July 2001 for FullProf.2k (J. Rodríguez-Carvajal, LLB Saclay; 139 pages, read page by page; the copy FullProf_Manual_1.pdf is byte-identical); FP_COMMANDS.pdf, the list of keywords for the COMMANDS block of a .pcr file (T. Roisnel, 2012–2023, 12 pages); the eleven tutorial folders: 1 WinPLOTR (FPSchool slides, ILL, December 2015, with a sequential example run in 2023), 2 Y2O3 structure solution (undated), 3 Co-doped YBCO (HERCULES course, undated), 4 spinel MgAl2O4 (text exercise, undated), 5 quantitative phase analysis (slides, undated, with papers of 2001 and 2002), 6 microstructure (paper of about 2002), 7 symmetry modes (May 2011), 8 rigid bodies (2002 files, later slides), 9 simulated annealing of organic compounds (outputs of 2017), 10 FullProfAPP (FullProf School, October 2023), 11 FAULTS (FullProf School, April 2025; FAULTS manual September 2018); and the FP_tests folder of the FullProf developers (308 files, 130 .pcr, driven by test_fp.bat, listing of March 2025). All of it lies in manuals/fullprof/, which is not published. Every citation below was checked against the page or line it names. "Not in the 2001 manual" marks capabilities seen only in the later material.</p>
+<p class="sub">158 entries.</p>
+<h2 id="data" class="anchored">Data, radiations and patterns</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Laboratory X-rays, one or two wavelengths</strong></td>
+<td>Constant-wavelength X-ray patterns in 2<span class="math inline">\(\theta\)</span> with a single wavelength or a doublet (e.g. Cu Kα1/Kα2): Lambda1, Lambda2 and the intensity ratio I2/I1; Lambda2 = Lambda1 for monochromatic radiation.</td>
+<td>line 4 Job=0; line 8 Lambda1 Lambda2 Ratio</td>
+<td class="cite">FullProf_Manual.pdf, p. 5 · FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 75 · y2o3_Ia3.pcr L10–11</td>
+</tr>
+<tr class="even">
+<td><strong>Synchrotron X-rays</strong></td>
+<td>Short-wavelength synchrotron patterns refined as X-ray data with the synchrotron polarisation correction; data given as (x, y, <span class="math inline">\(\sigma\)</span>) need Ilo=3 to trigger it.</td>
+<td>Job=0 with Ilo=3; line 8 Rpolarz</td>
+<td class="cite">FullProf_Manual.pdf, p. 5 · FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, p. 76 · piro-a.pcr L4–5</td>
+</tr>
+<tr class="odd">
+<td><strong>Constant-wavelength neutrons</strong></td>
+<td>Neutron patterns in 2<span class="math inline">\(\theta\)</span> from reactor diffractometers (nuclear and magnetic scattering); 95 of the 162 pattern lines in FP_tests.</td>
+<td>line 4 Job=1</td>
+<td class="cite">FullProf_Manual.pdf, p. 5 · FullProf_Manual.pdf, p. 69 · pbso4.pcr L4–5</td>
+</tr>
+<tr class="even">
+<td><strong>Time-of-flight neutrons</strong></td>
+<td>Spallation-source patterns with TOF in microseconds as the scattering variable; peak positions from Zero, Dtt1, Dtt2 and the bank angle 2SinTh, which also enters the Lorentz factor.</td>
+<td>line 4 Job=-1, Uni=1; line 14 Zero Dtt1 Dtt2 2SinTh</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 71 · FullProf_Manual.pdf, pp. 82–83 · alum.pcr L4–5</td>
+</tr>
+<tr class="odd">
+<td><strong>Energy-dispersive X-rays</strong></td>
+<td>Patterns with energy (keV) as the scattering variable, peak positions from Zero, StE1, StE2; usable for profile matching only.<br>
+<span class="m">No energy-dispersive case in FP_tests.</span></td>
+<td>line 4 Uni=2; line 14 Zero StE1 StE2 2SinTh</td>
+<td class="cite">FullProf_Manual.pdf, p. 5 · FullProf_Manual.pdf, p. 71 · FullProf_Manual.pdf, p. 82</td>
+</tr>
+<tr class="even">
+<td><strong>Pattern calculation (simulation)</strong></td>
+<td>Computes a pattern from the model without data for X-rays, CW or TOF neutrons; with Dum=1 writes CODFIL.sim, the calculated pattern with Poisson noise scaled by the scale factor, reusable as an observed file.</td>
+<td>line 4 Job=2, 3 or -3; Dum=1</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 12 · layer.pcr L3–4</td>
+</tr>
+<tr class="odd">
+<td><strong>Free-format and instrument data files</strong></td>
+<td>Reads the intensity file in free format (start, step, end, then counts) or in fixed formats of named instruments: ILL D1A/D2B, D1B, D20, D4, Brookhaven and DBWS synchrotron, a general two-axis format with monitors, PSI DMC, Socabim .uxd, variable counting time, GSAS files; <span class="math inline">\(\sigma\)</span> from counts, detector numbers or monitor ratios.</td>
+<td>line 7 Ins=0–12</td>
+<td class="cite">FullProf_Manual.pdf, pp. 73–74 · FullProf_Manual.pdf, pp. 132–137 · y2o3.dat L1–3</td>
+</tr>
+<tr class="even">
+<td><strong>x, y, <span class="math inline">\(\sigma\)</span> files with variable step</strong></td>
+<td>XYDATA files of (x, y, <span class="math inline">\(\sigma\)</span>) columns with a header; variable step kept or interpolated to a constant step; <span class="math inline">\(\sigma\)</span> = √y when absent.</td>
+<td>line 7 Ins=10; XYDATA, INTER keywords in the file</td>
+<td class="cite">FullProf_Manual.pdf, p. 74 · alum.dat L1 · EgyptMakeUp.xys L1–5</td>
+</tr>
+<tr class="odd">
+<td><strong>GSAS banks from Mantid</strong></td>
+<td>Reads multi-bank TOF .gss files written by Mantid (WISH), one bank per pattern.<br>
+<span class="m">Not in the 2001 manual, which stops at Ins=12.</span></td>
+<td>line 7n Ins=14</td>
+<td class="cite">Dy2BaCuO5-1p5K.pcr L15–25</td>
+</tr>
+<tr class="even">
+<td><strong>Excluded regions</strong></td>
+<td>Removes ranges of the scattering variable from the fit (sample-environment peaks, distorted background), given as low/high pairs per pattern.</td>
+<td>line 4 Nex; line 11 ALOW AHIGH</td>
+<td class="cite">FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, p. 78 · Cocuc_LeBail.pcr L16–17</td>
+</tr>
+<tr class="odd">
+<td><strong>Point reduction for fast runs</strong></td>
+<td>Uses every Ste-th point (step Ste × Step) for quick preliminary refinements.</td>
+<td>line 4 Ste</td>
+<td class="cite">FullProf_Manual.pdf, p. 71 · prba10k.pcr L4–5</td>
+</tr>
+<tr class="even">
+<td><strong>Weighting schemes</strong></td>
+<td>Standard least squares with w = 1/<span class="math inline">\(\sigma\)</span>², maximum likelihood with weights recomputed each cycle from the calculated counts (Poisson), or unit weights (then esd's are not multiplied by <span class="math inline">\(\chi^2\)</span>).</td>
+<td>line 4 Iwg=0, 1, 2</td>
+<td class="cite">FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, p. 43 · FullProf_Manual.pdf, p. 63 · Al2O3_Psett.pcr L4–5</td>
+</tr>
+<tr class="odd">
+<td><strong>Multi-pattern refinement</strong></td>
+<td>Refines several patterns at once (e.g. TOF neutron banks with synchrotron X-rays) with a weight per pattern summing to 1: <span class="math inline">\(\chi^2\)</span>_T = Σ <span class="math inline">\(\omega\)</span>_P <span class="math inline">\(\chi^2\)</span>_P plus the restraint term; each pattern has its own flags, data file, IRF and profile parameters.</td>
+<td>line 2 NPATT n; line 3 W_PAT w1…wn; per-pattern lines 4n, 7n, 8n…</td>
+<td class="cite">FullProf_Manual.pdf, p. 6 · FullProf_Manual.pdf, p. 42 · FullProf_Manual.pdf, pp. 66–67 · gabriela.pcr L3–11</td>
+</tr>
+<tr class="even">
+<td><strong>Joint X-ray and neutron refinement</strong></td>
+<td>Patterns of different radiations in one refinement by giving each pattern its own Job.</td>
+<td>line 4n Job per pattern</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · scor_rxn.pcr L1–9</td>
+</tr>
+<tr class="odd">
+<td><strong>Which phase contributes to which pattern</strong></td>
+<td>A 0/1 flag per pattern says whether a phase contributes to it, e.g. a magnetic phase only in the neutron patterns.</td>
+<td>phase line 19-2 JCONTR</td>
+<td class="cite">FullProf_Manual.pdf, p. 88 · FullProf_Manual.pdf, p. 92</td>
+</tr>
+<tr class="even">
+<td><strong>Minimum d-spacing per pattern</strong></td>
+<td>Uses only reflections with d above a given value for a pattern, e.g. to cut a TOF bank going far in Q.<br>
+<span class="m">Not in the 2001 manual (FP_COMMANDS, 2012–2023).</span></td>
+<td>COMMANDS keyword DLIM pat d_min</td>
+<td class="cite">FP_COMMANDS.pdf, p. 1 · Ho2BaCuO5_1p5K_modes.pcr</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="structure" class="anchored">The crystal structure</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Space group from its symbol</strong></td>
+<td>Generates operators and reflections from a Hermann–Mauguin symbol (origin choice and rhombohedral setting in the symbol) or a Hall symbol after the keyword HALL.</td>
+<td>line 22 space-group symbol; phase line Isy=0</td>
+<td class="cite">FullProf_Manual.pdf, p. 90 · FullProf_Manual.pdf, p. 95 · MgAl2O4s_Set1.pcr</td>
+</tr>
+<tr class="even">
+<td><strong>User-given symmetry operators</strong></td>
+<td>Reads the operators as <span class="math inline">\(3 \times 3\)</span> matrices with translations or as SYMM x,y,z strings; the Laue class and centring are given for checking; reflections are still generated from the symbol.</td>
+<td>phase line Isy=1 or -1; lines 23b–24 Nsym Cen Laue, SYMM</td>
+<td class="cite">FullProf_Manual.pdf, p. 90 · FullProf_Manual.pdf, pp. 95–98 · prca_2pat.pcr</td>
+</tr>
+<tr class="odd">
+<td><strong>Lattice parameters</strong></td>
+<td>Refines a, b, c, α, β, <span class="math inline">\(\gamma\)</span>; refinement codes act on the reciprocal metric A–F of 1/d<span class="math inline">\(^{2}\)</span> = Ah<span class="math inline">\(^{2}\)</span> + Bk<span class="math inline">\(^{2}\)</span> + Cl<span class="math inline">\(^{2}\)</span> + Dkl + Ehl + Fhk, so symmetry-equal constants share a code.</td>
+<td>phase cell line a b c α β <span class="math inline">\(\gamma\)</span> with codes</td>
+<td class="cite">FullProf_Manual.pdf, p. 19 · FullProf_Manual.pdf, p. 112 · k2na1p5.pcr L66–68</td>
+</tr>
+<tr class="even">
+<td><strong>Atom positions</strong></td>
+<td>Fractional coordinates x, y, z of each atom in the asymmetric unit, each with its refinement code.</td>
+<td>atom line (line 25) X Y Z</td>
+<td class="cite">FullProf_Manual.pdf, p. 100 · Cocus_start-excl.pcr L41–44</td>
+</tr>
+<tr class="odd">
+<td><strong>Site occupancies</strong></td>
+<td>Occupancy entered as chemical occupancy × site multiplicity (or normalised to the general multiplicity); refined like any parameter, e.g. two species sharing a site with opposite codes.</td>
+<td>atom line Occ</td>
+<td class="cite">FullProf_Manual.pdf, p. 102 · MgAl2O4s_Rietveld.pcr L71–78</td>
+</tr>
+<tr class="even">
+<td><strong>Isotropic displacement parameters</strong></td>
+<td>One Biso (Å²) per atom.</td>
+<td>atom line Biso</td>
+<td class="cite">FullProf_Manual.pdf, p. 100 · FullProf_Manual.pdf, p. 102</td>
+</tr>
+<tr class="odd">
+<td><strong>Overall displacement parameter</strong></td>
+<td>One overall B per phase added to the atomic ones; used early in refinements and, in quantitative analysis, to absorb a missing absorption correction.</td>
+<td>phase line 26 Bov</td>
+<td class="cite">FullProf_Manual.pdf, p. 108 · FullProf_Manual.pdf, p. 14 · Exercise-EgyptianMakeupPowders.pdf, p. 1</td>
+</tr>
+<tr class="even">
+<td><strong>Anisotropic displacement parameters</strong></td>
+<td>Six β_ij per atom with site-symmetry restrictions; output converted to U_ij and r.m.s. displacements.</td>
+<td>atom line N_t=2, extra line beta11…beta23</td>
+<td class="cite">FullProf_Manual.pdf, p. 100 · FullProf_Manual.pdf, pp. 102–103 · FullProf_Manual.pdf, p. 58 · pbso4a.pcr L42–43</td>
+</tr>
+<tr class="odd">
+<td><strong>Scattering lengths and form factors</strong></td>
+<td>Internal tables keyed by atom type (element for neutron b, ion such as CU+2 for X-ray f); user tables as 4-Gaussian coefficients or (sinθ/λ, f) pairs, either fitted or interpolated, or a user scattering length.</td>
+<td>atom Typ; line 4 Nsc; line 12 NAM DFP DFPP ITY</td>
+<td class="cite">FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, pp. 79–81 · nabd4.pcr L4–5</td>
+</tr>
+<tr class="even">
+<td><strong>Anomalous dispersion</strong></td>
+<td>f′ and f″ given per element for each pattern, e.g. for synchrotron data near an edge.</td>
+<td>line 12 DFP DFPP, ITY=2</td>
+<td class="cite">FullProf_Manual.pdf, pp. 79–80 · highpress.pcr L20–26</td>
+</tr>
+<tr class="odd">
+<td><strong>Special form factors for molecules</strong></td>
+<td>Refinable form factors of whole objects for plastic crystals: spherical shell, sphere, ellipsoid, disk, symmetry-adapted spherical (or cubic) harmonics, and four user dummies.<br>
+<span class="m">The manual marks N_t=4 "under test!" (p. 102).</span></td>
+<td>atom Typ SPHS, SPHE, SASH, ELLI, DISK, FUD1–4; N_t=4</td>
+<td class="cite">FullProf_Manual.pdf, p. 6 · FullProf_Manual.pdf, pp. 101–104 · c60.pcr L27 · c60.pcr L34</td>
+</tr>
+<tr class="even">
+<td><strong>Subset of operators per atom</strong></td>
+<td>Applies only operators In…Fin to an atom, for pseudo-symmetric descriptions; the manual warns about reflection multiplicities.</td>
+<td>atom line In Fin</td>
+<td class="cite">FullProf_Manual.pdf, p. 102</td>
+</tr>
+<tr class="odd">
+<td><strong>Reflections read instead of generated</strong></td>
+<td>Reads h, k, l, multiplicity (and an optional per-reflection coefficient) for a phase from CODFILn.hkl instead of generating them from the space group.</td>
+<td>phase line Irf=1</td>
+<td class="cite">FullProf_Manual.pdf, p. 92 · FullProf_Manual.pdf, p. 137</td>
+</tr>
+<tr class="even">
+<td><strong>Fixed partial structure factor</strong></td>
+<td>Adds a constant complex structure factor read per reflection to the calculated one, e.g. a rigid host in intercalation compounds.</td>
+<td>phase line Irf=3 (or -4 with integrated intensities)</td>
+<td class="cite">FullProf_Manual.pdf, p. 92 · FullProf_Manual.pdf, p. 139</td>
+</tr>
+<tr class="odd">
+<td><strong>Symmetry-mode parametrisation</strong></td>
+<td>Refines a distorted structure through the amplitudes (Å) of symmetry-adapted displacement modes of a parent structure instead of x, y, z: polarisation vectors V_MODES and amplitudes A_MODES, templates written by AMPLIMODES (Bilbao); amplitudes take codes, so they can be constrained, and Max_Amplitude caps them.<br>
+<span class="m">Not in the 2001 manual (option dated August 2008).</span></td>
+<td>phase line Jbt=6; V_MODES, A_MODES blocks after the atoms</td>
+<td class="cite">FullProf-Tutorial-Symmetry-Modes.pdf, pp. 3–6 · LMO_Modes_Pbnm.pcr L58–80</td>
+</tr>
+<tr class="even">
+<td><strong>Bond distances, angles and bond-valence sums</strong></td>
+<td>Lists distances and angles up to set limits and computes bond-valence sums for declared cations and anions (tolerance 20 % by default), with a global instability index.</td>
+<td>phase line Jdi=3 or 4; lines 20–21 DIS_MAX ANG_MAX BVS, ions</td>
+<td class="cite">FullProf_Manual.pdf, p. 92 · FullProf_Manual.pdf, pp. 94–95 · Tutorial-Y2O3.pdf, p. 21</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="profile" class="anchored">Peak shapes, instrument and peak positions</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Gaussian and Lorentzian profiles</strong></td>
+<td>Normalised Gaussian, Lorentzian (Cauchy) and two modified Lorentzians (power 2 and 3/2).</td>
+<td>line 4 Npr=0, 1, 2, 3 (or phase Npr)</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 47</td>
+</tr>
+<tr class="even">
+<td><strong>Pseudo-Voigt</strong></td>
+<td>pV = ηL + (1−η)G with η = η0 + X·2<span class="math inline">\(\theta\)</span> (η0 = Shape1); recommended for CW data, mostly Lorentzian for X-rays, Gaussian for neutrons.</td>
+<td>Npr=5; phase line 26 Shape1, line 27 X</td>
+<td class="cite">FullProf_Manual.pdf, pp. 48–50 · FullProf_Manual.pdf, p. 15 · Cocuc_LeBail.pcr L4–5</td>
+</tr>
+<tr class="odd">
+<td><strong>Pearson VII</strong></td>
+<td>Pearson VII with exponent m = m0 + 100X/2<span class="math inline">\(\theta\)</span> + 10000Y/(2<span class="math inline">\(\theta\)</span>)².</td>
+<td>Npr=6; Shape1 = m0</td>
+<td class="cite">FullProf_Manual.pdf, p. 47 · FullProf_Manual.pdf, p. 49</td>
+</tr>
+<tr class="even">
+<td><strong>Thompson–Cox–Hastings pseudo-Voigt with axial divergence</strong></td>
+<td>Pseudo-Voigt whose η and FWHM follow from separate Gaussian and Lorentzian widths (TCH), convoluted with the Finger–Cox–Jephcoat axial-divergence asymmetry from S_L and D_L (source and detector width over distance); the basis of the size-strain analysis.</td>
+<td>Npr=7; line 30 S_L D_L</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, pp. 48–49 · FullProf_Manual.pdf, pp. 112–113 · Cocus-asym.pcr L72–74</td>
+</tr>
+<tr class="odd">
+<td><strong>Pseudo-Voigt with axial divergence</strong></td>
+<td>Pseudo-Voigt convoluted with the Finger axial-divergence function, applied below AsymLim.</td>
+<td>Npr=12</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 113 · gabriela.pcr L7–11</td>
+</tr>
+<tr class="even">
+<td><strong>Tripled pseudo-Voigt</strong></td>
+<td>Sum of three pseudo-Voigts displaced by ±D = Sh1/(d cosθ), weights X, 1−X−Y, Y; for medium-resolution neutron instruments with monochromator defects.</td>
+<td>Npr=4; line 33 SHP1 SHP2</td>
+<td class="cite">FullProf_Manual.pdf, pp. 49–50 · FullProf_Manual.pdf, p. 109</td>
+</tr>
+<tr class="odd">
+<td><strong>Split pseudo-Voigt</strong></td>
+<td>Separate U, V, W, η0, X for the left and right halves of the peak, with extra Shp1/tan<span class="math inline">\(^{2}\)</span>2<span class="math inline">\(\theta\)</span> (left, 2<span class="math inline">\(\theta\)</span> &lt; 90°) and Shp2/tan<span class="math inline">\(^{2}\)</span>2<span class="math inline">\(\theta\)</span> (right) terms.</td>
+<td>Npr=11; second profile set Ur Vr Wr Eta0r Xr</td>
+<td class="cite">FullProf_Manual.pdf, p. 50 · FullProf_Manual.pdf, pp. 109–111</td>
+</tr>
+<tr class="even">
+<td><strong>Numerical peak shape</strong></td>
+<td>A tabulated profile P(x) with its derivative, normalised to FWHM 1 and unit area, given at several 2<span class="math inline">\(\theta\)</span> and interpolated, for instruments the analytical functions do not fit.</td>
+<td>Npr=8; file CODFIL.shp or GLOBAL.shp</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 130 · FullProf_Manual.pdf, p. 9</td>
+</tr>
+<tr class="odd">
+<td><strong>TOF back-to-back exponentials ⊗ pseudo-Voigt</strong></td>
+<td>TOF profile: pseudo-Voigt convoluted with rising and decaying exponentials, α = α0 + α1/d, β = β0 + β1/d<span class="math inline">\(^{4}\)</span>; Gaussian variance <span class="math inline">\(\sigma\)</span>² = (Sig2 + GSIZ)d<span class="math inline">\(^{4}\)</span> + (Sig1 + DST)d<span class="math inline">\(^{2}\)</span> + Sig0 and Lorentzian <span class="math inline">\(\gamma\)</span> = (gam2 + DSIZ)d<span class="math inline">\(^{2}\)</span> + (gam1 + LStr)d + gam0.</td>
+<td>Npr=9; line 27 Sig-2 Sig-1 Sig-0…, Gam-2 Gam-1 Gam-0; line 30 alph0 beta0 alpha1 beta1</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 109 · FullProf_Manual.pdf, pp. 111–112 · CeO2_PEARL.pcr L1–5</td>
+</tr>
+<tr class="even">
+<td><strong>TOF epithermal/thermal crossover</strong></td>
+<td>Same profile with Hodges' two-regime TOF–d relation: epithermal TOFe = Zero + Dtt1·d, thermal TOFt = Zerot + Dtt1t·d − Dtt2t/d, mixed by n = ½ erfc(Width·(x-cross − 1/d)); α and β also split into epithermal and thermal sets.</td>
+<td>Npr=10; Zerot Dtt1t Dtt2t x-cross Width</td>
+<td class="cite">FullProf_Manual.pdf, pp. 84–85 · FullProf_Manual.pdf, pp. 112–113 · gabriela.pcr L74–75</td>
+</tr>
+<tr class="odd">
+<td><strong>TOF Ikeda–Carpenter</strong></td>
+<td>Pseudo-Voigt convoluted with the Ikeda–Carpenter moderator function.<br>
+<span class="m">Listed only; the 2001 manual gives no parameters for it and no test uses it.</span></td>
+<td>Npr=13</td>
+<td class="cite">FullProf_Manual.pdf, p. 69</td>
+</tr>
+<tr class="even">
+<td><strong>Peak-shape choice per phase</strong></td>
+<td>Each phase may use its own profile function; 0 takes the pattern default.</td>
+<td>phase line Npr (multi-pattern: line 19-3 Irf Npr Jtyp)</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 93</td>
+</tr>
+<tr class="odd">
+<td><strong>Angular dependence of the width (CW)</strong></td>
+<td>H<span class="math inline">\(^{2}\)</span> = (U + D_ST<span class="math inline">\(^{2}\)</span>)tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> + V tanθ + W + IG/cos<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> (Caglioti plus strain and Gaussian size terms), in (degrees 2<span class="math inline">\(\theta\)</span>)²; for TCH separate Gaussian and Lorentzian widths, H_L = X tanθ + (Y + F)/cosθ.</td>
+<td>phase line 27 U V W X Y GauSiz LorSiz</td>
+<td class="cite">FullProf_Manual.pdf, pp. 49–50 · FullProf_Manual.pdf, pp. 108–109 · pdfinal.pcr L59–64</td>
+</tr>
+<tr class="even">
+<td><strong>Separate widths for λ2</strong></td>
+<td>U2, V2, W2 for the second wavelength when Ratio is given negative.</td>
+<td>line 8 Ratio&lt;0; line 32 U2 V2 W2</td>
+<td class="cite">FullProf_Manual.pdf, p. 76 · FullProf_Manual.pdf, p. 109 · ce.pcr L10–11</td>
+</tr>
+<tr class="odd">
+<td><strong>Empirical peak asymmetry</strong></td>
+<td>Multiplicative correction As(z) = 1 + (P1·Fa + P2·Fb)/tanθ + (P3·Fa + P4·Fb)/tan2<span class="math inline">\(\theta\)</span>, applied to peaks below AsymLim; P1, P2 usually suffice for neutrons.</td>
+<td>line 30 Asy1–Asy4; line 8 AsyLim</td>
+<td class="cite">FullProf_Manual.pdf, p. 54 · FullProf_Manual.pdf, p. 76 · FullProf_Manual.pdf, p. 112 · Cocus-firstpeak.pcr L65–67</td>
+</tr>
+<tr class="even">
+<td><strong>Howard asymmetry</strong></td>
+<td>Asymmetry by Howard's method: five pseudo-Voigts at displaced points combined by Bode's rule; only for Npr=5 and 7.<br>
+<span class="m">The 2001 manual's selector (Nph&lt;0) looks like a misprint; not seen in the tutorials or tests.</span></td>
+<td>selected by "Nph&lt;0" as the manual writes it</td>
+<td class="cite">FullProf_Manual.pdf, p. 54</td>
+</tr>
+<tr class="odd">
+<td><strong>Profile cut-off</strong></td>
+<td>Each peak is computed over Wdt × FWHM on each side: about 4 for Gaussian, 20–30 for Lorentzian, 4–5 for TOF.</td>
+<td>line 8 Wdt</td>
+<td class="cite">FullProf_Manual.pdf, p. 75 · FullProf_Manual.pdf, p. 15</td>
+</tr>
+<tr class="even">
+<td><strong>Instrumental resolution file (CW)</strong></td>
+<td>Describes the instrument's Gaussian and Lorentzian widths (U, V, W, X, Y, Z per wavelength, three functional forms) or a table of up to 60 (2<span class="math inline">\(\theta\)</span>, H_G, H_L) points; with it, refined widths are the sample's, and the .mic size-strain file is written. Built by refining a standard such as LaB6.</td>
+<td>line 4 Res=1–4; line 6 IRF file name</td>
+<td class="cite">FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, pp. 131–132 · LaB6a.irf L1–14 · ybfluo_pm_IRF.pcr L4–6</td>
+</tr>
+<tr class="odd">
+<td><strong>Interpolated resolution file (Res=5)</strong></td>
+<td>A resolution file interpolated between points, used for a TOF bank (Polaris) in the tests; the keyword Generate_new_IRF writes .irf files from refinements of limited ranges, to be merged into one.<br>
+<span class="m">Not in the 2001 manual, which says the IRF works for constant wavelength only (p. 70).</span></td>
+<td>line 4n Res=5; COMMANDS Generate_new_IRF</td>
+<td class="cite">respol.irf L1 · test.pcr L6–8 · FP_COMMANDS.pdf, p. 12</td>
+</tr>
+<tr class="even">
+<td><strong>Zero shift</strong></td>
+<td>Refinable zero of the scattering variable, T_true = T_exp − Zero (2<span class="math inline">\(\theta\)</span>, TOF or energy).</td>
+<td>line 14 Zero</td>
+<td class="cite">FullProf_Manual.pdf, pp. 82–83 · Cocus-firstpeak.pcr L22–23</td>
+</tr>
+<tr class="odd">
+<td><strong>Sample displacement and transparency</strong></td>
+<td>Shifts ∝ cosθ (Bragg–Brentano displacement, SyCos = −2s/R; Debye–Scherrer eccentricity) and ∝ sin2<span class="math inline">\(\theta\)</span> (transparency of thick samples, SySin = 1/(2μR)); curved-PSD flat-plate displacement too.<br>
+<span class="m">The thin-sample transparency correction "is not implemented in FullProf" (p. 56).</span></td>
+<td>line 14 SyCos SySin</td>
+<td class="cite">FullProf_Manual.pdf, pp. 56–57 · FullProf_Manual.pdf, p. 83 · Cocus-firstpeak.pcr L22–23</td>
+</tr>
+<tr class="even">
+<td><strong>Wavelength refinement</strong></td>
+<td>Refines the (single) wavelength; the cell must then be fixed.</td>
+<td>line 14 Lambda with code</td>
+<td class="cite">FullProf_Manual.pdf, p. 83</td>
+</tr>
+<tr class="odd">
+<td><strong>Phase-dependent shifts</strong></td>
+<td>A zero-type shift per phase, e.g. two windows of an operando cell at different distances.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>phase line Ph_Shift; MORE flag</td>
+<td class="cite">Exercise-NMC111.pdf, pp. 2–3 · Ca2MnO4_300k.pcr L44</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="background" class="anchored">Background</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Polynomial background</strong></td>
+<td>Refinable polynomial in (T/Bkpos − 1) about a user origin Bkpos: 6 coefficients, or 12 with the extra line.</td>
+<td>Nba=0 (6 terms), Nba=-3 (12 terms); line 8 Bkpos; line 17 BACK1…</td>
+<td class="cite">FullProf_Manual.pdf, pp. 45–46 · FullProf_Manual.pdf, pp. 85–86 · Cocuc_LeBail.pcr L24–26</td>
+</tr>
+<tr class="even">
+<td><strong>Debye-like terms</strong></td>
+<td>Adds six terms BC_j sin(Q r_j)/(Q r_j) with refinable distances r_j (Å) to the polynomial, for amorphous or liquid-like contributions.</td>
+<td>Nba=-1; Bc1–Bc6, D1–D6</td>
+<td class="cite">FullProf_Manual.pdf, pp. 45–46 · FullProf_Manual.pdf, p. 86 · nac_3t2.pcr L25</td>
+</tr>
+<tr class="odd">
+<td><strong>Interpolated background points</strong></td>
+<td>Linear interpolation between N user points, fixed or with refinable heights.</td>
+<td>Nba=N<span class="math inline">\(\ge 2\)</span>; line 10 POS BCK with codes</td>
+<td class="cite">FullProf_Manual.pdf, p. 46 · FullProf_Manual.pdf, p. 78 · la0.pcr L16–46</td>
+</tr>
+<tr class="even">
+<td><strong>Cubic-spline background</strong></td>
+<td>Interpolation through the user points by cubic splines.<br>
+<span class="m">Later versions reuse Nba=-4 and -5 for Fourier and Chebyshev series (below).</span></td>
+<td>Nba&lt;-4 (as the 2001 manual states)</td>
+<td class="cite">FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 78</td>
+</tr>
+<tr class="odd">
+<td><strong>Fourier cosine background</strong></td>
+<td>12-term cosine series Σ B_j cos(j T/C), C = 180/π for 2<span class="math inline">\(\theta\)</span>, Tmax for TOF or energy; later up to 18 terms.<br>
+<span class="m">The 2001 manual gives the formula but no Nba value for it.</span></td>
+<td>Nba=-4 in the tests</td>
+<td class="cite">FullProf_Manual.pdf, pp. 45–46 · arg_si.pcr L25</td>
+</tr>
+<tr class="even">
+<td><strong>Chebyshev background</strong></td>
+<td>Chebyshev polynomial series, up to 24 coefficients.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>Nba=-5</td>
+<td class="cite">pbso4_cheb.pcr L26 · Cocus-asym.pcr L25–33</td>
+</tr>
+<tr class="odd">
+<td><strong>Background from a file</strong></td>
+<td>Reads a background curve and adjusts it as b1·Backg[(1+b3)2<span class="math inline">\(\theta\)</span> + b4] + b2, with |b3| <span class="math inline">\(\le 0.1\)</span> and |b4| &lt; 3° enforced; for sample-environment backgrounds.</td>
+<td>Nba=1; FILE.bac; line 17 BACK1–4</td>
+<td class="cite">FullProf_Manual.pdf, p. 46 · FullProf_Manual.pdf, p. 86 · FullProf_Manual.pdf, p. 8</td>
+</tr>
+<tr class="even">
+<td><strong>Fourier-filtered background</strong></td>
+<td>Updates the background every cycle by adding a strongly smoothed yobs − ycalc (window FWINDOW, at least five times a peak base); starts from and rewrites FILE.bac; the manual warns it can eat into peaks.</td>
+<td>Nba=-2; line 17 FWINDOW</td>
+<td class="cite">FullProf_Manual.pdf, p. 46 · FullProf_Manual.pdf, pp. 85–86</td>
+</tr>
+<tr class="odd">
+<td><strong>Peaks of foreign origin as a phase</strong></td>
+<td>A parasitic peak (vanadium screens of a cryostat) modelled as a phase with fixed relative intensities read from an .hkl file and a refined scale.<br>
+<span class="m">Not in the 2001 manual as a background method; built from the documented Jbt=3.</span></td>
+<td>extra phase Jbt=3, Irf=2</td>
+<td class="cite">HoBaCuO-HT.pcr L216–225</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="microstructure" class="anchored">Size and strain broadening</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Isotropic size and strain</strong></td>
+<td>With an IRF, sample broadening enters the TCH widths: U, X (and the anisotropic D_ST) are strain, Y, IG (GauSiz) and F are size, with V = W = 0; integral breadths give volume-averaged apparent size and strain per reflection, without physical model.<br>
+<span class="m">The .mic microstructure output works for constant wavelength only (p. 21).</span></td>
+<td>Npr=7, Res≠0; line 27 U X Y GauSiz</td>
+<td class="cite">FullProf_Manual.pdf, pp. 20–21 · FullProf_Manual.pdf, p. 111 · Microstructural_effects_FP.pdf, p. 4 · ybfluo_pm_IRF.pcr L55–57</td>
+</tr>
+<tr class="even">
+<td><strong>Anisotropic strain, quartic form</strong></td>
+<td>Strain broadening D_ST<span class="math inline">\(^{2}\)</span> from a quartic form in h, k, l, Σ S_HKL h^H k^K l^L, interpreted as fluctuations of the metric (Rodríguez-Carvajal 1991) in Stephens' notation; up to 15 parameters (triclinic), restricted by the Laue class.</td>
+<td>phase line Str=1; Strain-Model = Laue class; line 37 S_400…</td>
+<td class="cite">FullProf_Manual.pdf, pp. 21–22 · FullProf_Manual.pdf, pp. 119–121 · NdNi_LTOa.pcr L74–78</td>
+</tr>
+<tr class="odd">
+<td><strong>Lorentzian share of the strain</strong></td>
+<td>Mixing parameter ξ splits the anisotropic strain between the Gaussian and Lorentzian widths.</td>
+<td>line 38 XI</td>
+<td class="cite">FullProf_Manual.pdf, p. 21 · FullProf_Manual.pdf, pp. 120–121 · NdNi_LTOa.pcr L77–78</td>
+</tr>
+<tr class="even">
+<td><strong>Phenomenological strain models</strong></td>
+<td>Eleven named strain rules with up to three parameters (Str1–3): tetragonal–orthorhombic, along a, along diagonals, correlated a/b, uniaxial along a vector, hexagonal, LaNi5-type, orthorhombic (6), monoclinic (8).</td>
+<td>phase line 26 Str1 Str2 Str3 Strain-Model (Str=0)</td>
+<td class="cite">FullProf_Manual.pdf, pp. 28–30 · FullProf_Manual.pdf, p. 110 · NdNi_LTOb.pcr L62–64</td>
+</tr>
+<tr class="odd">
+<td><strong>Generalised strain from cell correlations</strong></td>
+<td>Ten parameters as the spreads and correlations (sines of angles, kept in [−1, 1]) of the direct cell parameters; lowest symmetry monoclinic.</td>
+<td>Str=1 with Strain-Model 0, or Str=3; STR4–STR15</td>
+<td class="cite">FullProf_Manual.pdf, p. 30 · FullProf_Manual.pdf, pp. 120–121</td>
+</tr>
+<tr class="even">
+<td><strong>Anisotropic size, quadratic form</strong></td>
+<td>Lorentzian size broadening D_SIZ = k_s d<span class="math inline">\(^{2}\)</span>(SZ1h<span class="math inline">\(^{2}\)</span> + SZ2k<span class="math inline">\(^{2}\)</span> + SZ3l<span class="math inline">\(^{2}\)</span> + SZ4kl + SZ5hl + SZ6hk), an ellipsoidal crystallite.</td>
+<td>phase line Str=2 (or -1, 3 with strain); size line SZ1–SZ6</td>
+<td class="cite">FullProf_Manual.pdf, p. 25 · FullProf_Manual.pdf, p. 28 · FullProf_Manual.pdf, p. 119 · Microstructural_effects_FP.pdf, p. 7</td>
+</tr>
+<tr class="odd">
+<td><strong>Anisotropic size, spherical harmonics</strong></td>
+<td>Crystallite shape as Σ C_lm Y_lm in Järvinen's normalisation, one model per Laue class (2/m, −3m, m3m with cubic harmonics, mmm, 6/mmm, −3, 4/mmm, −1); Lorentzian only; apparent size per direction listed when an IRF is given.</td>
+<td>Size-Model 15–22</td>
+<td class="cite">FullProf_Manual.pdf, pp. 23–24 · FullProf_Manual.pdf, pp. 117–118 · Microstructural_effects_FP.pdf, p. 6</td>
+</tr>
+<tr class="even">
+<td><strong>Platelets and needles</strong></td>
+<td>Cylindrical crystallites, platelets or needles along a direction [Sz1 Sz2 Sz3].</td>
+<td>Size-Model 1, -1</td>
+<td class="cite">FullProf_Manual.pdf, p. 25 · FullProf_Manual.pdf, p. 117 · highpress.pcr</td>
+</tr>
+<tr class="odd">
+<td><strong>Selective size broadening</strong></td>
+<td>Lorentzian 'size' broadening only for reflection classes: up to nine user rules n1h + n2k + n3l = n4·n + n5, one parameter each, or built-in classes (00l, h00, hk0, satellites, parity rules), e.g. antiphase domains in Pd3MnD (Size-Model −14).</td>
+<td>Size-Model -2…-9 (rules), 2–13 and -14 (built-in classes)</td>
+<td class="cite">FullProf_Manual.pdf, p. 24 · FullProf_Manual.pdf, p. 26 · FullProf_Manual.pdf, p. 28 · FullProf_Manual.pdf, pp. 117–118 · pdfinal.pcr L63–64</td>
+</tr>
+<tr class="even">
+<td><strong>Defect and stress peak shifts</strong></td>
+<td>hkl-dependent shifts: along a reciprocal direction (cos or sin of the angle), selective rules for stacking and twin faults (up to 10), or a generalised quadratic+quartic form per Laue class for residual stress; formulas for 2<span class="math inline">\(\theta\)</span>, TOF and energy.</td>
+<td>phase line Sol=1; Shift1 Shift2 Shift3 ModS (<span class="math inline">\(\pm\)</span>1, &lt;−1, 100+Laue)</td>
+<td class="cite">FullProf_Manual.pdf, p. 27 · FullProf_Manual.pdf, p. 31 · FullProf_Manual.pdf, pp. 114–116 · highpress.pcr L79</td>
+</tr>
+<tr class="odd">
+<td><strong>Per-reflection width and shift</strong></td>
+<td>Free Gaussian and Lorentzian broadening and shift for named reflections, a last resort when no model fits.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>phase line Nsp_Ref &gt; 0; 'Special reflections' table</td>
+<td class="cite">Microstructural_effects_FP.pdf, p. 10 · Ca2MnO4_300k.pcr L82–85</td>
+</tr>
+<tr class="even">
+<td><strong>Size and strain in TOF</strong></td>
+<td>Size and strain terms in the TOF Gaussian variance (GSIZ, DST) and Lorentzian width (DSIZ, LStr, LSiz).</td>
+<td>TOF line 27 Z1 (GSIZ), LStr, LSiz</td>
+<td class="cite">FullProf_Manual.pdf, p. 109 · FullProf_Manual.pdf, p. 111</td>
+</tr>
+<tr class="odd">
+<td><strong>User size and strain subroutines</strong></td>
+<td>Own size or strain models in subroutines SIZE and STRAIN linked with the FullProf library.</td>
+<td>Size-Model / Strain-Model with user code</td>
+<td class="cite">FullProf_Manual.pdf, p. 32 · FullProf_Manual.pdf, p. 3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="corrections" class="anchored">Intensity corrections</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lorentz–polarisation by geometry</strong></td>
+<td>Lp for Debye–Scherrer or Bragg–Brentano, flat plate with a PSD, transmission flat plate (Stoe), synchrotron, or none for pre-corrected data; K = 0 neutrons, 0.5 unpolarised X-rays, about 0.1 synchrotron.</td>
+<td>line 4 Ilo=0, 1, 2, 3, -1</td>
+<td class="cite">FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, pp. 53–54</td>
+</tr>
+<tr class="even">
+<td><strong>Monochromator polarisation</strong></td>
+<td>Polarisation from a monochromator, Cthm = cos<span class="math inline">\(^{2}\)</span>2<span class="math inline">\(\theta\)</span>_M (e.g. 0.8001 or 0.7998 for graphite with Cu Kα).</td>
+<td>line 8 Cthm</td>
+<td class="cite">FullProf_Manual.pdf, p. 53 · FullProf_Manual.pdf, p. 76 · Tutorial-Y2O3.pdf, p. 6</td>
+</tr>
+<tr class="odd">
+<td><strong>Synchrotron polarisation</strong></td>
+<td>Polarisation fraction of a synchrotron beam (or mosaic fraction in transmission).</td>
+<td>line 8 Rpolarz with Ilo=3 (or 2)</td>
+<td class="cite">FullProf_Manual.pdf, p. 76 · Egypt_qa_database.pcr L11–12</td>
+</tr>
+<tr class="even">
+<td><strong>Preferred orientation, exponential</strong></td>
+<td>P = G2 + (1−G2)exp(G1α²) about a direction Pr1 Pr2 Pr3; G1 &gt; 99 keeps only reflections parallel to it.</td>
+<td>line 4 Nor=0; phase Pr1 Pr2 Pr3; line 30 Pref1 Pref2</td>
+<td class="cite">FullProf_Manual.pdf, p. 54 · FullProf_Manual.pdf, p. 93 · FullProf_Manual.pdf, p. 112</td>
+</tr>
+<tr class="odd">
+<td><strong>Preferred orientation, March–Dollase</strong></td>
+<td>Modified March function P = G2 + (1−G2)[(G1 cosα)² + sin<span class="math inline">\(^{2}\)</span>α/G1]^(−3/2): G1 &lt; 1 platy, 1 none, &gt; 1 needles in Bragg–Brentano (opposite in Debye–Scherrer); G2 untextured fraction kept in [0, 1].</td>
+<td>line 4 Nor=1; line 30 Pref1 Pref2</td>
+<td class="cite">FullProf_Manual.pdf, p. 55 · b8p.pcr L4–5 · b8p.pcr L57–59</td>
+</tr>
+<tr class="even">
+<td><strong>Cylinder absorption</strong></td>
+<td>Transmission factor for a cylinder from μR (Debye–Scherrer, capillaries, neutron cans).</td>
+<td>line 8 muR</td>
+<td class="cite">FullProf_Manual.pdf, p. 55 · FullProf_Manual.pdf, p. 76 · Egypt_qa_database.pcr L11–12</td>
+</tr>
+<tr class="odd">
+<td><strong>Flat-plate absorption</strong></td>
+<td>Transmission flat plate exp(−μt/cosθ)/cosθ; symmetric reflection flat samples through muR.</td>
+<td>Ilo=2 with muR = μt</td>
+<td class="cite">FullProf_Manual.pdf, p. 55 · FullProf_Manual.pdf, p. 76</td>
+</tr>
+<tr class="even">
+<td><strong>TOF absorption</strong></td>
+<td>Wavelength-dependent absorption for TOF: flat plate perpendicular to the beam, cylinder, or exp(−cλ²), with refinable ABS1, ABS2.</td>
+<td>line 8 Iabscor=1, 2, 3; ABS1 ABS2</td>
+<td class="cite">FullProf_Manual.pdf, p. 76 · FullProf_Manual.pdf, p. 110 · CeO2_PEARL.pcr L10–11</td>
+</tr>
+<tr class="odd">
+<td><strong>Bragg–Brentano microabsorption</strong></td>
+<td>Angle-dependent intensity factor 1 − P(h), P(h) = P0 + Cp(<span class="math inline">\(\tau\)</span>/sinθ)(1 − <span class="math inline">\(\tau\)</span>/sinθ), with P0, Cp, <span class="math inline">\(\tau\)</span> refinable.</td>
+<td>MORE flag on line 14; P0 Cp Tau line</td>
+<td class="cite">FullProf_Manual.pdf, p. 55 · FullProf_Manual.pdf, p. 84 · ce.pcr L22–24</td>
+</tr>
+<tr class="even">
+<td><strong>Beam overflow at low angle</strong></td>
+<td>Below Sent0 the beam is longer than the sample and intensities are scaled by sinθ/sin(Sent0) (a partial correction).</td>
+<td>line 9 PSD Sent0</td>
+<td class="cite">FullProf_Manual.pdf, p. 70 · FullProf_Manual.pdf, p. 77</td>
+</tr>
+<tr class="odd">
+<td><strong>Extinction (powder)</strong></td>
+<td>One extinction parameter per phase for powder TOF data; for single-crystal and integrated data a single SHELX-type parameter.<br>
+<span class="m">The manual hopes for Becker–Coppens later (p. 63).</span></td>
+<td>TOF line 26 Extinc</td>
+<td class="cite">FullProf_Manual.pdf, p. 108 · FullProf_Manual.pdf, p. 110 · FullProf_Manual.pdf, p. 63</td>
+</tr>
+<tr class="even">
+<td><strong>User intensity corrections</strong></td>
+<td>A table of correction factors versus the scattering variable, interpolated and applied to Icalc, or an empirical function (polynomial in T, or exponential plus Maxwellian for raw TOF) applied to integrated or profile intensities with propagated variances.</td>
+<td>line 4 Cor=1 (file CODFIL.cor), Cor=2 (coefficients)</td>
+<td class="cite">FullProf_Manual.pdf, p. 71 · FullProf_Manual.pdf, pp. 130–131 · FullProf_Manual.pdf, p. 9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="phases" class="anchored">Several phases, quantitative analysis</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Several phases per pattern</strong></td>
+<td>Up to 16 phases, each with its scale, cell, profile and structure; profile parameters may be shared through codes.</td>
+<td>line 4 Nph; one phase block per phase</td>
+<td class="cite">FullProf_Manual.pdf, p. 5 · FullProf_Manual.pdf, p. 87 · MgAl2O4s_Rietveld.pcr L84–85</td>
+</tr>
+<tr class="even">
+<td><strong>Quantitative phase analysis</strong></td>
+<td>Weight fractions W_j = S_j Z_j M_j V_j/<span class="math inline">\(\tau\)</span>_j / Σ(…) from the scale factors (Hill–Howard), printed with esd's; ATZ = Z·M·f<span class="math inline">\(^{2}\)</span>/<span class="math inline">\(\tau\)</span> per phase, recomputed by the program when given as 0.</td>
+<td>phase line ATZ</td>
+<td class="cite">FullProf_Manual.pdf, pp. 31–32 · FullProf_Manual.pdf, p. 91 · Quantitative Phase Analysis using FullProf.pdf, pp. 7–8 · b8p.pcr L4–5</td>
+</tr>
+<tr class="odd">
+<td><strong>Brindley microabsorption</strong></td>
+<td>Brindley particle-absorption contrast <span class="math inline">\(\tau\)</span> per phase from (μ_j − μ̄)R, tabulated by particle class; computed iteratively from the weight fractions.</td>
+<td>phase line 19-4 Brind (or in ATZ)</td>
+<td class="cite">FullProf_Manual.pdf, pp. 31–32 · FullProf_Manual.pdf, p. 93 · Quantitative Phase Analysis using FullProf.pdf, pp. 5–7</td>
+</tr>
+<tr class="even">
+<td><strong>Quantitative analysis from stored structure factors</strong></td>
+<td>Uses Fcalc written once (Hkl=5) as fixed relative intensities, refining only scale and profile, without atoms; FILE_HKL imports cell and space group from that file.</td>
+<td>phase Jbt=-3, Irf=2, Nat=0; COMMANDS FILE_HKL n file</td>
+<td class="cite">FullProf_Manual.pdf, p. 11 · FullProf_Manual.pdf, p. 89 · FP_COMMANDS.pdf, p. 7 · Egypt_qa_database.pcr L74–79</td>
+</tr>
+<tr class="odd">
+<td><strong>Amorphous content with an internal standard</strong></td>
+<td>Amorphous fraction from a known weighed standard: W_real = W_x·W_s,real/W_s,x and amorphous = 1 − Σ crystalline; done from FullProf's weight fractions, not by a program option.<br>
+<span class="m">Paper only (J. Appl. Cryst. 2001); not in the 2001 manual.</span></td>
+<td>none (post-processing of the weight fractions)</td>
+<td class="cite">Quant-amorphous.pdf, pp. 1–3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="lebail" class="anchored">Le Bail and Pawley fits</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Le Bail fit (profile matching, constant scale)</strong></td>
+<td>Fits the pattern from cell, space group and profile only: scale fixed, each integrated intensity iterated with the Rietveld formula; Dum=1 lifts the convergence test.</td>
+<td>phase Jbt=2 (Irf=0 first run); line 4 Dum=1</td>
+<td class="cite">FullProf_Manual.pdf, pp. 14–15 · FullProf_Manual.pdf, p. 89 · FullProf_Manual.pdf, p. 68 · Cocuc_LeBail.pcr L4–5 · Cocuc_LeBail.pcr L32–33</td>
+</tr>
+<tr class="even">
+<td><strong>Profile matching with fixed relative intensities</strong></td>
+<td>Keeps the relative intensities (or |F|) read from a file and refines only the scale.</td>
+<td>phase Jbt=3 or -3, Irf=2</td>
+<td class="cite">FullProf_Manual.pdf, p. 15 · FullProf_Manual.pdf, p. 89</td>
+</tr>
+<tr class="odd">
+<td><strong>Extracted intensities file</strong></td>
+<td>Writes CODFILn.hkl with h, k, l, multiplicity, intensity (or |F| with Jbt=-2), <span class="math inline">\(\sigma\)</span>, 2<span class="math inline">\(\theta\)</span>, FWHM, and switches Irf to 2 so the next run starts from them.</td>
+<td>Jbt=2 or -2; Irf=<span class="math inline">\(0 \to 2\)</span></td>
+<td class="cite">FullProf_Manual.pdf, p. 90 · FullProf_Manual.pdf, p. 137 · Tutorial-Y2O3.pdf, p. 8</td>
+</tr>
+<tr class="even">
+<td><strong>Biased Le Bail</strong></td>
+<td>Le Bail extraction biased by a partial structure: atoms given in a Jbt=2 phase guide the partition of overlapped intensities.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>Jbt=2 with Nat &gt; 0</td>
+<td class="cite">Tutorial-Y2O3.pdf, p. 2 · y2o3_biased.pcr L115–122</td>
+</tr>
+<tr class="odd">
+<td><strong>Overlap clusters</strong></td>
+<td>Groups overlapped reflections into clusters (closer than RMub × mean FWHM, or weak next to strong by RMuc) and writes CODFILn_cltr.int for integrated-intensity work.</td>
+<td>phase Jvi=11 with Jbt=2; RMub RMuc</td>
+<td class="cite">FullProf_Manual.pdf, p. 91 · FullProf_Manual.pdf, p. 93 · Tutorial-Y2O3.pdf, pp. 11–12</td>
+</tr>
+<tr class="even">
+<td><strong>Refinement against integrated intensities</strong></td>
+<td>Least squares on extracted powder intensities (clusters as Σ jLpF<span class="math inline">\(^{2}\)</span>) as pseudo-single-crystal data, alone or with a profile, weighted against it by Rmua; minimises Σ w(G<span class="math inline">\(^{2}\)</span>obs − ΣG<span class="math inline">\(^{2}\)</span>calc)².<br>
+<span class="m">The manual says mixing a powder profile with integrated intensities is "still in an exploring stage", one powder profile only (p. 63); Rmuc &gt; 0.9 is "not tested!" (p. 93).</span></td>
+<td>line 4 Cry=1; phase Irf=4; Ipow=2 in the .int file; Rmua Rmub</td>
+<td class="cite">FullProf_Manual.pdf, p. 62 · FullProf_Manual.pdf, p. 93 · FullProf_Manual.pdf, pp. 138–139 · Tutorial-Y2O3.pdf, p. 11</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="constraints" class="anchored">Constraints, restraints, rigid bodies</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Refinement codes</strong></td>
+<td>Each parameter carries a code C = sign(a)(10p + |a|): p its number in the matrix, a a multiplier on the shift; 0 means fixed. The number of refined parameters is stated on line 13.</td>
+<td>codeword after each value; line 13 Maxs</td>
+<td class="cite">FullProf_Manual.pdf, p. 13 · FullProf_Manual.pdf, p. 81 · Cocus-asym.pcr L20</td>
+</tr>
+<tr class="even">
+<td><strong>Strict linear constraints by shared codes</strong></td>
+<td>The same parameter number on several parameters ties their shifts with the multipliers (e.g. 21.00 on x = y = z, <span class="math inline">\(\pm\)</span>111.00 for a two-site exchange), across atoms, phases and patterns.</td>
+<td>same p in several codewords; multiplier a</td>
+<td class="cite">FullProf_Manual.pdf, p. 19 · FullProf_Manual.pdf, p. 127 · MgAl2O4s_Rietveld.pcr L69–78</td>
+</tr>
+<tr class="odd">
+<td><strong>Automatic numbering of codes</strong></td>
+<td>The user marks parameters with 1.00 and the program numbers them, leaving no holes in the matrix and updating the count.</td>
+<td>line 4 Aut=1</td>
+<td class="cite">FullProf_Manual.pdf, pp. 68–69 · Tutorial-Y2O3.pdf, p. 2</td>
+</tr>
+<tr class="even">
+<td><strong>Keyword refinement (VARY/FIX)</strong></td>
+<td>Sets codes by name instead of numbers: scale, x_A, xyz, b_A, occ_A, cell, profile terms, TOF terms, per pattern with _n; site-symmetry constraints applied automatically; FIX_SPC fixes all atoms of a species.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>COMMANDS block: VARY, FIX, FIX_SPC (Aut=1)</td>
+<td class="cite">FP_COMMANDS.pdf, pp. 1–3 · FP_COMMANDS.pdf, p. 12 · sin_3t2.pcr L41–44</td>
+</tr>
+<tr class="odd">
+<td><strong>Keyword constraints (EQUAL, PEQU, SAME_BISO)</strong></td>
+<td>EQUAL ties named parameters to a parent with multipliers (constraining shifts, across phases and patterns); PEQU_pat and PEQU_pha give one code to a profile or cell parameter over all patterns or all phases; SAME_BISO one Biso per species.<br>
+<span class="m">Not in the 2001 manual; FP_COMMANDS says EQUAL "may be some bugs".</span></td>
+<td>COMMANDS: EQUAL, PEQU_pat, PEQU_pha, SAME_BISO</td>
+<td class="cite">FP_COMMANDS.pdf, pp. 1–4 · sin_3t2.pcr L41–50</td>
+</tr>
+<tr class="even">
+<td><strong>Hard limits on parameters</strong></td>
+<td>Lower and upper bounds for chosen parameters, applied during least squares and defining the box for Monte Carlo and simulated annealing.</td>
+<td>line 4 Nre; line 47 NUMPAR LowLIMIT HighLIMIT</td>
+<td class="cite">FullProf_Manual.pdf, p. 68 · FullProf_Manual.pdf, p. 126 · ce2.pcr L59–61</td>
+</tr>
+<tr class="odd">
+<td><strong>Distance restraints</strong></td>
+<td>Soft restraints Σ((d_obs − d_calc)/<span class="math inline">\(\sigma\)</span>)² added to <span class="math inline">\(\chi^2\)</span>, weighted by the current reduced <span class="math inline">\(\chi^2\)</span>; each between two atoms with a symmetry operator and translation.</td>
+<td>phase line Dis; line 45 At1 At2 Itnum T1 T2 T3 Dist Sigma</td>
+<td class="cite">FullProf_Manual.pdf, p. 42 · FullProf_Manual.pdf, pp. 123–124 · k2na1p5.pcr L72–78</td>
+</tr>
+<tr class="even">
+<td><strong>Angle restraints</strong></td>
+<td>Soft restraints on bond angles between three atoms with two operators.</td>
+<td>phase line Ang; line 45-1</td>
+<td class="cite">FullProf_Manual.pdf, pp. 124–125 · k2na1p5.pcr L79–80</td>
+</tr>
+<tr class="odd">
+<td><strong>Linear restraints</strong></td>
+<td>Soft restraint on any linear combination of refined parameters with a target and <span class="math inline">\(\sigma\)</span>, e.g. site occupancies against a total composition.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>line 7 NLI; restraint block</td>
+<td class="cite">FullProf-Tutorial-RigidBody.pdf, pp. 4–5 · HoBaCuO-HT.pcr L244–250</td>
+</tr>
+<tr class="even">
+<td><strong>Restraint candidates written by the program</strong></td>
+<td>After a run with distance output the program writes the candidate distance and angle lines (DCONSTRn.hlp, later CFML_Restraints.tpcr) to paste into the .pcr.</td>
+<td>Jdi=3; ANG_MAX ≠ 0 for angles</td>
+<td class="cite">FullProf_Manual.pdf, p. 11 · FullProf_Manual.pdf, p. 124 · CFML_Restraints_1.tpcr L1–11</td>
+</tr>
+<tr class="odd">
+<td><strong>Rigid bodies</strong></td>
+<td>Groups of atoms in internal coordinates (spherical, Cartesian, cylindrical or Z-matrix) placed by a centre and three Euler angles; free atoms can be mixed in and groups distorted in a final step.<br>
+<span class="m">The 2001 manual has spherical internal coordinates only; Cartesian, cylindrical and Z-matrix forms came later (tutorial-rgb.inf). Its idealised-molecule option is "not very reliable" (p. 38).</span></td>
+<td>phase Jbt=4; P1–P15 per group, KIND, |P6|=1</td>
+<td class="cite">FullProf_Manual.pdf, pp. 34–37 · FullProf_Manual.pdf, p. 100 · FullProf-Tutorial-RigidBody.pdf, p. 9 · tutorial-rgb.inf L113–119 · pdd.pcr L31–34</td>
+</tr>
+<tr class="even">
+<td><strong>Satellite groups</strong></td>
+<td>Groups attached to a parent group (methyl, NH2) with only the rotation <span class="math inline">\(\chi\)</span> free.</td>
+<td>|P6| = 2</td>
+<td class="cite">FullProf_Manual.pdf, p. 37 · FullProf-Tutorial-RigidBody.pdf, pp. 10–12</td>
+</tr>
+<tr class="odd">
+<td><strong>TLS</strong></td>
+<td>Translation, libration and screw tensors (6 + 6 + 9) of a rigid group refined with its position (Schomaker–Trueblood).</td>
+<td>Jbt=4, |P6| = 5, Furth=21</td>
+<td class="cite">FullProf_Manual.pdf, pp. 37–38 · FullProf_Manual.pdf, p. 91 · urea.pcr L29–30</td>
+</tr>
+<tr class="even">
+<td><strong>Molecule to .pcr (Mol_tpcr)</strong></td>
+<td>Console program that turns a molecule (CFL or Z-matrix .FHZ) into rigid-body .pcr blocks or complete .pcr files ready for simulated annealing.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>external program; output .tpcr</td>
+<td class="cite">FullProf-Tutorial-RigidBody.pdf, pp. 15–19 · tutorial-rgb.inf L43–56</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="engine" class="anchored">The least-squares engine</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Least-squares minimiser</strong></td>
+<td>Minimises <span class="math inline">\(\chi^2\)</span> = Σ w_i(y_i − yc_i)² by Gauss–Newton normal equations; each shift is multiplied by its code multiplier and a relaxation factor.</td>
+<td>built in</td>
+<td class="cite">FullProf_Manual.pdf, pp. 42–43 · la0.log L33–35</td>
+</tr>
+<tr class="even">
+<td><strong>Cycles and convergence</strong></td>
+<td>Up to NCY cycles; stops when all shifts are below Eps × esd (0.2 or less advised).</td>
+<td>line 9 NCY Eps</td>
+<td class="cite">FullProf_Manual.pdf, p. 77 · la0.log L49</td>
+</tr>
+<tr class="odd">
+<td><strong>Relaxation factors</strong></td>
+<td>Four damping factors on shifts by class: atomic (R_at), anisotropic (R_an), profile and cell (R_pr), global such as zero and background (R_gl); rotations of rigid bodies need about three times more damping.</td>
+<td>line 9 R_at R_an R_pr R_gl</td>
+<td class="cite">FullProf_Manual.pdf, p. 77 · FullProf_Manual.pdf, p. 39 · Cocuc_LeBail.pcr L13–14</td>
+</tr>
+<tr class="even">
+<td><strong>Stop on divergence</strong></td>
+<td>Stops when <span class="math inline">\(\chi^2\)</span> rises from one cycle to the next.</td>
+<td>line 4 Dum=2</td>
+<td class="cite">FullProf_Manual.pdf, p. 68</td>
+</tr>
+<tr class="odd">
+<td><strong>Standard deviations</strong></td>
+<td><span class="math inline">\(\sigma\)</span>(α_k) = √((A<span class="math inline">\(^{-1}\)</span>)_kk <span class="math inline">\(\chi^2\)</span>_ν), with <span class="math inline">\(\chi^2\)</span>_ν counted over points with Bragg contributions (also reported over all points).</td>
+<td>built in</td>
+<td class="cite">FullProf_Manual.pdf, p. 43</td>
+</tr>
+<tr class="even">
+<td><strong>Agreement factors</strong></td>
+<td>Rp, Rwp, Rexp, <span class="math inline">\(\chi^2\)</span>, conventional (background-subtracted) cRp, cRwp, Bragg R and R_F per phase, Iobs by Rietveld partition, each over all points and over points with Bragg contributions; printed each cycle.</td>
+<td>built in</td>
+<td class="cite">FullProf_Manual.pdf, pp. 43–44 · la0.log L37–47</td>
+</tr>
+<tr class="odd">
+<td><strong>Model-selection statistics</strong></td>
+<td>Deviance, Akaike and Schwarz criteria, Durbin–Watson d with its 99.9 % threshold QD.</td>
+<td>built in</td>
+<td class="cite">FullProf_Manual.pdf, p. 45 · la0_120.sum L196–215</td>
+</tr>
+<tr class="even">
+<td><strong>Refinement analysis</strong></td>
+<td>Appends to the summary an analysis of the refinement: effective number of reflections and expected R-factors from a Poisson simulation.</td>
+<td>line 7 Ana=1</td>
+<td class="cite">FullProf_Manual.pdf, pp. 61–62 · FullProf_Manual.pdf, p. 75</td>
+</tr>
+<tr class="odd">
+<td><strong>Bérar factor for correlated residuals</strong></td>
+<td>Prints the factor by which esd's should be multiplied for serially correlated residuals (Bérar &amp; Lelann 1991), e.g. 1.77.<br>
+<span class="m">Not in the 2001 manual; seen in .out files of version 5.30 (2012) and later.</span></td>
+<td>built in (.out)</td>
+<td class="cite">LaMnO3ref.out L796–799</td>
+</tr>
+<tr class="even">
+<td><strong>Correlation matrix</strong></td>
+<td>Writes the correlation matrix, or prints the matrix diagonal every cycle; the manual advises refining separately parameters correlated above 50 %.</td>
+<td>line 7 Mat=1, 2</td>
+<td class="cite">FullProf_Manual.pdf, p. 72 · FullProf_Manual.pdf, p. 14</td>
+</tr>
+<tr class="odd">
+<td><strong>Faster calculation</strong></td>
+<td>Optimised routines, up to about 30 % faster; reflections re-sorted every cycle or only at the first.</td>
+<td>line 4 Opt=1; Ias</td>
+<td class="cite">FullProf_Manual.pdf, p. 68</td>
+</tr>
+<tr class="even">
+<td><strong>Parallel build</strong></td>
+<td>A parallel executable fp2k_par runs the same tests.<br>
+<span class="m">Not in the 2001 manual; nothing is said about what it parallelises.</span></td>
+<td>command line fp2k_par</td>
+<td class="cite">test_fp_par.bat L1–3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="workflow" class="anchored">Workflow: running, sequences, programs around it, the live display</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Command-line run</strong></td>
+<td>Run as <code>fp2k code [datafile] [logfile]</code>, reading code.pcr and the data file and sending screen output to a log for batch use; without arguments it prompts for both.</td>
+<td>command line</td>
+<td class="cite">FullProf_Manual.pdf, pp. 6–7 · test_fp.bat L1–3</td>
+</tr>
+<tr class="even">
+<td><strong>The .pcr control file</strong></td>
+<td>One text file holds flags, data description, phases and codes, in free (ordered) format with ! comments, in single- or multi-pattern layout; rewritten at the end of each run with refined values and comment headers (including current <span class="math inline">\(\chi^2\)</span> and R_Bragg), or written to CODFIL.new.</td>
+<td>whole file; line 7 Pcr=1, 2</td>
+<td class="cite">FullProf_Manual.pdf, p. 8 · FullProf_Manual.pdf, pp. 65–66 · FullProf_Manual.pdf, p. 72 · Cocus-excl.pcr L1–5</td>
+</tr>
+<tr class="odd">
+<td><strong>Sequential refinement</strong></td>
+<td>Refines a numbered series of data files in turn, each run starting from the previous .pcr; results go to a summary file and, in later versions, a .seq table of all parameters for plotting (71 patterns <span class="math inline">\(\times 1535\)</span> points, 21 parameters in 26 s in the WinPLOTR example).</td>
+<td>command line: code CYC (2001) or <code>fp2k seq …</code> ; Rpa</td>
+<td class="cite">FullProf_Manual.pdf, p. 7 · test_fp.bat L50–51 · FPS_dec2015_WinPLOTR_TR.pdf, pp. 18–21</td>
+</tr>
+<tr class="even">
+<td><strong>Keyword commands</strong></td>
+<td>A COMMANDS…END_COMMANDS block after the phase name (up to 20 keywords per phase) for refinement keywords, d-limits, constraints and extra outputs; VARY/FIX also on the phase-name line or after the wavelength line.<br>
+<span class="m">Not in the 2001 manual, whose keyword format "is not available at present" (p. 8).</span></td>
+<td>COMMANDS block</td>
+<td class="cite">FP_COMMANDS.pdf, p. 1 · ce1.pcr L13–14 · rutana_tch.pcr L29</td>
+</tr>
+<tr class="odd">
+<td><strong>Windows console with stop prompt</strong></td>
+<td>The Windows program wfp2k is the console program in a window; it asks whether to continue or stop the refinement.</td>
+<td>program wfp2k</td>
+<td class="cite">FullProf_Manual.pdf, p. 6 · FullProf_Manual.pdf, p. 16</td>
+</tr>
+<tr class="even">
+<td><strong>Live display during refinement</strong></td>
+<td>Observed and calculated patterns redrawn on screen at each cycle while FullProf runs from WinPLOTR or the toolbar; integrated-intensity clusters shown evolving during simulated annealing.<br>
+<span class="m">The 2001 manual says "in some versions" only.</span></td>
+<td>line 7 Ls2=4 (2001); GUI</td>
+<td class="cite">FullProf_Manual.pdf, p. 73 · Tutorial-Y2O3.pdf, p. 6 · FullProf-Tutorial-Symmetry-Modes.pdf, p. 12</td>
+</tr>
+<tr class="odd">
+<td><strong>WinPLOTR Rietveld plot</strong></td>
+<td>Plots the .prf file (Yobs, Ycalc, difference, Bragg ticks, excluded regions) with zoom, cursor in 2<span class="math inline">\(\theta\)</span> and d, hkl shown on click; shown automatically at the end of a run; x in 2<span class="math inline">\(\theta\)</span>, TOF, energy, Q, d; series in pseudo-3D.</td>
+<td>GUI (reads .prf)</td>
+<td class="cite">FullProf_Manual.pdf, p. 4 · FPS_dec2015_WinPLOTR_TR.pdf, pp. 3–4 · FPS_dec2015_WinPLOTR_TR.pdf, p. 7 · Tutorial_Co_doped_YBCO.pdf, p. 13</td>
+</tr>
+<tr class="even">
+<td><strong>Interactive background points</strong></td>
+<td>Background points picked with the mouse on the pattern or .prf (or placed automatically, about √n points, "not recommended for advanced analysis"), edited and saved for pasting into the .pcr.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>GUI (WinPLOTR) → Nba=N point list</td>
+<td class="cite">FPS_dec2015_WinPLOTR_TR.pdf, pp. 38–40 · FullProf-Tutorial-Symmetry-Modes.pdf, pp. 10–11</td>
+</tr>
+<tr class="odd">
+<td><strong>Interactive peak search and fitting</strong></td>
+<td>Automatic peak search with thresholds and Kα-doublet option; single-peak fitting with TCH pseudo-Voigt from mouse clicks (background ends, top, FWHM), with progress windows; peak list feeds indexing.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>GUI (WinPLOTR)</td>
+<td class="cite">FPS_dec2015_WinPLOTR_TR.pdf, pp. 24–25 · Tutorial_Co_doped_YBCO.pdf, p. 9 · Tutorial-Y2O3.pdf, p. 4</td>
+</tr>
+<tr class="even">
+<td><strong>EdPCR</strong></td>
+<td>Dialog editor of the .pcr (refinement mode, phases, atoms, codes) with an internal text editor; converts CIF and SHELX .ins to .pcr.<br>
+<span class="m">Not in the 2001 manual. The symmetry-mode tutorial reports an EdPCR bug with that option (p. 21).</span></td>
+<td>GUI</td>
+<td class="cite">Tutorial-Y2O3.pdf, pp. 13–17 · FPS_dec2015_WinPLOTR_TR.pdf, p. 9</td>
+</tr>
+<tr class="odd">
+<td><strong>FullProf Suite toolbar</strong></td>
+<td>Launcher that sets the working directory and starts WinPLOTR, FullProf, EdPCR, Check_Group, GFourier and FullProf Studio on the loaded files.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>GUI</td>
+<td class="cite">Tutorial-Y2O3.pdf, pp. 2–3 · Tutorial-Y2O3.pdf, p. 10 · Tutorial-Y2O3.pdf, p. 18</td>
+</tr>
+<tr class="even">
+<td><strong>FullProf Studio</strong></td>
+<td>3D viewer of the refined structure from .fst files (polyhedra, mode displacements as arrows), with continuous reading to follow a simulated-annealing run.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>GUI; .fst written by FullProf</td>
+<td class="cite">Tutorial-Y2O3.pdf, p. 18 · FullProf-Tutorial-Symmetry-Modes.pdf, p. 9</td>
+</tr>
+<tr class="odd">
+<td><strong>FullProfAPP</strong></td>
+<td>Python GUI (CIC energiGUNE) for batches: import patterns, extract background, fetch CIFs from COD, full-profile phase search, automatic refinement protocols, sequential and multi-pattern grids, contour plots of series; not a superset of FullProf (no modes, magnetism, single crystal or annealing).<br>
+<span class="m">Not in the 2001 manual (2023).</span></td>
+<td>GUI; writes .pcr</td>
+<td class="cite">Presentation.pdf, pp. 3–5 · Exercise-EgyptMakeup.pdf, p. 1 · Exercise-LiFePO4.pdf, pp. 1–2</td>
+</tr>
+<tr class="even">
+<td><strong>WinPLOTR batch commands</strong></td>
+<td>Command files for WinPLOTR to convert formats, normalise, shift, subtract, transform x (2<span class="math inline">\(\theta\)</span>, Q, d…), fit single peaks or Cu/Mo/Co doublets, and export images, over many files.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td><code>winplotr file.cmd</code></td>
+<td class="cite">FPS_dec2015_WinPLOTR_TR.pdf, pp. 42–44</td>
+</tr>
+<tr class="odd">
+<td><strong>Refinement strategy guidance</strong></td>
+<td>Documented order: scale; zero, background, cell; positions and overall B; shape and asymmetry; occupancies; isotropic then anisotropic B; SyCos/SySin; microstructure. Le Bail first to fix cell and profile.</td>
+<td>documentation</td>
+<td class="cite">FullProf_Manual.pdf, p. 14 · Tutorial_Co_doped_YBCO.pdf, p. 10</td>
+</tr>
+<tr class="even">
+<td><strong>Example and test suite</strong></td>
+<td>An example kit (pcr_dat.zip) with the 2001 manual; the current FP_tests folder has 130 .pcr files run by test_fp.bat, and a digest program (Get_Log) collects CPU time and <span class="math inline">\(\chi^2\)</span> of every run.</td>
+<td>test_fp.bat</td>
+<td class="cite">FullProf_Manual.pdf, pp. 16–17 · test_fp.bat L1–3 · log.res L1–5</td>
+</tr>
+<tr class="odd">
+<td><strong>User subroutines</strong></td>
+<td>Own structure-factor, magnetic, size and strain models in subroutines STRMOD, MAGMOD, SIZE, STRAIN linked with the FULLP library.</td>
+<td>phase Jbt=4/5 user routines</td>
+<td class="cite">FullProf_Manual.pdf, p. 3 · FullProf_Manual.pdf, p. 32</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="output" class="anchored">Output files</h2>
+<div class="table-wrap">
+<table class="inventory caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Capability</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">In the <code>.pcr</code></th>
+<th data-quarto-table-cell-role="th">Sources</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Main listing (.out)</strong></td>
+<td>All input, reflections, correlations, obs/calc intensities and per-cycle parameters; optional line-printer plot, reflection lists and profile listing.</td>
+<td>always; line 7 Ipr=1, Ppl=1, Ioc, Ls1, Ls3, Sho</td>
+<td class="cite">FullProf_Manual.pdf, p. 9 · FullProf_Manual.pdf, pp. 72–73</td>
+</tr>
+<tr class="even">
+<td><strong>Summary (.sum)</strong></td>
+<td>Last-cycle parameters with esd's and R-factors.</td>
+<td>always</td>
+<td class="cite">FullProf_Manual.pdf, pp. 9–10 · la0_120.sum L196–220</td>
+</tr>
+<tr class="odd">
+<td><strong>Plot file (.prf)</strong></td>
+<td>Observed, calculated, difference, background, reflection positions and hkl per pattern, for WinPLOTR and other plotting programs.</td>
+<td>line 7 Prf=1–4 (later -3)</td>
+<td class="cite">FullProf_Manual.pdf, p. 9 · FullProf_Manual.pdf, p. 73 · la0.prf L1–6</td>
+</tr>
+<tr class="even">
+<td><strong>Reflection lists (.hkl)</strong></td>
+<td>h, k, l, multiplicity, d, 2<span class="math inline">\(\theta\)</span>, FWHM, Iobs, Icalc; or for EXPO/SIRPOW, real and imaginary F, F<span class="math inline">\(^{2}\)</span> with <span class="math inline">\(\sigma\)</span>, or Fcalc for quantitative analysis.</td>
+<td>line 7 Hkl=1–5</td>
+<td class="cite">FullProf_Manual.pdf, p. 11 · FullProf_Manual.pdf, pp. 74–75</td>
+</tr>
+<tr class="odd">
+<td><strong>Fourier files (.fou)</strong></td>
+<td>Observed structure factors for Fourier maps in CCSL/FOURTK, SHELXS (+.ins), FOURIER or GFOURIER (+.inp) formats; Fcalc in absolute units if negative.</td>
+<td>line 7 Fou=1–4</td>
+<td class="cite">FullProf_Manual.pdf, p. 10 · FullProf_Manual.pdf, p. 75 · Tutorial-Y2O3.pdf, p. 10</td>
+</tr>
+<tr class="even">
+<td><strong>Per-phase profiles (.sub)</strong></td>
+<td>Calculated profile of each phase, with or without background.</td>
+<td>line 7 Ipr=2, 3</td>
+<td class="cite">FullProf_Manual.pdf, p. 12 · FullProf_Manual.pdf, p. 73</td>
+</tr>
+<tr class="odd">
+<td><strong>Background file (.bac)</strong></td>
+<td>Writes the refined background, or the difference pattern, as a file.</td>
+<td>line 7 Ppl=2, 3</td>
+<td class="cite">FullProf_Manual.pdf, p. 73 · Tutorial-Y2O3.pdf, pp. 6–7</td>
+</tr>
+<tr class="even">
+<td><strong>Microstructure file (.mic)</strong></td>
+<td>Per reflection integral breadths, apparent size and strain; averages whose spread measures anisotropy (not error); 99999 means no size broadening.</td>
+<td>Res≠0 with Npr=7</td>
+<td class="cite">FullProf_Manual.pdf, pp. 11–12 · FullProf_Manual.pdf, p. 25 · Microstructural_effects_FP.pdf, p. 8</td>
+</tr>
+<tr class="odd">
+<td><strong>Distances and bond valences (.dis)</strong></td>
+<td>Distances, angles and bond-valence sums per phase.</td>
+<td>phase Jdi=3, 4</td>
+<td class="cite">FullProf_Manual.pdf, p. 11 · FullProf_Manual.pdf, p. 92</td>
+</tr>
+<tr class="even">
+<td><strong>Sequential summaries (.rpa, .sav)</strong></td>
+<td>Short summary appended run after run, and a reflection list between two angles for sequential work.</td>
+<td>line 7 Rpa=1, 2; line 51</td>
+<td class="cite">FullProf_Manual.pdf, p. 9 · FullProf_Manual.pdf, p. 11 · FullProf_Manual.pdf, p. 72 · FullProf_Manual.pdf, p. 129</td>
+</tr>
+<tr class="odd">
+<td><strong>Symmetry operators (.sym)</strong></td>
+<td>Symmetry operators of each phase.</td>
+<td>line 7 Syo=1, Sym=1</td>
+<td class="cite">FullProf_Manual.pdf, p. 10 · FullProf_Manual.pdf, p. 72</td>
+</tr>
+<tr class="even">
+<td><strong>Structure files for drawing programs</strong></td>
+<td>Atoms of the cell (.atm), SCHAKAL or STRUPLO input (.sch), rigid-body coordinates for Molview, Balls &amp; Sticks and ORTEP.</td>
+<td>phase More=1 with Jdi, Jvi</td>
+<td class="cite">FullProf_Manual.pdf, p. 12 · FullProf_Manual.pdf, p. 39 · FullProf_Manual.pdf, p. 91</td>
+</tr>
+<tr class="odd">
+<td><strong>CIF, CFL, FST and VESTA files</strong></td>
+<td>Refined structure as CIF (and profile CIF), CrysFML .cfl, FullProf Studio .fst and VESTA files; bond-valence .bvs.<br>
+<span class="m">Not in the 2001 manual.</span></td>
+<td>written by current versions</td>
+<td class="cite">PPH3-sls.cif L1–6 · Tutorial-Y2O3.pdf, p. 21 · era.bat L30–34</td>
+</tr>
+<tr class="even">
+<td><strong>Simulated pattern (.sim)</strong></td>
+<td>Calculated pattern with Poisson noise in Ins=0 format.</td>
+<td>abs(Job)&gt;1 with Dum=1</td>
+<td class="cite">FullProf_Manual.pdf, p. 12 · FullProf_Manual.pdf, p. 69</td>
+</tr>
+<tr class="odd">
+<td><strong>Screen log</strong></td>
+<td>Per-cycle R-factors and <span class="math inline">\(\chi^2\)</span> as on screen, kept as .log when given on the command line.</td>
+<td>third command-line argument</td>
+<td class="cite">FullProf_Manual.pdf, p. 7 · la0.log L37–47</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="later" class="anchored">Kept for later</h2><ul class="k-list"><li><b>Magnetic structures.</b> Commensurate and incommensurate magnetic structures: moments in the magnetic cell or by propagation vectors (up to 24), Fourier components, helices, cones, basis functions of irreps, Shubnikov groups, magnetic R-factor. <span class="cite">FullProf_Manual.pdf, p. 6 · FullProf_Manual.pdf, pp. 19–20 · FullProf_Manual.pdf, pp. 89–90 · FullProf_Manual.pdf, pp. 96–99 · Ca_m_m_a.pcr L53</span></li><li><b>Modulated structures and superspace.</b> Commensurate displacement modulations (Jbt=<span class="math inline">\(\pm\)</span>15) in the 2001 manual; magnetic superspace groups (Jbt=<span class="math inline">\(\pm\)</span>7) in the tests. <span class="cite">FullProf_Manual.pdf, pp. 106–107 · DyMnGe_SuperSpace.pcr L72</span></li><li><b>Stacking faults.</b> FAULTS, a separate program of the Suite (DIFFaX-based) that refines powder patterns of layered crystals with planar defects; inside FullProf, selective broadening and shifts, and LAYER_x for turbostratic layers ("still at a testing stage"). <span class="cite">Faults_Manual.pdf, pp. 4–5 · FP_COMMANDS.pdf, p. 5</span></li><li><b>Indexing.</b> DICVOL, TREOR and ITO launched from WinPLOTR on its peak list, which then writes a Le Bail .pcr per solution. <span class="cite">FPS_dec2015_WinPLOTR_TR.pdf, p. 8 · Tutorial-Y2O3.pdf, pp. 4–5</span></li><li><b>Structure solution.</b> Space-group search (Check_Group), Monte Carlo and simulated annealing on integrated intensities or profile points, with rigid bodies and symmetry modes; Fourier and Patterson maps via GFourier. <span class="cite">FullProf_Manual.pdf, pp. 126–129 · Tutorial-Y2O3.pdf, pp. 8–9 · pb_san.pcr L66–67</span></li><li><b>Pair distribution function.</b> WinPLOTR's settings list an external calc_pdf program for "PDF calculation"; nothing more in the material. <span class="cite">FPS_dec2015_WinPLOTR_TR.pdf, p. 11</span></li></ul>
+<h2 id="out" class="anchored">Out of scope</h2><ul class="k-list"><li><b>Single-crystal data.</b> Integrated intensities of single crystals (F<span class="math inline">\(^{2}\)</span> or F, twins with up to 6 hkl per observation, domain scales, extinction, λ/2), alone or with powder data. <span class="cite">FullProf_Manual.pdf, p. 5 · FullProf_Manual.pdf, pp. 62–63 · FullProf_Manual.pdf, pp. 138–139 · prnio.pcr L1–5</span></li><li><b>Polarised-neutron flipping ratios.</b> Single-crystal flipping-ratio refinement with a multipole form factor, seen only in the tests. <span class="cite">100K_c_vert-fr0.pcr L29–32 · 100K-c_vert.int L3</span></li><li><b>Electron diffraction.</b> Only Mol_tpcr's JOB 4 (electrons) for writing simulated-annealing .pcr files; no 3D electron-diffraction refinement is documented. <span class="cite">FullProf-Tutorial-RigidBody.pdf, p. 19</span></li></ul>
+<h2 id="not-found" class="anchored">Not found in the material</h2><ul class="k-list"><li>Pawley fitting: the manual names Pawley's method only as a relative of profile matching (FullProf_Manual.pdf p. 14); FullProf implements Le Bail.</li><li>Surface-roughness corrections (Suortti, Pitschke and others) by name: only the Bragg–Brentano microabsorption P0/Cp/<span class="math inline">\(\tau\)</span> correction, whose references [25], [26] are not listed in the 2001 manual (p. 55).</li><li>Thin-sample transparency shift: the manual gives the formula but says the correction "is not implemented in FullProf" (p. 56).</li><li>Texture beyond the exponential and March–Dollase functions (no spherical-harmonic orientation distribution); the QPA paper used external pole figures (Quantitative-prefOrient.pdf).</li><li>Sabine-type powder extinction for constant-wavelength data: only one TOF powder parameter and a SHELX-type single-crystal parameter (pp. 63, 110).</li><li>Fundamental-parameters peak shapes (emission profile, slits, detector convolved from geometry): only the Finger–Cox–Jephcoat axial-divergence term.</li><li>hkl-dependent asymmetry: "No hkl-dependent asymmetry model is currently available" (p. 31).</li><li>Amorphous-phase modelling as a phase (other than Debye-like background terms or the internal-standard calculation).</li><li>2D image integration: no image-plate or area-detector reduction appears in the material.</li><li>Formulas and parameters for the TOF Ikeda–Carpenter profile (Npr=13) beyond its name.</li></ul>
+</article>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">What this is</h4>
+        <p>The working site of one project: to build a Mac app for Rietveld refinement of powder diffraction data, after a study of the programs the community uses for it. It holds the brief, that study, the design, a dated log of every step, the release notes and the manuals of the core and the app.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
+      </div>
+      <div><h4 class="anchored">This site</h4><ul>
+        <li><a href="../../index.html">Overview</a></li><li><a href="../../brief/index.html">Brief</a></li><li><a href="../../background/index.html">Background</a></li><li><a href="../../design/index.html">Design</a></li><li><a href="../../roadmap/index.html">Roadmap</a></li><li><a href="../../log/index.html">Log</a></li><li><a href="../../about/index.html">Method</a></li></ul></div>
+      <div><h4 class="anchored">Sources</h4><ul>
+        <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
+        <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
+        <li><a href="https://advancedphotonsource.github.io/GSAS-II-tutorials/">GSAS-II</a></li>
+        <li><a href="https://it.iucr.org/A/">International Tables, Vol. A</a></li></ul></div>
+      <div><h4 class="anchored">Status</h4><ul>
+        <li>Published at <a href="https://jmigartua.github.io/diff-ref-struct-site/">jmigartua.github.io/diff-ref-struct-site</a>; the sources are private</li>
+        <li>Rebuilt from <code>data/*.yml</code> on every render</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua · work in progress</span>
+      <span>Quarto · family design kit</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
