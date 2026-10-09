@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <article class="page-article">
 <h1>Design: open questions</h1>
-<p class="sub">What has to be decided before the core is written, with the options seen today and a first opinion on each. None of this is decided; each question closes with a logged decision after phase 0.</p>
+<p class="sub">What has to be decided before the core is written, with the options seen today and a first opinion on each. Every question now has a logged decision: Q1 in L021, Q3 in L020, Q2 and Q4–Q6 in L022. The options weighed are kept below each decision.</p>
 
 <h2 class="anchored">The shape: core, app, ecosystem</h2>
 <p>As in difes: the <b>core</b> holds all the crystallography and the refinement, has no user interface, has a test for every feature and a command-line path to every feature. The <b>app</b> is a native Mac window around it and holds no physics. The <b>ecosystem</b> is this site, its data and its tools. One repository holds the three (L003).</p>
@@ -151,18 +151,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <h2 class="anchored">Q2 · The space groups</h2>
 <p>R12 asks for the complete set with all the needed information. The tables can be generated from generators (Hall symbols) rather than typed in, and checked against an independent source (the International Tables, Vol. A; spglib; cctbx's sgtbx) for all 230 groups and their settings. Magnetic groups (the 1651 Shubnikov groups) are needed if magnetic refinement is in scope, which the study will tell.</p>
+<p><span class="status status-done">decided (<a href="../log/index.html#L022">L022</a>)</span> All 230 space-group types in their 530 settings are generated from Hall symbols, not typed in, and every one is tested against spglib and the International Tables, Vol. A. Magnetic groups are not built now (magnetic structures are "later", L012), but symmetry is stored as general operators (rotation matrix and translation), so that magnetic and superspace groups can be added without rewriting the core.</p>
 
 <h2 class="anchored">Q3 · The control file</h2>
 <p>R13 and R14 ask for a GUI that writes the control file and an editor made for it. That supposes a control file that a person can read and write. The choice: adopt an existing format (FullProf's <code>.pcr</code>, TOPAS's <code>.inp</code>) or define a new, readable one and import the others. <em>First opinion:</em> a new format designed for reading and diffing, with importers for <code>.pcr</code> and GSAS-II project files, so that existing refinements open in the app.</p>
+<p><span class="status status-done">decided (<a href="../log/index.html#L020">L020</a>)</span> A new readable text format of our own, written and read by the core, with an importer for FullProf <code>.pcr</code> files. A GSAS-II importer is not planned for version 1.</p>
 
 <h2 class="anchored">Q4 · The editor</h2>
 <p>A text editor made for the control and output files: syntax colouring, completion of keywords and of the names of phases and atoms, inline errors from the core's parser, folding by phase and pattern, a structure outline, jump from an output line to the parameter it refers to. A web editor component (CodeMirror 6) inside the Tauri window gives all of that with a language mode written for the format.</p>
+<p><span class="status status-done">decided (<a href="../log/index.html#L022">L022</a>)</span> CodeMirror 6 inside the Tauri window, with a language mode for the diff-ref-struct control file (L020): colouring, completion of keywords and of phase and atom names, inline errors from the core's parser, folding by phase and pattern, an outline.</p>
 
 <h2 class="anchored">Q5 · The live plot</h2>
 <p>R08: as in FullProf's WinPLOTR, the observed, calculated and difference curves and the reflection markers redrawn after every cycle, with the agreement factors. The core must therefore report each cycle as an event (parameters, curves, R-factors) that the app draws without waiting for the end. The same event stream feeds a history of the refinement that can be scrolled back.</p>
+<p><span class="status status-done">decided (<a href="../log/index.html#L022">L022</a>)</span> The core reports every least-squares cycle as an event (parameters with their shifts, calculated curve, agreement factors); the app redraws the observed, calculated and difference curves and the reflection markers on each event, and the events form the refinement history behind accept/reject (proposal, L020).</p>
 
 <h2 class="anchored">Q6 · The Mac app</h2>
 <p>R01: a document-based app (one refinement project per window or tab), the full menu bar with the standard entries and shortcuts, Settings, Recent items, Undo and Redo of every change to the model, a source list, an inspector and a command palette, as in the difes shell.</p>
+<p><span class="status status-done">decided (<a href="../log/index.html#L022">L022</a>)</span> A document-based Mac app as in the difes shell: one refinement project per window or tab, the full menu bar with standard shortcuts, Settings, Recent items, Undo and Redo of every change to the model, a source list, an inspector and a ⌘K command palette.</p>
 
 <h2 class="anchored">Beyond the brief</h2>
 <p>R15 asks for more than the brief lists. Candidates to weigh against the study: joint refinement of X-ray and neutron patterns; sequential and parametric refinement over temperature or pressure series; Le Bail and Pawley fits; indexing; quantitative phase analysis with amorphous content; restraints and rigid bodies; magnetic structures; time-of-flight neutrons; fundamental-parameters peak shapes; texture; size and strain; export of the result as a CIF ready for deposition; a refinement history that can be replayed; and a test ledger that reproduces published refinements, as difes reproduces FOCUS.</p>

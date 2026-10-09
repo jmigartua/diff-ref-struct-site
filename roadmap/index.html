@@ -137,8 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Phases</h1>
 <p class="lede">Study, then design, then the core, then the app around it. Each phase ends with a named artefact and a log entry. Only phase 0 is detailed; the later phases are drawn from its feature matrix and their detail is written when phase 0 closes.</p>
 
-<div class="phase now">
-  <div class="num">PHASE 0</div>
+<div class="phase">
+  <div class="num">PHASE 0 · closed (L022)</div>
   <h3 class="anchored">The repository, and the study of the programs</h3>
   <p class="goal">Know what the Rietveld programs in use do, and how, before deciding what this one will do.</p>
   <ul>
@@ -152,10 +152,18 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="done"><b>Done when</b> the FullProf inventory and the GSAS-II gap list are on the site, and the design questions Q1–Q6 each have a logged decision.</div>
 </div>
 
-<div class="phase">
+<div class="phase now">
   <div class="num">PHASE 1</div>
   <h3 class="anchored">Crystallography core</h3>
-  <p class="goal">Space groups, unit cells, reflections, structure factors, with tests against an independent source.</p>
+  <p class="goal">Space groups, unit cells, reflections, structure factors, in Rust (L021), each tested against an independent source: FullProf's own output files in <code>manuals/fullprof/</code>, spglib, the International Tables.</p>
+  <ul>
+    <li>The crate <code>drs</code> (library and command line), and the unit cell: metric tensors, reciprocal cell, volume, d(hkl), 2<span class="math inline">\(\theta\)</span>, Cartesian frame, Busing–Levy matrix. Test <code>fullprof_metric</code>: all 13 FullProf <code>.out</code> files, no disagreement. <span class="status status-done">done (L023, core 0.1.0)</span></li>
+    <li>Space groups from Hall symbols: the 230 types in their 530 settings, symmetry operators, centring, Laue class, point group; each checked against spglib and the International Tables, Vol. A. <span class="status">to do</span></li>
+    <li>Wyckoff positions and site symmetry: multiplicities, and the constraints on coordinates and displacement parameters of atoms on special positions, as FullProf derives them. <span class="status">to do</span></li>
+    <li>Reflections: the hkl list within a d or 2<span class="math inline">\(\theta\)</span> range, systematic absences, multiplicities, equivalent reflections; checked against FullProf's reflection lists for the tutorial structures. <span class="status">to do</span></li>
+    <li>Structure factors: X-ray form factors and anomalous terms, neutron scattering lengths, occupancies, isotropic and anisotropic displacements; checked against FullProf's structure factors for the four reference structures (Y2O3, MgAl2O4, Co-doped YBCO, the QPA phases). <span class="status">to do</span></li>
+  </ul>
+  <div class="done"><b>Done when</b> the reflections and structure factors of the four reference structures of L020 agree with FullProf's output, from the command line.</div>
 </div>
 
 <div class="phase">

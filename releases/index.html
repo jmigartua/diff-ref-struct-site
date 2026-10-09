@@ -135,9 +135,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div class="page-wide">
 <h1>Release notes</h1>
-<p class="lede">What each version of the core and the app adds, changes and fixes, and what it still does not do; no version has been released yet; the first entry will appear here with the first build of the core. The same text is written to <code>core/CHANGELOG.md</code>. Generated from <code>data/releases.yml</code>; do not edit by hand.</p>
+<p class="lede">What each version of the core and the app adds, changes and fixes, and what it still does not do; newest first, current version 0.1.0. The same text is written to <code>core/CHANGELOG.md</code>. Generated from <code>data/releases.yml</code>; do not edit by hand.</p>
 <div class="log">
-
+<article class="log-entry release" id="v0.1.0"><div class="log-head"><span class="num">0.1.0</span><span class="d">2026-10-09</span><span class="kind kind-work">release</span></div><h3 class="anchored">The Rust core and the unit cell</h3><p>The first build of the core (L023): the crate <code>drs</code> with its command line, and the unit cell, checked against FullProf's own output.</p><h4 class="anchored">Added</h4><ul><li>The <code>drs</code> crate in <code>core/</code>: a library for the app and the <code>drs</code> command line (<code>drs cell …</code>, <code>drs --version</code>).</li><li>The unit cell: direct and reciprocal parameters, metric tensors, volume, d(hkl), 2<span class="math inline">\(\theta\)</span> for a wavelength, FullProf's Cartesian frame and the Busing–Levy B matrix.</li><li>Test <code>fullprof_metric</code>: the metric block of all 13 FullProf <code>.out</code> files in <code>manuals/fullprof/</code> recomputed from the printed cell, with no disagreement.</li></ul><h4 class="anchored">Known limitations</h4><ul><li>No space groups, reflections or structure factors yet: the next items of phase 1.</li><li>Cell parameters carry no standard uncertainties yet.</li></ul></article>
 </div>
 </div>
 
