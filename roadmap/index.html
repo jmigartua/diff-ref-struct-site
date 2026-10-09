@@ -169,7 +169,16 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="phase">
   <div class="num">PHASE 2</div>
   <h3 class="anchored">The powder pattern and the refinement</h3>
-  <p class="goal">Peak shapes, background, corrections, the least-squares engine, the cycle events; a first published refinement reproduced from the command line.</p>
+  <p class="goal">Everything of version 1 (L019, L020) that computes and refines, in the core and on the command line: the calculated pattern, then the least-squares engine around it. The app's features (project document, builder, editor, live plot, graphics: P46, P48–P52, P58) are phase 3. Each step is tested against FullProf: the calculated patterns of its <code>.prf</code> files (85 in <code>manuals/fullprof/</code>), and the four reference tutorials run with FullProf on the Mac.</p>
+  <ul>
+    <li>Reading the inputs: FullProf <code>.pcr</code> files (import, Q3) and the data formats of P02 (xy/xye, FullProf's free and instrument formats, GSAS fxye, Panalytical .xrdml, Bruker .raw/.brml), with <span class="math inline">\(\sigma\)</span> and variable step (P01). <span class="status">to do</span></li>
+    <li>The calculated pattern, as FullProf computes it: peak positions with zero, displacement and transparency (P18); pseudo-Voigt and Thompson–Cox–Hastings profiles with Caglioti widths, Finger–Cox–Jephcoat axial asymmetry and the empirical asymmetry (P15, P17); the instrumental resolution file (P16); Lorentz–polarisation by geometry (P27); background functions (P21); several phases with their scales (P32); simulation with Poisson noise (P04). Checked point by point against Ycal and Backg of FullProf's <code>.prf</code> files. <span class="status">to do</span></li>
+    <li>Sample terms: isotropic size and strain over the resolution file (P24), preferred orientation along one axis (P28), absorption and microabsorption (P29). <span class="status">to do</span></li>
+    <li>The least-squares engine: named parameters (P37), constraints and the automatic symmetry constraints (P38), limits (P39), distance, angle and linear restraints (P40), Levenberg–Marquardt with SVD and analytic derivatives (P42), every cycle reported as an event (Q5), agreement factors and statistics (P43), covariance and the esd of any derived quantity (P44). <span class="status">to do</span></li>
+    <li>Le Bail fit with extracted intensities (P35); quantitative phase analysis with esd's (P33); automatic background points (P22, the core's part). <span class="status">to do</span></li>
+    <li>Our own readable control file, written and read by the core (P47, Q3); the outputs: CIF ready for deposition, listing, reflection lists, profiles per phase (P57); distances, angles and bond-valence sums (P12). <span class="status">to do</span></li>
+  </ul>
+  <div class="done"><b>Done when</b> the four reference refinements of L020 (Y2O3, MgAl2O4, Co-doped YBCO, the quantitative-analysis tutorial) are reproduced from the command line, from FullProf's starting files, to within FullProf's esd's.</div>
 </div>
 
 <div class="phase">
