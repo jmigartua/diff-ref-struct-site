@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
 <details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../index.html">Overview</a></li></ul></details>
 <details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../brief/index.html">The brief, organised</a></li></ul></details>
-<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../background/index.html">The programs that inspire</a></li><li><a href="../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../background/gsas2/index.html">GSAS-II</a></li><li><a href="../background/jana/index.html">Jana2020</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../background/index.html">The programs that inspire</a></li><li><a href="../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../background/gsas2/index.html">GSAS-II</a></li></ul></details>
 <details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../design/index.html">Design: open questions</a></li><li><a href="../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
 <details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../manual/index.html">About the manual</a></li></ul></details>
 <details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../about/index.html">How this site works</a></li><li><a href="../log/index.html">The log, every dated step</a></li></ul></details>
@@ -143,14 +143,13 @@ document.addEventListener("DOMContentLoaded", function () {
   <p class="goal">Know what the Rietveld programs in use do, and how, before deciding what this one will do.</p>
   <ul>
     <li>Private repository, site skeleton, brief organised into requirements, working method in <code>CLAUDE.md</code>. <span class="status status-done">done (L006)</span></li>
-    <li>Choose the five most used programs from the long list, with the evidence (citations, facilities, vendors): FullProf, GSAS-II, TOPAS, Jana2020, MAUD. <span class="status status-done">done (L008)</span> Limited to three, FullProf, GSAS-II and Jana2020, by Josu. <span class="status status-done">L009</span></li>
+    <li>Choose the five most used programs from the long list, with the evidence (citations, facilities, vendors): FullProf, GSAS-II, TOPAS, Jana2020, MAUD. <span class="status status-done">done (L008)</span> Limited to three, FullProf, GSAS-II and Jana2020, by Josu. <span class="status status-done">L009</span> Jana2020 dropped, leaving FullProf and GSAS-II. <span class="status status-done">L015</span></li>
     <li>Method revised by Josu (<a href="../log/index.html#L012">L012</a>): FullProf is the baseline; GSAS-II and Jana2020 are read only for what FullProf lacks. Scope: crystal-structure refinement from powder data. <span class="status status-done">L012</span></li>
     <li>The FullProf inventory: one entry per capability within the scope, what it does, its <code>.pcr</code> reference and its source (path, page) in <code>manuals/fullprof/</code>; capabilities outside the scope listed in one line each: <a href="../background/fullprof/index.html">158 entries</a>. <span class="status status-done">done (L013)</span></li>
     <li>GSAS-II: what FullProf lacks within the scope, in physics and in workflow (projects, sequential and parametric refinement, constraints and restraints, scripting, GUI), each gap with its source: <a href="../background/gsas2/index.html">36 gaps</a>. <span class="status status-done">done (L014)</span></li>
-    <li>Jana2020: the same gap list, once its documentation is in <code>manuals/jana2020/</code>. <span class="status">to do</span></li>
     <li>The proposal: the feature set of the app, what is in the first version and what comes later. <span class="status">to do</span></li>
   </ul>
-  <div class="done"><b>Done when</b> the FullProf inventory and the GSAS-II and Jana2020 gap lists are on the site, and the design questions Q1–Q6 each have a logged decision.</div>
+  <div class="done"><b>Done when</b> the FullProf inventory and the GSAS-II gap list are on the site, and the design questions Q1–Q6 each have a logged decision.</div>
 </div>
 
 <div class="phase">
