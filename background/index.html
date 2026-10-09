@@ -138,28 +138,287 @@ document.addEventListener("DOMContentLoaded", function () {
 <p class="sub">Requirements R04–R06. The long list of Rietveld programs, how the five to study will be chosen, and what will be recorded for each.</p>
 
 <h2 class="anchored">The long list</h2>
-<p>Nine candidates. The brief names FullProf and GSAS; the others are the programs most often met in the powder-diffraction literature, free and commercial. The facts on each card are the commonly known ones and are checked against the program's own documentation when it is studied; until then every entry is a <em>candidate</em>.</p>
+<p>Nine candidates. The brief names FullProf and GSAS; the others are the programs most often met in the powder-diffraction literature, free and commercial. Five are <em>shortlisted</em> for study and four <em>excluded</em>, on the evidence below (log <a href="../log/index.html#L008">L008</a>). The facts on each card are the commonly known ones and are checked against the program's own documentation when it is studied.</p>
 <div class="inv">
-<div class="inv-row" id="fullprof"><div class="name">FullProf Suite<span class="by">J. Rodríguez-Carvajal, ILL</span></div><div class="desc"><p>Named in the brief. Fortran engine driven by a .pcr control file, with WinPLOTR for the live cycle-by-cycle plot, EdPCR for editing the control file, and a suite of satellite tools. Strong in magnetic structures and neutron data.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>free, closed source<br>Windows, Linux, macOS<br>X-ray, neutron (CW, TOF), magnetic</div></div>
-<div class="inv-row" id="gsas2"><div class="name">GSAS-II<span class="by">B. Toby, R. Von Dreele, Argonne</span></div><div class="desc"><p>Named in the brief (GSAS). Python with compiled kernels and a wxPython GUI; successor of GSAS/EXPGUI. Covers the whole path from 2D images to refinement, sequential and parametric refinement, and scripting.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>open source<br>Windows, Linux, macOS<br>X-ray, neutron (CW, TOF)</div></div>
-<div class="inv-row" id="topas"><div class="name">TOPAS<span class="by">Bruker (A. Coelho); TOPAS-Academic</span></div><div class="desc"><p>Commercial. Fundamental-parameters peak shapes and a macro language for the input file; widely used for quantitative phase analysis and for restraints and rigid bodies.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>commercial<br>Windows<br>X-ray, neutron</div></div>
-<div class="inv-row" id="jana"><div class="name">Jana2020<span class="by">V. Petříček, M. Dušek, L. Palatinus, Prague</span></div><div class="desc"><p>Free. Modulated and composite structures, magnetic symmetry, powder and single crystal in one program.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>free<br>Windows<br>X-ray, neutron, electron</div></div>
-<div class="inv-row" id="highscore"><div class="name">HighScore Plus<span class="by">Malvern Panalytical</span></div><div class="desc"><p>Commercial. Phase identification with the ICDD and COD databases and Rietveld refinement aimed at routine laboratory work.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>commercial<br>Windows<br>X-ray (lab), neutron</div></div>
-<div class="inv-row" id="maud"><div class="name">MAUD<span class="by">L. Lutterotti, Trento</span></div><div class="desc"><p>Free. Combined analysis: texture, residual stress and microstructure together with the crystal structure.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>free<br>Java (any)<br>X-ray, neutron, electron, TOF</div></div>
-<div class="inv-row" id="profex"><div class="name">Profex / BGMN<span class="by">N. Döbelin; BGMN by J. Bergmann</span></div><div class="desc"><p>Free. A GUI around BGMN, with peak shapes computed from the instrument geometry; aimed at quantitative phase analysis.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>free<br>Windows, Linux, macOS<br>X-ray</div></div>
-<div class="inv-row" id="rietan"><div class="name">RIETAN-FP<span class="by">F. Izumi</span></div><div class="desc"><p>Free. Rietveld and whole-pattern fitting, maximum-entropy method with Dysnomia, linked with VESTA.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>free<br>Windows, macOS<br>X-ray, neutron</div></div>
-<div class="inv-row" id="pdxl"><div class="name">SmartLab Studio II (PDXL)<span class="by">Rigaku</span></div><div class="desc"><p>Commercial. The Rigaku instrument suite's analysis package, with Rietveld refinement.</p></div><div class="inv-facts"><span class="status status-candidate">candidate</span><br>commercial<br>Windows<br>X-ray (lab)</div></div>
+<div class="inv-row" id="fullprof"><div class="name">FullProf Suite<span class="by">J. Rodríguez-Carvajal, ILL</span></div><div class="desc"><p>Named in the brief. Fortran engine driven by a .pcr control file, with WinPLOTR for the live cycle-by-cycle plot, EdPCR for editing the control file, and a suite of satellite tools. Strong in magnetic structures and neutron data.</p></div><div class="inv-facts"><span class="status status-shortlisted">shortlisted</span><br>free, closed source<br>Windows, Linux, macOS<br>X-ray, neutron (CW, TOF), magnetic</div></div>
+<div class="inv-row" id="gsas2"><div class="name">GSAS-II<span class="by">B. Toby, R. Von Dreele, Argonne</span></div><div class="desc"><p>Named in the brief (GSAS). Python with compiled kernels and a wxPython GUI; successor of GSAS/EXPGUI. Covers the whole path from 2D images to refinement, sequential and parametric refinement, and scripting.</p></div><div class="inv-facts"><span class="status status-shortlisted">shortlisted</span><br>open source<br>Windows, Linux, macOS<br>X-ray, neutron (CW, TOF)</div></div>
+<div class="inv-row" id="topas"><div class="name">TOPAS<span class="by">Bruker (A. Coelho); TOPAS-Academic</span></div><div class="desc"><p>Commercial. Fundamental-parameters peak shapes and a macro language for the input file; widely used for quantitative phase analysis and for restraints and rigid bodies.</p></div><div class="inv-facts"><span class="status status-shortlisted">shortlisted</span><br>commercial<br>Windows<br>X-ray, neutron</div></div>
+<div class="inv-row" id="jana"><div class="name">Jana2020<span class="by">V. Petříček, M. Dušek, L. Palatinus, Prague</span></div><div class="desc"><p>Free. Modulated and composite structures, magnetic symmetry, powder and single crystal in one program.</p></div><div class="inv-facts"><span class="status status-shortlisted">shortlisted</span><br>free<br>Windows<br>X-ray, neutron, electron</div></div>
+<div class="inv-row" id="highscore"><div class="name">HighScore Plus<span class="by">Malvern Panalytical</span></div><div class="desc"><p>Commercial. Phase identification with the ICDD and COD databases and Rietveld refinement aimed at routine laboratory work.</p></div><div class="inv-facts"><span class="status status-excluded">excluded</span><br>commercial<br>Windows<br>X-ray (lab), neutron</div></div>
+<div class="inv-row" id="maud"><div class="name">MAUD<span class="by">L. Lutterotti, Trento</span></div><div class="desc"><p>Free. Combined analysis: texture, residual stress and microstructure together with the crystal structure.</p></div><div class="inv-facts"><span class="status status-shortlisted">shortlisted</span><br>free<br>Java (any)<br>X-ray, neutron, electron, TOF</div></div>
+<div class="inv-row" id="profex"><div class="name">Profex / BGMN<span class="by">N. Döbelin; BGMN by J. Bergmann</span></div><div class="desc"><p>Free. A GUI around BGMN, with peak shapes computed from the instrument geometry; aimed at quantitative phase analysis.</p></div><div class="inv-facts"><span class="status status-excluded">excluded</span><br>free<br>Windows, Linux, macOS<br>X-ray</div></div>
+<div class="inv-row" id="rietan"><div class="name">RIETAN-FP<span class="by">F. Izumi</span></div><div class="desc"><p>Free. Rietveld and whole-pattern fitting, maximum-entropy method with Dysnomia, linked with VESTA.</p></div><div class="inv-facts"><span class="status status-excluded">excluded</span><br>free<br>Windows, macOS<br>X-ray, neutron</div></div>
+<div class="inv-row" id="pdxl"><div class="name">SmartLab Studio II (PDXL)<span class="by">Rigaku</span></div><div class="desc"><p>Commercial. The Rigaku instrument suite's analysis package, with Rietveld refinement.</p></div><div class="inv-facts"><span class="status status-excluded">excluded</span><br>commercial<br>Windows<br>X-ray (lab)</div></div>
 </div>
 <h2 class="anchored">Choosing the five</h2>
-<p>“Most used” is measured, not assumed. The evidence to collect, in this order:</p>
+<p>“Most used” is measured, not assumed. Four kinds of evidence were sought on 2026-10-08:</p>
 <ul class="k-list">
-<li><b>Citations.</b> Citation counts of each program's reference paper(s), per year over the last decade (Google Scholar, Crossref, Web of Science where available).</li>
-<li><b>Facilities.</b> Which programs the main neutron and synchrotron powder beamlines recommend or ship (ILL, ISIS, PSI, APS, ESRF, Diamond, ALBA).</li>
-<li><b>Surveys and round robins.</b> The IUCr Commission on Powder Diffraction round robins and any published user surveys.</li>
-<li><b>Laboratory instruments.</b> The analysis packages of the main diffractometer makers (Bruker, Malvern Panalytical, Rigaku), since lab X-ray users often refine with the vendor's software.</li>
+<li><b>Citations.</b> The citation count of each program's reference paper(s), per database (Google Scholar, Web of Science, Semantic Scholar, Crossref).</li>
+<li><b>Facilities.</b> What the neutron and synchrotron powder beamlines name or ship (ILL, ISIS, PSI, APS, ESRF, Diamond, ALBA).</li>
+<li><b>Laboratory instruments.</b> The analysis packages of the main diffractometer makers (Bruker, Malvern Panalytical, Rigaku).</li>
+<li><b>Surveys.</b> Published user surveys or bibliometric counts of the programs named in Rietveld papers. None was found.</li>
 </ul>
-<p>The choice and the numbers behind it go into the log as a decision.</p>
-
+<p><b>The five:</b> FullProf, GSAS-II, TOPAS, Jana2020 and MAUD. <b>Excluded:</b> HighScore Plus, RIETAN-FP, Profex/BGMN and SmartLab Studio II (PDXL).</p>
+<p><b>The rule.</b> Programs are ranked by the citations of their own reference papers. Facility and vendor evidence decides close cases. A program whose count could not be checked, or cannot be separated from another program's, is not shortlisted on this evidence. FullProf, GSAS-II and TOPAS lead on citations and each has a facility behind it; TOPAS is also Bruker's package. Jana2020 is fourth: its counts mix single-crystal and powder use. MAUD is fifth, the closest call: RIETAN-FP's count is higher but is shared with VESTA, and HighScore Plus has no citation count that could be checked.</p>
+<p><b>The limits.</b> The session's network policy blocked the citation databases' APIs (Crossref, OpenAlex, Semantic Scholar) and the facility pages, so every number was read from a web-search result that quotes the page, not from the page itself. The snapshot dates are unknown, and the databases count differently: FullProf's 1993 paper has 20,552 citations on Google Scholar, 11,926 on Web of Science and 2,486 on Semantic Scholar. ISIS and ESRF named no program on their own pages in what was found; only user papers name one there. Where nothing was found, the table says <em>not checked</em>. The choice should be re-run from the databases directly before it is relied on beyond phase 0.</p>
+<h3 class="anchored">Citations of the reference papers</h3>
+<div class="table-wrap">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Program</th>
+<th data-quarto-table-cell-role="th">Reference paper</th>
+<th data-quarto-table-cell-role="th">Google Scholar</th>
+<th data-quarto-table-cell-role="th">Web of Science</th>
+<th data-quarto-table-cell-role="th">Semantic Scholar</th>
+<th data-quarto-table-cell-role="th">Crossref</th>
+<th data-quarto-table-cell-role="th">Other counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>FullProf Suite</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td>Rodríguez-Carvajal (1993), Physica B 192, 55–69<br>
+<span class="m">doi:<a href="https://doi.org/10.1016/0921-4526%2893%2990108-I">10.1016/0921-4526(93)90108-I</a></span></td>
+<td><a href="https://scholar.google.com/citations?user=mJgatLIAAAAJ&amp;hl=en">20,552</a><br>
+<span class="m">author profile, entry 'Recent advances … + FullProf'</span></td>
+<td><a href="https://www.ill.eu/media/old_files/user_upload/ILL/3_Users/Scientific_groups/Diffraction/People/Juan_Rodriguez-Carvajal/List-of-Publications-JRC.pdf">11,926</a><br>
+<span class="m">ILL publication list of the author, dated April 2022 or 2023 (the search result gives both)</span></td>
+<td><a href="https://www.semanticscholar.org/paper/46eb0635cc20c0bd450a3bded8da1f6fc3e1eb23">2,486</a><br>
+<span class="m">far below the other databases: the record looks under-indexed</span></td>
+<td><span class="m">not checked</span></td>
+<td>NASA ADS: <a href="https://ui.adsabs.harvard.edu/abs/1993PhyB..192...55R/abstract">8,730</a></td>
+</tr>
+<tr class="even">
+<td rowspan="3"><strong>GSAS-II</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td>Toby &amp; Von Dreele (2013), J. Appl. Cryst. 46, 544–549 (GSAS-II)<br>
+<span class="m">doi:<a href="https://doi.org/10.1107/S0021889813003531">10.1107/S0021889813003531</a></span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.semanticscholar.org/paper/1d74b06e7c21bb23f2897bcb409c08e353a10a5f">3,393</a></td>
+<td><a href="https://onlinelibrary.wiley.com/doi/abs/10.1107/S0021889813003531">530</a><br>
+<span class="m">count on the Wiley page in an old snapshot</span></td>
+<td>GSAS-II README: <a href="https://github.com/AdvancedPhotonSource/GSAS-II">&gt;950 per year</a> <span class="m">(the developers' own statement)</span></td>
+</tr>
+<tr class="odd">
+<td>Toby (2001), J. Appl. Cryst. 34, 210–213 (EXPGUI, the GUI of the original GSAS)<br>
+<span class="m">doi:<a href="https://doi.org/10.1107/S0021889801002242">10.1107/S0021889801002242</a></span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.semanticscholar.org/paper/4ab871860b1d0dea1d2bf7bcd8b1bc1c53120400">7,720</a></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td>Larson &amp; Von Dreele, GSAS manual, Los Alamos report LAUR 86-748</td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+<tr class="odd">
+<td><strong>TOPAS</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td>Coelho (2018), J. Appl. Cryst. 51, 210–218<br>
+<span class="m">doi:<a href="https://doi.org/10.1107/S1600576718000183">10.1107/S1600576718000183</a></span></td>
+<td><a href="https://scholar.google.com/scholar_lookup?title=TOPAS+and+TOPAS-Academic&amp;author=A.+A.+Coelho&amp;publication_year=2018&amp;doi=10.1107/S1600576718000183">2,263</a><br>
+<span class="m">given as 'about'</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.semanticscholar.org/paper/f24ca222ed1a87ff7892d5bf969643eb240e86b3">1,209</a></td>
+<td><a href="https://onlinelibrary.wiley.com/doi/abs/10.1107/s1600576718000183">248</a><br>
+<span class="m">count on the Wiley page in an old snapshot</span></td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td rowspan="2"><strong>Jana2020</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td>Petříček, Dušek &amp; Palatinus (2014), Z. Kristallogr. 229, 345–352 (Jana2006)<br>
+<span class="m">doi:<a href="https://doi.org/10.1515/zkri-2014-1737">10.1515/zkri-2014-1737</a></span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.semanticscholar.org/paper/8f36737ef96200d4ee1028b601dbfd688a9d226d">4,071</a></td>
+<td><span class="m">not checked</span></td>
+<td>CiNii: <a href="https://cir.nii.ac.jp/crid/1360292621230347008">248</a><br>
+Jana2020 paper: <a href="https://www.degruyterbrill.com/document/doi/10.1515/zkri-2023-0005/html">~500 per year</a> <span class="m">(the developers' own statement about the Jana2006 reference)</span></td>
+</tr>
+<tr class="odd">
+<td>Petříček, Palatinus, Plášil &amp; Dušek (2023), Z. Kristallogr. 238, 271–282 (Jana2020)<br>
+<span class="m">doi:<a href="https://doi.org/10.1515/zkri-2023-0005">10.1515/zkri-2023-0005</a></span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.semanticscholar.org/paper/1e5209a11a72916cbd8a60d1e2c6d65eda2795a5">93</a></td>
+<td><span class="m">not checked</span></td>
+<td>OUCI: <a href="https://ouci.dntb.gov.ua/en/works/4kYG8LN9/">358</a></td>
+</tr>
+<tr class="even">
+<td><strong>MAUD</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td>Lutterotti, Matthies &amp; Wenk (1999), IUCr CPD Newsletter 21, 14–15 (MAUD)</td>
+<td><a href="https://scholar.google.com/citations?user=z_tuZe0AAAAJ&amp;hl=en">1,336</a><br>
+<span class="m">author profile; a separate 1999 conference version of the MAUD paper is listed at 497</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.semanticscholar.org/paper/dfa20de1ce947fa432915ee9fcc9113b3736b59d">549</a></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+<tr class="odd">
+<td><strong>HighScore Plus</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td>Degen, Sadki, Bron, König &amp; Nénert (2014), Powder Diffr. 29 (S2), S13–S18<br>
+<span class="m">doi:<a href="https://doi.org/10.1017/S0885715614000840">10.1017/S0885715614000840</a></span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td rowspan="2"><strong>Profex / BGMN</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td>Doebelin &amp; Kleeberg (2015), J. Appl. Cryst. 48, 1573–1580 (Profex)<br>
+<span class="m">doi:<a href="https://doi.org/10.1107/S1600576715014685">10.1107/S1600576715014685</a></span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://onlinelibrary.wiley.com/doi/abs/10.1107/S1600576715014685">94</a><br>
+<span class="m">count on the Wiley page in an old snapshot</span></td>
+<td>–</td>
+</tr>
+<tr class="odd">
+<td>Bergmann, Friedel &amp; Kleeberg (1998), IUCr CPD Newsletter 20, 5–8 (BGMN)</td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td><strong>RIETAN-FP</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td>Izumi &amp; Momma (2007), Solid State Phenom. 130, 15–20<br>
+<span class="m">doi:<a href="https://doi.org/10.4028/www.scientific.net/SSP.130.15">10.4028/www.scientific.net/SSP.130.15</a></span></td>
+<td><a href="https://scholar.google.com/citations?user=1qWXDZUAAAAJ&amp;hl=en">3,149</a><br>
+<span class="m">the same paper also introduces VESTA, so the count mixes RIETAN-FP and VESTA users</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+<tr class="odd">
+<td><strong>SmartLab Studio II (PDXL)</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td>Rigaku Journal 26(1), 23–27 (2010), 'Integrated X-ray powder diffraction software PDXL' (vendor journal, not peer reviewed)</td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td><span class="m">not checked</span></td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="table-note">Each number links to the page it was read from. The numbers were read from web-search results quoting those pages (2026-10-08); the pages could not be opened from the session, and the date of each snapshot is unknown. Counts from different databases are not comparable with each other.</p>
+<h3 class="anchored">Facilities, vendors and the choice</h3>
+<div class="table-wrap">
+<table class="evidence-use caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Program</th>
+<th data-quarto-table-cell-role="th">Facilities</th>
+<th data-quarto-table-cell-role="th">Instrument vendor</th>
+<th data-quarto-table-cell-role="th">Choice and reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>FullProf Suite</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td><strong>ILL</strong>: <a href="https://workshops.ill.fr/event/162/attachments/18/98/FPS_oct2019_WinPLOTR_TR.pdf">developed there; FullProf School 2019 teaching material (WinPLOTR) on the ILL workshop server; a D2B resolution file is in the FullProf repository</a><br>
+<strong>PSI (SINQ, DMC and HRPT)</strong>: <a href="https://psi.ch/sinq/dmc/ManualsEN/fullprof.pdf">a FullProf manual is hosted on the DMC instrument pages, and the DMC poster names FullProf for data analysis</a><br>
+<strong>ALBA (BL04 MSPD)</strong>: <a href="https://www.cells.es/en/instruments/beamlines/bl04-mspd/software-manuals">the beamline's software page gives FullProf and GSAS instrument-parameter files</a></td>
+<td>none: free academic program</td>
+<td>The most cited reference paper on the list: 20,552 on Google Scholar and 11,926 on Web of Science, the only such figures above 10,000 (Semantic Scholar, at 2,486, looks under-indexed for it). The standard program at the neutron sources checked (ILL, PSI) and supported at ALBA. Named in the brief.</td>
+</tr>
+<tr class="even">
+<td><strong>GSAS-II</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td><strong>APS (11-BM)</strong>: <a href="https://wiki-ext.aps.anl.gov/ug11bm/index.php?title=Main_Page">developed at the APS; the 11-BM user wiki lists EXPGUI-GSAS, GSAS-II and CMPR for data analysis, and the mail-in data come as GSAS .fxye files</a><br>
+<strong>Diamond (I11)</strong>: <a href="https://www.diamond.ac.uk/Instruments/Crystallography/I11/Software-FAQs.html">the beamline FAQ supplies an I11 instrument-parameter file for GSAS/EXPGUI (TOPAS is the main one supported)</a><br>
+<strong>ALBA (BL04 MSPD)</strong>: <a href="https://www.cells.es/en/instruments/beamlines/bl04-mspd/software-manuals">GSAS instrument-parameter files on the software page</a></td>
+<td>none: open source, Argonne</td>
+<td>Second family by citations (GSAS-II and EXPGUI/GSAS together, above 11,000 on Semantic Scholar), the program of the APS powder beamline and supported at Diamond and ALBA. Named in the brief. The original GSAS is studied through its successor.</td>
+</tr>
+<tr class="odd">
+<td><strong>TOPAS</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td><strong>Diamond (I11)</strong>: <a href="https://www.diamond.ac.uk/Instruments/Crystallography/I11/Software-FAQs/Topas-FP.html">the beamline says TOPAS is the program it mainly supports, with TOPAS input files for LaB6 and Si and a fundamental-parameters page</a><br>
+<strong>ISIS (Polaris)</strong>: <a href="https://arxiv.org/pdf/2509.10101">a user paper fits all five Polaris banks with TOPAS after Mantid reduction (a user's choice, not a facility statement)</a></td>
+<td><a href="https://xraysrv.wustl.edu/web/xrd/bruker/man/TOPAS%205%20Users%20Manual.pdf">Bruker: TOPAS ships in DIFFRAC.SUITE with the D8 diffractometers (Bruker press release for the D8 ENDEAVOR; TOPAS 5 user manual under the DIFFRAC.SUITE banner)</a></td>
+<td>The one program that is supported at a synchrotron (Diamond I11) and also ships with laboratory instruments (Bruker). Its 2018 reference paper is young and still has more than 2,000 citations on Google Scholar. It is also the commercial program that the brief asks for ("the commercial ones").</td>
+</tr>
+<tr class="even">
+<td><strong>Jana2020</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td><strong>APS (11-BM)</strong>: <a href="https://11bm.xray.aps.anl.gov/users/filetypes">the data-format page says recent Jana2006 versions read the 11-BM .fxye files (support for the format, not a recommendation)</a></td>
+<td>none: free academic program</td>
+<td>Second-highest single paper on Semantic Scholar (4,071 for Jana2006, after EXPGUI). Caveat: Jana is used for single crystals as much as for powders, and the counts do not separate the two, so its powder share is not checked. Kept because it is the only program on the list built around superspace (modulated, composite and magnetic) refinement of powders, which the brief's "most ambitious feature set" (R06) needs in the matrix.</td>
+</tr>
+<tr class="odd">
+<td><strong>MAUD</strong><br>
+<span class="status status-shortlisted">shortlisted</span></td>
+<td><span class="m">not checked</span></td>
+<td>none: free academic program</td>
+<td>Fifth place, and the closest call. Its reference papers count only for MAUD (1,336 + 497 on Google Scholar), unlike RIETAN-FP's, and it is the only program on the list built around combined texture, residual-stress and microstructure refinement. Facility use not checked.</td>
+</tr>
+<tr class="even">
+<td><strong>HighScore Plus</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://www.malvernpanalytical.com/en/products/category/software/x-ray-diffraction-software/highscore-with-plus-option">Malvern Panalytical: HighScore with the Plus option is its X-ray diffraction software, and the product page asks users to cite the 2014 paper</a></td>
+<td>Shipped by a major instrument maker, but no citation count of its reference paper could be checked from any database, and no facility names it. The laboratory-vendor side is already in the five through TOPAS (Bruker). First to add back if a measured count puts it above Jana or MAUD.</td>
+</tr>
+<tr class="odd">
+<td><strong>Profex / BGMN</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td><span class="m">not checked</span></td>
+<td>none: free</td>
+<td>Lowest count found (94, Crossref, old snapshot); no other database checked, and no facility or vendor found. Laboratory X-rays only.</td>
+</tr>
+<tr class="even">
+<td><strong>RIETAN-FP</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td><span class="m">not checked</span></td>
+<td>none: free</td>
+<td>The Google Scholar count (3,149) is higher than MAUD's, but the paper is also the first paper on VESTA, the very widely used visualiser, so RIETAN-FP's own share cannot be separated. No facility or vendor found. Nearest excluded program: to revisit if a RIETAN-only measure is found.</td>
+</tr>
+<tr class="odd">
+<td><strong>SmartLab Studio II (PDXL)</strong><br>
+<span class="status status-excluded">excluded</span></td>
+<td><span class="m">not checked</span></td>
+<td><a href="https://rigaku.com/products/x-ray-diffraction-and-scattering/xrd/accessories/powder-xrd-plugin">Rigaku: the Powder XRD plugin of SmartLab Studio II, with Rietveld analysis as an optional package</a></td>
+<td>Shipped by Rigaku, but there is no peer-reviewed reference paper and no citation count; no facility names it. Laboratory X-rays only, and Rietveld is an optional add-on.</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 class="anchored">What is recorded for each program</h2>
 <p>The same template for all five, so that they can be put side by side in one feature matrix:</p>
 <ul class="k-list">
