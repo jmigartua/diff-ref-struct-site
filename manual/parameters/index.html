@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Parameters: the theory · diff-ref-struct – diff-ref-struct · Rietveld refinement for the Mac</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<!-- Site header, family kit. Root-absolute hrefs are rewritten by Quarto to
+     page-relative links at render time. -->
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">diff <span class="accent">ref</span> struct
+      <span class="wordmark-sub">Rietveld refinement for the Mac · powder diffraction with X-rays, synchrotron and neutrons · started October 2026</span>
+    </a>
+    <!-- The entries are the groups of data/nav.yml, in the same order; the two navigations say the same thing. -->
+    <nav class="site-nav">
+      <a href="../../index.html">Overview</a>
+      <a href="../../brief/index.html">Brief</a>
+      <a href="../../background/index.html">Background</a>
+      <span class="nav-pair"><a href="../../design/index.html">Design</a><span class="sl">/</span><a href="../../roadmap/index.html">Roadmap</a></span>
+      <a href="../../manual/index.html">Manual</a>
+      <span class="nav-right">
+        <span class="nav-pair"><a href="../../about/index.html">Method</a><span class="sl">/</span><a href="../../log/index.html">Log</a></span>
+        <a href="../../releases/index.html">Release notes</a>
+      </span>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/build.py: left navigation + opening of the reading column -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../../index.html">Overview</a></li></ul></details>
+<details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../../brief/index.html">The brief, organised</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../../background/index.html">The programs that inspire</a></li><li><a href="../../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../../background/gsas2/index.html">GSAS-II</a></li></ul></details>
+<details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../../design/index.html">Design: open questions</a></li><li><a href="../../design/proposal/index.html">Proposal (draft)</a></li><li><a href="../../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../../manual/index.html">About the manual</a></li><li><a href="../../manual/parameters/index.html">Parameters: the theory</a></li></ul></details>
+<details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../../about/index.html">How this site works</a></li><li><a href="../../log/index.html">The log, every dated step</a></li></ul></details>
+<details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../../releases/index.html">Release notes</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Parameters: the theory</h1>
+
+</header>
+
+
+<article class="page-wide">
+<h1>Parameters: the theory</h1>
+<p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
+<p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
+<p class="sub">45 entries, 39 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, and when to refine it (after FullProf's manual, p. 14). Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<h2 id="radiation" class="anchored">Radiation and instrument</h2>
+<section class="param" id="wavelength_1"><h3 class="anchored"><code>wavelength_1</code> <span class="math inline">\(\lambda_1\)</span> <span class="m">Å · refinable</span></h3><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Lambda1, line 8 (manual p. 75); also the WAVE line of a parametric resolution file, which replaces it (L042)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Lam1 (Lam for one line; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L666">GSASIIobj.py L666</a>, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/defaultIparms.py#L35">defaultIparms.py L35</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>X-rays 0.963–1.5406 (median 1.54056, Cu Kα1); neutrons 1.227–2.524 (median 1.87)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read from the .pcr</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Not for laboratory data (known); for synchrotron and neutron data with a standard, together with the zero.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.lambda</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="wavelength_2"><h3 class="anchored"><code>wavelength_2</code> <span class="math inline">\(\lambda_2\)</span> <span class="m">Å · refinable</span></h3><p>The wavelength of the second line of a doublet (Kα2); equal to λ1 for one line.</p><p class="eq"><span class="math inline">\(\lambda_2 = 2 d_{hkl} \sin\theta_{hkl,2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Lambda2, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Lam2 (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/defaultIparms.py#L35">defaultIparms.py L35</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>1.5443–1.5444 in the 29 files with a doublet</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>λ1 (no second line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never: fixed by the anode.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.lambda</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="wavelength_ratio"><h3 class="anchored"><code>wavelength_ratio</code> <span class="math inline">\(R_{21}\)</span> <span class="m">1 · refinable</span></h3><p>The intensity of the λ2 line relative to λ1; each reflection is added a second time at λ2 with this weight.</p><p class="eq"><span class="math inline">\(y_i \mathrel{+}= R_{21}\, I_h\, \Omega(2\theta_i - 2\theta_{h,2})\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Ratio, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>I(L2)/I(L1) (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L667">GSASIIobj.py L667</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.43–0.50 (Cu Kα2/Kα1 about 0.5); negative values select separate widths for λ2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0 (one line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely; fixed at the anode's value.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.ratio</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="monochromator_polarisation"><h3 class="anchored"><code>monochromator_polarisation</code> <span class="math inline">\(C_{\mathrm{thm}} = \cos^2 2\theta_M\)</span> <span class="m">1 · refinable</span></h3><p>The polarisation by a monochromator at Bragg angle <span class="math inline">\(\theta\)</span>_M, in the X-ray Lorentz–polarisation factor.</p><p class="eq"><span class="math inline">\(L_p = \frac{1 - K + K\, C_{\mathrm{thm}} \cos^2 2\theta}{2 \sin^2\theta \cos\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 53. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">FullProf computes twice eq. 3.26 for X-rays with K = ½ (L033); the core's default is eq. 3.26, <code>Convention::FullProf</code> FullProf's (L046).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Cthm, line 8 (p. 75); also the CTHM line of a parametric resolution file (L042)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Polariz. (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L668">GSASIIobj.py L668</a>): a polarisation fraction in another formula (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L224-L241">GSASIIpwd.py L224–241</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.79–0.98 in the X-ray files (median 0.80: graphite, Cu Kα); 0 without monochromator</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never: fixed by the monochromator.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.cthm</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="polarisation_fraction"><h3 class="anchored"><code>polarisation_fraction</code> <span class="math inline">\(K\)</span> <span class="m">1 · refinable</span></h3><p>The polarised fraction of a synchrotron beam (Ilo = 3), or the perfect-crystal fraction in flat-plate transmission (Ilo = 2).</p><p class="eq"><span class="math inline">\(L_p = \frac{1 - K + K\, C_{\mathrm{thm}} \cos^2 2\theta}{2 \sin^2\theta \cos\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 53. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Rpolarz, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Polariz. (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L668">GSASIIobj.py L668</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.03–0.5 in the 8 files that set it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0; ½ is implied for characteristic X-rays</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely; synchrotron data with a known polarisation.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.rpolarz</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="instrument_resolution"><h3 class="anchored"><code>instrument_resolution</code> <span class="math inline">\(U_i, V_i, W_i, X_i, Y_i, Z_i\)</span> <span class="m">deg<span class="math inline">\(^{2}\)</span> (U, V, W), deg (X, Y, Z) · read, not refined</span></h3><p>The instrument's Gaussian and Lorentzian widths, from a resolution file; added to the sample's.</p><p class="eq"><span class="math inline">\(H_{G,i}^2 = (U_i \tan\theta + V_i)\tan\theta + W_i,\quad H_{L,i} = X_i \tan\theta + \frac{Y_i}{\cos\theta} + Z_i\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 70. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Res and the file named on line 6 (p. 70); Res = 1–3 three functional forms, Res = 4 a table of 2<span class="math inline">\(\theta\)</span>, H_G, H_L</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>U, V, W, X, Y, Z of the instrument parameters (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L670-L671">GSASIIobj.py L670–671</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>the files of the runs: LaB6a.irf (Res = 1), Lab6_D500_Rennes.IRF (Res = 4)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none (no resolution file)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never in the sample's refinement: measured on a standard.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.instrumental</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="position" class="anchored">Peak positions</h2>
+<section class="param" id="zero_shift"><h3 class="anchored"><code>zero_shift</code> <span class="math inline">\(2\theta_0\)</span> <span class="m">deg 2<span class="math inline">\(\theta\)</span> · refinable</span></h3><p>The offset of the detector's angle reading, added to every peak position.</p><p class="eq"><span class="math inline">\(2\theta_h = 2\arcsin\frac{\lambda}{2 d_h} + 2\theta_0 + S_c \cos\theta + S_s \sin 2\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Zero, line 14 (p. 82)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Zero (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L672">GSASIIobj.py L672</a>; position <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIstrMath.py#L3561-L3567">GSASIIstrMath.py L3561–3567</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.247 to 0.403 (median 0.047)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early, with the scale, the first background term and the cell (manual p. 14, step 2).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.zero</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="sample_displacement"><h3 class="anchored"><code>sample_displacement</code> <span class="math inline">\(S_c = -2s/R\)</span> <span class="m">deg 2<span class="math inline">\(\theta\)</span> · refinable</span></h3><p>The shift from a sample surface displaced by s from the goniometer axis (Bragg–Brentano), radius R.</p><p class="eq"><span class="math inline">\(\Delta 2\theta = -\frac{2s}{R}\cos\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 56. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Sycos, line 14 (p. 82; meaning p. 56)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Shift, in μm with the goniometer radius (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L673">GSASIIobj.py L673</a>; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIstrMath.py#L3562-L3564">GSASIIstrMath.py L3562–3564</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.079 to 0.145 in the 8 files that set it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Late, with the transparency (p. 14, step 9); strongly correlated with the zero.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.sycos</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="sample_transparency"><h3 class="anchored"><code>sample_transparency</code> <span class="math inline">\(S_s = 1/(2\mu R)\)</span> <span class="m">deg 2<span class="math inline">\(\theta\)</span> · refinable</span></h3><p>The shift from the beam's penetration into a thick absorbing sample of linear absorption μ (Bragg–Brentano).</p><p class="eq"><span class="math inline">\(\Delta 2\theta = \frac{1}{2\mu R}\sin 2\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 56. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Sysin, line 14 (p. 82; meaning p. 56)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Transparency, as 1/μ_eff in cm (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L676">GSASIIobj.py L676</a>; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIstrMath.py#L3564">GSASIIstrMath.py L3564</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.161 to 0.131 in the 5 files that set it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Late (p. 14, step 9).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.sysin</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="width" class="anchored">Peak widths and shape</h2>
+<section class="param" id="caglioti_u"><h3 class="anchored"><code>caglioti_u</code> <span class="math inline">\(U\)</span> <span class="m">deg<span class="math inline">\(^{2}\)</span> · refinable</span></h3><p>The tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> term of the squared Gaussian width; with a resolution file, the sample's Gaussian strain.</p><p class="eq"><span class="math inline">\(H_G^2 = (U \tan\theta + V)\tan\theta + W + \frac{I_G}{\cos^2\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45 · FullProf_Manual.pdf, p. 49 · Microstructural_effects.pdf, p. 4. Paper: G. Caglioti, A. Paoletti &amp; F. P. Ricci (1958). Choice of collimators for a crystal spectrometer for neutron diffraction. Nucl. Instrum. 3, 223–228</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>U, line 27 of the phase (p. 108)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>U, a Gaussian variance <span class="math inline">\(\sigma\)</span>² in centideg<span class="math inline">\(^{2}\)</span>, not H<span class="math inline">\(^{2}\)</span> (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L670">GSASIIobj.py L670</a>; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L926">GSASIIpwd.py L926</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.091 to 1.82 (median 0.163)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (p. 14, step 4); with a resolution file, as the strain (step 10).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.u</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="caglioti_v"><h3 class="anchored"><code>caglioti_v</code> <span class="math inline">\(V\)</span> <span class="m">deg<span class="math inline">\(^{2}\)</span> · refinable</span></h3><p>The tanθ term of the squared Gaussian width.</p><p class="eq"><span class="math inline">\(H_G^2 = (U \tan\theta + V)\tan\theta + W + \frac{I_G}{\cos^2\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45 · FullProf_Manual.pdf, p. 49. Paper: G. Caglioti, A. Paoletti &amp; F. P. Ricci (1958). Choice of collimators for a crystal spectrometer for neutron diffraction. Nucl. Instrum. 3, 223–228</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>V, line 27 of the phase (p. 108)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>V (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L670">GSASIIobj.py L670</a>; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L926">GSASIIpwd.py L926</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−1.49 to 0.009 (median −0.354)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (p. 14, step 4); fixed at 0 with a resolution file (manual p. 21).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.v</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="caglioti_w"><h3 class="anchored"><code>caglioti_w</code> <span class="math inline">\(W\)</span> <span class="m">deg<span class="math inline">\(^{2}\)</span> · refinable</span></h3><p>The constant term of the squared Gaussian width.</p><p class="eq"><span class="math inline">\(H_G^2 = (U \tan\theta + V)\tan\theta + W + \frac{I_G}{\cos^2\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45 · FullProf_Manual.pdf, p. 49. Paper: G. Caglioti, A. Paoletti &amp; F. P. Ricci (1958). Choice of collimators for a crystal spectrometer for neutron diffraction. Nucl. Instrum. 3, 223–228</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>W, line 27 of the phase (p. 108)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>W (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L670">GSASIIobj.py L670</a>; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L926">GSASIIpwd.py L926</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 to 0.494 (median 0.274)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>First of the widths (p. 14, step 4); fixed at 0 with a resolution file (p. 21).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.w</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="gaussian_size"><h3 class="anchored"><code>gaussian_size</code> <span class="math inline">\(I_G\)</span> <span class="m">deg<span class="math inline">\(^{2}\)</span> · refinable</span></h3><p>The Gaussian size broadening of the phase, the 1/cos<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> term of the squared Gaussian width.</p><p class="eq"><span class="math inline">\(H_{G,\mathrm{size}} = \frac{\sqrt{I_G}}{\cos\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 49 · Microstructural_effects.pdf, p. 4. Paper: J. Rodríguez-Carvajal. Study of micro-structural effects by powder diffraction using the program FullProf. Laboratoire Léon Brillouin (manuals/fullprof/docs/Microstructural_effects.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>GausSiz (IG), line 27 of the phase (p. 108)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Size;mx (the Gauss–Lorentz mixing of the size term), the size itself in μm (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L651">GSASIIobj.py L651</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.018–0.172 in the 14 phases that set it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the microstructure (p. 14, step 10), over a resolution file.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.gauss_size</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="lorentzian_strain"><h3 class="anchored"><code>lorentzian_strain</code> <span class="math inline">\(X\)</span> <span class="m">deg · refinable</span></h3><p>The tanθ term of the Lorentzian width of the TCH profile: the phase's Lorentzian strain.</p><p class="eq"><span class="math inline">\(H_L = X \tan\theta + \frac{Y}{\cos\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 49 · Microstructural_effects.pdf, p. 4. Paper: P. Thompson, D. E. Cox &amp; J. B. Hastings (1987). Rietveld refinement of Debye–Scherrer synchrotron X-ray data from Al2O3. J. Appl. Cryst. 20, 79–83. doi:10.1107/S0021889887087090</p><p class="m">FullProf counts its peak window without X tanθ (L035) and takes one more low point when X ≠ 0 (L042): <code>Convention::FullProf</code> only (L046).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>X, line 27 of the phase (p. 108), Npr = 7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Y of the instrument (GSAS-II's tanθ term is Y, its 1/cosθ term X: <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L929">GSASIIpwd.py L929</a>); for the sample, Mustrain;i in units of <span class="math inline">\(10^{-6}\)</span> (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L650">GSASIIobj.py L650</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.008 to 0.82 (median 0.119)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (step 4), as strain over a resolution file (step 10).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.x</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="lorentzian_size"><h3 class="anchored"><code>lorentzian_size</code> <span class="math inline">\(Y\)</span> <span class="m">deg · refinable</span></h3><p>The 1/cosθ term of the Lorentzian width of the TCH profile: the phase's Lorentzian (Scherrer) size.</p><p class="eq"><span class="math inline">\(H_L = X \tan\theta + \frac{Y}{\cos\theta},\qquad D = \frac{\lambda}{\beta^{*}\cos\theta}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 49 · Microstructural_effects.pdf, p. 4. Paper: P. Thompson, D. E. Cox &amp; J. B. Hastings (1987). Rietveld refinement of Debye–Scherrer synchrotron X-ray data from Al2O3. J. Appl. Cryst. 20, 79–83. doi:10.1107/S0021889887087090</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Y, line 27 of the phase (p. 108), Npr = 7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>X of the instrument (its 1/cosθ term: <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L929">GSASIIpwd.py L929</a>); for the sample, Size;i in μm (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L651">GSASIIobj.py L651</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.005–0.348 (median 0.030)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (step 4), as size over a resolution file (step 10).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.y</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="pv_eta0"><h3 class="anchored"><code>pv_eta0</code> <span class="math inline">\(\eta_0\)</span> <span class="m">1 · refinable</span></h3><p>The Lorentzian fraction of the pseudo-Voigt profile (Npr = 5) at 2<span class="math inline">\(\theta\)</span> = 0.</p><p class="eq"><span class="math inline">\(\Omega = \eta L + (1-\eta) G,\quad \eta = \eta_0 + X\, 2\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 44 · FullProf_Manual.pdf, p. 45. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Shape1, line 26 of the phase (p. 108), Npr = 5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II mixes by the TCH widths (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L967">GSASIIpwd.py L967</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.014 to 0.78 (median 0.147) in 47 phases</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (step 4).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.eta0</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="pv_eta_slope"><h3 class="anchored"><code>pv_eta_slope</code> <span class="math inline">\(X_\eta\)</span> <span class="m">1/deg · refinable</span></h3><p>The linear change of the pseudo-Voigt mixing η with 2<span class="math inline">\(\theta\)</span> (Npr = 5); the same .pcr field as the TCH's X.</p><p class="eq"><span class="math inline">\(\eta = \eta_0 + X_\eta\, 2\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>X, line 27 of the phase (p. 108), Npr = 5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>as X above (the field is shared)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (step 4), after η0.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.x</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="asymmetry" class="anchored">Peak asymmetry</h2>
+<section class="param" id="berar_baldinozzi"><h3 class="anchored"><code>berar_baldinozzi</code> <span class="math inline">\(P_1, P_2, P_3, P_4\)</span> <span class="m">1 · refinable</span></h3><p>The four coefficients of the empirical asymmetry multiplier, below AsyLim.</p><p class="eq"><span class="math inline">\(A(z) = 1 + \frac{P_1 F_a(z) + P_2 F_b(z)}{\tan\theta_h} + \frac{P_3 F_a(z) + P_4 F_b(z)}{\tan 2\theta_h},\ F_a = 2z e^{-z^2},\ F_b = 2(2z^2-3) F_a\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 54. Paper: J.-F. Bérar &amp; G. Baldinozzi (1993). Modeling of line-shape asymmetry in powder diffraction. J. Appl. Cryst. 26, 128–129</p><p class="m">FullProf computes −z and F_b = (4z<span class="math inline">\(^{2}\)</span> − 3)F_a (L035); the core's default is eq. 3.29 as printed, <code>Convention::FullProf</code> FullProf's. The paper's own form is not checked (L046).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Asy1–Asy4 (PA1–PA4), line 30 of the phase (p. 109)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II uses FCJ only</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>P1 −0.383 to 0.294 (63 phases), P2 0.015–0.104 (42), P3 −0.153 to 1.258 (4), P4 never set</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (p. 14, step 4), starting near 0.01 (p. 54).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.asym</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="axial_divergence_s_l"><h3 class="anchored"><code>axial_divergence_s_l</code> <span class="math inline">\(S/L\)</span> <span class="m">1 · refinable</span></h3><p>Source (or sample) height over the goniometer radius, in the Finger–Cox–Jephcoat axial-divergence profile (the equation is schematic; the core ports CrysFML's Prof_Val, L033).</p><p class="eq"><span class="math inline">\(\Omega_{\mathrm{FCJ}}(2\theta) = \int W(2\phi; 2\theta_h, S/L, D/L)\, \Omega(2\theta - 2\phi)\, d2\phi\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 112. Paper: L. W. Finger, D. E. Cox &amp; A. P. Jephcoat (1994). A correction for powder diffraction peak asymmetry due to axial divergence. J. Appl. Cryst. 27, 892–900</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>S_L, line 30 of the phase (p. 109), Npr = 7; the ASYM line of a parametric resolution file adds to it (L042)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>SH/L, S/L and H/L taken equal (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L669">GSASIIobj.py L669</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.030–0.140 (median 0.064) in 28 phases</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the peak shape (step 4); often fixed from the instrument.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.s_l</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="axial_divergence_d_l"><h3 class="anchored"><code>axial_divergence_d_l</code> <span class="math inline">\(D/L\)</span> <span class="m">1 · refinable</span></h3><p>Detector height over the goniometer radius, in the Finger–Cox–Jephcoat profile.</p><p class="eq"><span class="math inline">\(\Omega_{\mathrm{FCJ}}(2\theta) = \int W(2\phi; 2\theta_h, S/L, D/L)\, \Omega(2\theta - 2\phi)\, d2\phi\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 69 · FullProf_Manual.pdf, p. 112. Paper: L. W. Finger, D. E. Cox &amp; A. P. Jephcoat (1994). A correction for powder diffraction peak asymmetry due to axial divergence. J. Appl. Cryst. 27, 892–900</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>D_L, line 30 of the phase (p. 109), Npr = 7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>SH/L, taken equal to S/L (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L669">GSASIIobj.py L669</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.020–0.036 in 16 phases</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With S/L; the two are strongly correlated.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.d_l</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="intensity" class="anchored">Intensity corrections</h2>
+<section class="param" id="absorption_mur"><h3 class="anchored"><code>absorption_mur</code> <span class="math inline">\(\mu R\)</span> <span class="m">1 · refinable</span></h3><p>Linear absorption times the radius of a cylindrical sample (or μt of a flat plate in transmission).</p><p class="eq"><span class="math inline">\(T_h = \exp\{-(1.7133 - 0.0368 \sin^2\theta)\mu R + (0.0927 + 0.375 \sin^2\theta)(\mu R)^2\}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 55. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>muR, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Absorption, μR for Debye–Scherrer by another approximation (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L663">GSASIIobj.py L663</a>; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L158-L176">GSASIIpwd.py L158–176</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.35–3.0 in 94 files (median 0.35)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely: calculated from the composition and packing; strongly correlated with the displacement parameters.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.mur</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="po_g1"><h3 class="anchored"><code>po_g1</code> <span class="math inline">\(G_1\)</span> <span class="m">1 · refinable</span></h3><p>The preferred-orientation strength: March's ratio r (Nor = 1, 1 = none) or the exponential coefficient (Nor = 0, 0 = none).</p><p class="eq"><span class="math inline">\(P_h = G_2 + (1 - G_2)\left[(G_1\cos\alpha_h)^2 + \frac{\sin^2\alpha_h}{G_1}\right]^{-3/2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 54 · FullProf_Manual.pdf, p. 55. Paper: W. A. Dollase (1986). Correction of intensities for preferred orientation in powder diffractometry: application of the March model. J. Appl. Cryst. 19, 267–272</p><p class="m">P_h is averaged over the reflections equivalent to h, as FullProf (L042) and GSAS-II (G:GSASII/GSASIIstrMath.py#L3066-L3078) both do.</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Pref1, line 30 of the phase (p. 109; meaning p. 112)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>MD, the March–Dollase ratio (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L649">GSASIIobj.py L649</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>1 (none) in all but 3 phases; up to 1.58</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>1 with Nor = 1, 0 with Nor = 0 (none)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>When the intensities of one zone are systematically off; late.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.pref</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="po_g2"><h3 class="anchored"><code>po_g2</code> <span class="math inline">\(G_2\)</span> <span class="m">1 · refinable</span></h3><p>The fraction of the sample without preferred orientation.</p><p class="eq"><span class="math inline">\(P_h = G_2 + (1 - G_2)\left[(G_1\cos\alpha_h)^2 + \frac{\sin^2\alpha_h}{G_1}\right]^{-3/2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 55. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Pref2, line 30 of the phase (p. 109)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 in every file</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely, after G1.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.pref</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="po_direction"><h3 class="anchored"><code>po_direction</code> <span class="math inline">\(\mathbf{h}_{\mathrm{PO}}\)</span> <span class="m">reciprocal-lattice components · read, not refined</span></h3><p>The preferred-orientation axis; α_h is the angle between it and the scattering vector.</p><p class="eq"><span class="math inline">\(\cos\alpha_h = \frac{\mathbf{h}^{T} G^{*} \mathbf{h}_{\mathrm{PO}}}{|\mathbf{h}|\,|\mathbf{h}_{\mathrm{PO}}|}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 54. Paper: W. A. Dollase (1986). Correction of intensities for preferred orientation in powder diffractometry: application of the March model. J. Appl. Cryst. 19, 267–272</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Pr1 Pr2 Pr3, line 19 of the phase (p. 89)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>MDAxis (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIstrMath.py#L3071">GSASIIstrMath.py L3071</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>[0 0 1] by default; [1 1 0] in Yb2ZrWO8-PO-March</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>[0 0 1]</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never: chosen.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.pref_direction</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="background" class="anchored">Background</h2>
+<section class="param" id="background_points"><h3 class="anchored"><code>background_points</code> <span class="math inline">\(b(2\theta_k)\)</span> <span class="m">counts · refinable</span></h3><p>Background heights at chosen angles, interpolated linearly between them.</p><p class="eq"><span class="math inline">\(b_i = b_k + (b_{k+1} - b_k)\frac{2\theta_i - 2\theta_k}{2\theta_{k+1} - 2\theta_k}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45 · FullProf_Manual.pdf, p. 78. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>POS, BCK, line 10 (p. 78), Nba &gt; 2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Back;n with the 'lin interpolate' function (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L639">GSASIIobj.py L639</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>whatever the data give</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>The heights, after the structure (step 7), or kept fixed.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_polynomial"><h3 class="anchored"><code>background_polynomial</code> <span class="math inline">\(B_m\)</span> <span class="m">counts · refinable</span></h3><p>The coefficients of a polynomial background in (2<span class="math inline">\(\theta\)</span>/Bkpos − 1).</p><p class="eq"><span class="math inline">\(b_i = \sum_{m=0}^{11} B_m \left(\frac{2\theta_i}{\mathrm{BKPOS}} - 1\right)^m\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 45–46. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>B0–B11, line 17 (p. 85), Nba = 0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Back;n with 'chebyschev' or other functions (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L639">GSASIIobj.py L639</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>whatever the data give</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>B0 early (step 2), the others late (step 7).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_origin"><h3 class="anchored"><code>background_origin</code> <span class="math inline">\(\mathrm{BKPOS}\)</span> <span class="m">deg 2<span class="math inline">\(\theta\)</span> · read, not refined</span></h3><p>The origin of the polynomial background.</p><p class="eq"><span class="math inline">\(b_i = \sum_{m} B_m \left(\frac{2\theta_i}{\mathrm{BKPOS}} - 1\right)^m\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 46 · FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Bkpos, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>the middle of the pattern, usually</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_chebyshev"><h3 class="anchored"><code>background_chebyshev</code> <span class="math inline">\(c_m\)</span> <span class="m">counts · refinable</span></h3><p>The coefficients of a Chebyshev series over the data range (Nba = −5; not in the 2001 manual, since June 2011).</p><p class="eq"><span class="math inline">\(b_i = \sum_{m=0}^{23} c_m T_m(x_i),\quad x_i = 2\frac{2\theta_i - 2\theta_{\min}}{2\theta_{\max} - 2\theta_{\min}} - 1\)</span></p><p class="cite">Equation as printed in: FullProf_News_2011.htm L129–137 · Cocus-asym.pcr L25–33</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>where the Fourier coefficients go (line 17), Nba = −5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Back;n with 'chebyschev' (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L639">GSASIIobj.py L639</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>whatever the data give</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>c0 early, the others late (step 7).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_fourier"><h3 class="anchored"><code>background_fourier</code> <span class="math inline">\(B_j\)</span> <span class="m">counts · refinable</span></h3><p>The coefficients of a Fourier cosine series in 2<span class="math inline">\(\theta\)</span> (Nba = −4).</p><p class="eq"><span class="math inline">\(b_i = \sum_{j=0}^{11} B_j \cos(j\, 2\theta_i)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 45–46 · Fullprof_News_2001.htm L513–554. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>line 17, Nba = −4 (the News; the 2001 manual gives no Nba value)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Back;n with 'cosine' (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L639">GSASIIobj.py L639</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>whatever the data give</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Late (step 7).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="structure" class="anchored">Phase and structure</h2>
+<section class="param" id="scale_factor"><h3 class="anchored"><code>scale_factor</code> <span class="math inline">\(S_\phi\)</span> <span class="m">arbitrary · refinable</span></h3><p>The factor that brings the phase's calculated intensities to the observed counts.</p><p class="eq"><span class="math inline">\(y_{ci} = \sum_\phi S_\phi \sum_h I_{\phi h}\, \Omega(2\theta_i - 2\theta_{\phi h}) + b_i\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 41. Paper: H. M. Rietveld (1969). A profile refinement method for nuclear and magnetic structures. J. Appl. Cryst. 2, 65–71. doi:10.1107/S0021889869006558</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Scale, line 26 of the phase (p. 108)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Scale, the phase fraction (p:h:Scale) or the histogram scale (:h:Scale) (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L618">GSASIIobj.py L618</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td><span class="math inline">\(10^{-4}\)</span> to 1.3·<span class="math inline">\(10^{4}\)</span> (median 1.47): depends on the counts</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>First (manual p. 14, step 1).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.scale</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="overall_b"><h3 class="anchored"><code>overall_b</code> <span class="math inline">\(B_{\mathrm{ov}}\)</span> <span class="m">Å² · refinable</span></h3><p>An isotropic displacement common to all atoms of the phase, applied to the intensities.</p><p class="eq"><span class="math inline">\(I_h \propto |F_h|^2 \exp(-2 B_{\mathrm{ov}} s^2),\quad s = \frac{\sin\theta}{\lambda}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 58. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Bov, line 26 of the phase (p. 108)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: displacement parameters per atom</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.21 to 3.57 (median 0.12)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early with the positions (step 3), then turned into individual Biso (step 6).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.bov</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="cell_a"><h3 class="anchored"><code>cell_a</code> <span class="math inline">\(a\)</span> <span class="m">Å · refinable</span></h3><p>The length of the first cell edge.</p><p class="eq"><span class="math inline">\(\frac{1}{d_{hkl}^2} = \mathbf{h}^{T} G^{*} \mathbf{h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 107. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>a, line 29 of the phase (p. 107)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>a, derived from the refined reciprocal metric A0–A5 (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L613">GSASIIobj.py L613</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>2.85–40.6 Å over all edges (median 5.76)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early (step 2), constrained by the crystal system.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.cell</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="cell_b"><h3 class="anchored"><code>cell_b</code> <span class="math inline">\(b\)</span> <span class="m">Å · refinable</span></h3><p>The length of the second cell edge.</p><p class="eq"><span class="math inline">\(\frac{1}{d_{hkl}^2} = \mathbf{h}^{T} G^{*} \mathbf{h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 107. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>b, line 29 of the phase (p. 107)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>b (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L613">GSASIIobj.py L613</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>as a</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early (step 2).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.cell</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="cell_c"><h3 class="anchored"><code>cell_c</code> <span class="math inline">\(c\)</span> <span class="m">Å · refinable</span></h3><p>The length of the third cell edge.</p><p class="eq"><span class="math inline">\(\frac{1}{d_{hkl}^2} = \mathbf{h}^{T} G^{*} \mathbf{h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 107. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>c, line 29 of the phase (p. 107)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>c (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L613">GSASIIobj.py L613</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>as a</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early (step 2).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.cell</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="cell_alpha"><h3 class="anchored"><code>cell_alpha</code> <span class="math inline">\(\alpha\)</span> <span class="m">deg · refinable</span></h3><p>The angle between the b and c edges.</p><p class="eq"><span class="math inline">\(\frac{1}{d_{hkl}^2} = \mathbf{h}^{T} G^{*} \mathbf{h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 107. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>alpha, line 29 of the phase (p. 107)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>α (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L614">GSASIIobj.py L614</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>55.3–124.4° over all angles (90° in nine of ten)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early (step 2), when the system allows it.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.cell</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="cell_beta"><h3 class="anchored"><code>cell_beta</code> <span class="math inline">\(\beta\)</span> <span class="m">deg · refinable</span></h3><p>The angle between the a and c edges.</p><p class="eq"><span class="math inline">\(\frac{1}{d_{hkl}^2} = \mathbf{h}^{T} G^{*} \mathbf{h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 107. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>beta, line 29 of the phase (p. 107)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>β (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L615">GSASIIobj.py L615</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>as α</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early (step 2), when the system allows it.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.cell</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="cell_gamma"><h3 class="anchored"><code>cell_gamma</code> <span class="math inline">\(\gamma\)</span> <span class="m">deg · refinable</span></h3><p>The angle between the a and b edges.</p><p class="eq"><span class="math inline">\(\frac{1}{d_{hkl}^2} = \mathbf{h}^{T} G^{*} \mathbf{h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 107. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>gamma, line 29 of the phase (p. 107)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td><span class="math inline">\(\gamma\)</span> (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L616">GSASIIobj.py L616</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>as α</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early (step 2), when the system allows it.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.cell</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="atom_position"><h3 class="anchored"><code>atom_position</code> <span class="math inline">\(x_j, y_j, z_j\)</span> <span class="m">fraction of the cell edge · refinable</span></h3><p>The fractional coordinates of an atom; the structure factor sums over its images by the space group.</p><p class="eq"><span class="math inline">\(F_h = \sum_j f_j\, \mathrm{Occ}_j\, T_j \sum_{s} \exp\{2\pi i\, \mathbf{h}\cdot(R_s \mathbf{x}_j + \mathbf{t}_s)\}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 41 · FullProf_Manual.pdf, p. 100. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>X, Y, Z, line 25-1 (p. 100)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Ax, Ay, Az (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L624">GSASIIobj.py L624</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0–1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>After the scale, cell and zero (step 3), within the site's constraints.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Atom.x</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="atom_biso"><h3 class="anchored"><code>atom_biso</code> <span class="math inline">\(B_j\)</span> <span class="m">Å² · refinable</span></h3><p>The isotropic displacement (Debye–Waller) parameter of an atom; B = 8π²U.</p><p class="eq"><span class="math inline">\(T_j = \exp(-B_j s^2),\quad s = \frac{\sin\theta}{\lambda}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 100. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Biso, line 25-1 (p. 100)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>AUiso, as U in Å² (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L625">GSASIIobj.py L625</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−1.97 to 6.17 (median 0.50)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>After the overall B (step 6).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Atom.biso</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="atom_occupancy"><h3 class="anchored"><code>atom_occupancy</code> <span class="math inline">\(\mathrm{Occ}_j\)</span> <span class="m">1 · refinable</span></h3><p>FullProf's occupancy: the chemical occupancy times the site's multiplicity over the general position's.</p><p class="eq"><span class="math inline">\(\mathrm{Occ}_j = o_j\, \frac{m_j}{M}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 100. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Occ, line 25-1 (p. 100)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Afrac, the chemical occupancy o_j itself (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L627">GSASIIobj.py L627</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.25–1 (median 1); up to 9 in files that scale it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>When required, after the positions (step 5); correlated with B.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Atom.occ</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="atom_betas"><h3 class="anchored"><code>atom_betas</code> <span class="math inline">\(\beta_{11} \dots \beta_{23}\)</span> <span class="m">1 · refinable</span></h3><p>The anisotropic displacement of an atom, as FullProf's betas.</p><p class="eq"><span class="math inline">\(T_j = \exp\{-(\beta_{11}h^2 + \beta_{22}k^2 + \beta_{33}l^2 + 2\beta_{12}hk + 2\beta_{13}hl + 2\beta_{23}kl)\}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 100. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>B11–B23, line 25-3 (p. 100), N_t = 2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>AU11–AU23, as U_ij in Å² (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L626">GSASIIobj.py L626</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>β_ii 0.0015–0.026 in 141 atoms</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none (isotropic)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Last of the structure, if the data allow (step 8).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Atom.beta</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="reflection_intensity"><h3 class="anchored"><code>reflection_intensity</code> <span class="math inline">\(I_h\)</span> <span class="m">counts · refinable</span></h3><p>The integrated intensity of a reflection given directly (profile matching, Jbt = 2), with no structure.</p><p class="eq"><span class="math inline">\(y_{ci} = \sum_h I_h\, \Omega(2\theta_i - 2\theta_h) + b_i\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 15. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>the CODFILn.hkl file of a phase with Jbt = 2, Irf = 2 (p. 15)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the reflection intensities of a Le Bail fit</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>whatever the data give</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Each cycle, from the observed pattern (Le Bail).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.intensities</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="calculation" class="anchored">Calculation controls</h2>
+<section class="param" id="peak_window"><h3 class="anchored"><code>peak_window</code> <span class="math inline">\(W_{dt}\)</span> <span class="m">FWHM · read, not refined</span></h3><p>The half-range over which a peak is calculated, in units of its FWHM; beyond it the profile is zero.</p><p class="eq"><span class="math inline">\(\Omega(x) = 0 \quad\text{for}\quad |x| &gt; W_{dt}\, H\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">FullProf counts the window without X tanθ for TCH and takes one more low point when X ≠ 0 (L035, L042); default ±Wdt·H, <code>Convention::FullProf</code> FullProf's (L046).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Wdt, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II sets the range from the peak's own shape</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>5–55.5 (median 8)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never; 4 for Gaussian peaks, 20–30 for Lorentzian ones (p. 75).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.wdt</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="asymmetry_limit"><h3 class="anchored"><code>asymmetry_limit</code> <span class="math inline">\(2\theta_{\mathrm{asym}}\)</span> <span class="m">deg 2<span class="math inline">\(\theta\)</span> · read, not refined</span></h3><p>The angle below which the asymmetry corrections are applied.</p><p class="eq"><span class="math inline">\(A(z) \text{ and } \Omega_{\mathrm{FCJ}} \text{ for } 2\theta_h &lt; 2\theta_{\mathrm{asym}}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>AsyLim, line 8 (p. 75)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>30–180 (median 170)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.asym_limit</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="excluded_regions"><h3 class="anchored"><code>excluded_regions</code> <span class="math inline">\([2\theta_a, 2\theta_b]\)</span> <span class="m">deg 2<span class="math inline">\(\theta\)</span> · read, not refined</span></h3><p>Ranges of the pattern left out of the calculation and of the agreement factors.</p><p class="eq"><span class="math inline">\(y_{ci} = b_i \quad\text{for}\quad 2\theta_a \le 2\theta_i \le 2\theta_b\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 78. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">FullProf also leaves out a point whose step reaches into a region (L033); <code>Convention::FullProf</code> only (L046).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>ALOW, AHIGH, line 11 (p. 78)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Excluded regions of the histogram's limits</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>as the data need</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.excluded</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="references" class="anchored">References</h2><ul class="k-list"><li id="ref-rietveld1969"><b>H. M. Rietveld (1969). A profile refinement method for nuclear and magnetic structures. J. Appl. Cryst. 2, 65–71. doi:10.1107/S0021889869006558.</b> <span class="m">Checked: <a href="https://zh.mindat.org/reference.php?id=461998">mindat reference record</a>; <a href="https://dictionary.iucr.org/Rietveld_method">IUCr dictionary, Rietveld method</a></span></li><li id="ref-rietveld1967"><b>H. M. Rietveld (1967). Line profiles of neutron powder-diffraction peaks for structure refinement. Acta Cryst. 22, 151–152. doi:10.1107/S0365110X67000234.</b> <span class="m">Checked: <a href="https://en.wikipedia.org/wiki/Hugo_Rietveld">Wikipedia, Hugo Rietveld</a>; <a href="https://dictionary.iucr.org/Rietveld_method">IUCr dictionary</a>; cited by FullProf's manual, p. 5</span></li><li id="ref-caglioti1958"><b>G. Caglioti, A. Paoletti &amp; F. P. Ricci (1958). Choice of collimators for a crystal spectrometer for neutron diffraction. Nucl. Instrum. 3, 223–228.</b> <span class="m">Checked: <a href="https://www.iucr.org/iucr-top/comm/cteach/pamphlets/19/node3.html">IUCr teaching pamphlet 19</a>; <a href="https://ibl.kb.nl/articles/0000000011803/3/4">KB Digitale Bibliotheek</a>; cited in manuals/fullprof/6-Microstructure/Davos_Balzar.pdf</span></li><li id="ref-tch1987"><b>P. Thompson, D. E. Cox &amp; J. B. Hastings (1987). Rietveld refinement of Debye–Scherrer synchrotron X-ray data from Al2O3. J. Appl. Cryst. 20, 79–83. doi:10.1107/S0021889887087090.</b> <span class="m">Checked: pp. 79–83 and doi:10.1107/S0021889887087090 from Crossref's record of the DOI (L047). The pairing with pp. 84–89 came from doi:10.1107/S0021889887087089, a different article on the next pages (directionally diffuse streaks on a four-circle diffractometer).</span></li><li id="ref-fcj1994"><b>L. W. Finger, D. E. Cox &amp; A. P. Jephcoat (1994). A correction for powder diffraction peak asymmetry due to axial divergence. J. Appl. Cryst. 27, 892–900.</b> <span class="m">Checked: <a href="https://www.cambridge.org/core/journals/powder-diffraction/article/abs/an-experimental-investigation-of-the-effects-of-axial-divergence-on-diffraction-line-profiles/AC6F83A60847BA39E4C02707215237DD">Cambridge, Powder Diffraction reference list</a>; cited by FullProf's manual, p. 69</span></li><li id="ref-berar1993"><b>J.-F. Bérar &amp; G. Baldinozzi (1993). Modeling of line-shape asymmetry in powder diffraction. J. Appl. Cryst. 26, 128–129.</b> <span class="m">Checked: <a href="https://resolve-he.cambridge.org/core/journals/powder-diffraction/article/abs/semiempirical-asymmetry-function-for-xray-diffraction-peak-profiles/E02CAAD70DE7DCA56E2BEA4447A63790">Cambridge, Powder Diffraction reference list</a> (gives 26, 128); end page not checked; FullProf's .out prints 'J.Appl.Cryst. 26,128(1993)'</span></li><li id="ref-dollase1986"><b>W. A. Dollase (1986). Correction of intensities for preferred orientation in powder diffractometry: application of the March model. J. Appl. Cryst. 19, 267–272.</b> <span class="m">Checked: pp. 267–272, doi:10.1107/S0021889886089458, from Crossref's record of the DOI (L047), as in manuals/fullprof/5-Quantitative_Phase_Analysis/Quantitative-prefOrient.pdf</span></li><li id="ref-march1932"><b>A. March (1932). Z. Kristallogr. 81, 285–297 (as cited through Dollase 1986).</b> <span class="m">Checked: not found in any record reached; cited here only through Dollase (1986)</span></li><li id="ref-rodriguez1993"><b>J. Rodríguez-Carvajal (1993). Recent advances in magnetic structure determination by neutron powder diffraction. Physica B 192, 55–69.</b> <span class="m">Checked: <a href="https://cristal.org/citing-lbm.html">cristal.org citation record</a>; cited by FullProf's manual, p. 14</span></li><li id="ref-fullprof_manual"><b>J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf).</b> <span class="m">Checked: the copy in the repository</span></li><li id="ref-fullprof_microstructure"><b>J. Rodríguez-Carvajal. Study of micro-structural effects by powder diffraction using the program FullProf. Laboratoire Léon Brillouin (manuals/fullprof/docs/Microstructural_effects.pdf).</b> <span class="m">Checked: the copy in the repository</span></li><li id="ref-gsas2_2013"><b>B. H. Toby &amp; R. B. Von Dreele (2013). GSAS-II: the genesis of a modern open-source all purpose crystallography software package. J. Appl. Cryst. 46, 544–549. doi:10.1107/S0021889813003531.</b> <span class="m">Checked: <a href="https://www.iucr.org/resources/other-directories/software/gsas-ii">IUCr software directory</a>; <a href="https://aps.anl.gov/Science/Scientific-Software/GSASII">APS</a></span></li></ul>
+</article>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">What this is</h4>
+        <p>The working site of one project: to build a Mac app for Rietveld refinement of powder diffraction data, after a study of the programs the community uses for it. It holds the brief, that study, the design, a dated log of every step, the release notes and the manuals of the core and the app.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
+      </div>
+      <div><h4 class="anchored">This site</h4><ul>
+        <li><a href="../../index.html">Overview</a></li><li><a href="../../brief/index.html">Brief</a></li><li><a href="../../background/index.html">Background</a></li><li><a href="../../design/index.html">Design</a></li><li><a href="../../roadmap/index.html">Roadmap</a></li><li><a href="../../log/index.html">Log</a></li><li><a href="../../about/index.html">Method</a></li></ul></div>
+      <div><h4 class="anchored">Sources</h4><ul>
+        <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
+        <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
+        <li><a href="https://advancedphotonsource.github.io/GSAS-II-tutorials/">GSAS-II</a></li>
+        <li><a href="https://it.iucr.org/A/">International Tables, Vol. A</a></li></ul></div>
+      <div><h4 class="anchored">Status</h4><ul>
+        <li>Published at <a href="https://jmigartua.github.io/diff-ref-struct-site/">jmigartua.github.io/diff-ref-struct-site</a>; the sources are private</li>
+        <li>Rebuilt from <code>data/*.yml</code> on every render</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua · work in progress</span>
+      <span>Quarto · family design kit</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
