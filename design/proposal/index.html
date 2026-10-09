@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Proposal (draft) · diff-ref-struct – diff-ref-struct · Rietveld refinement for the Mac</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<!-- Site header, family kit. Root-absolute hrefs are rewritten by Quarto to
+     page-relative links at render time. -->
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">diff <span class="accent">ref</span> struct
+      <span class="wordmark-sub">Rietveld refinement for the Mac · powder diffraction with X-rays, synchrotron and neutrons · started October 2026</span>
+    </a>
+    <!-- The entries are the groups of data/nav.yml, in the same order; the two navigations say the same thing. -->
+    <nav class="site-nav">
+      <a href="../../index.html">Overview</a>
+      <a href="../../brief/index.html">Brief</a>
+      <a href="../../background/index.html">Background</a>
+      <span class="nav-pair"><a href="../../design/index.html">Design</a><span class="sl">/</span><a href="../../roadmap/index.html">Roadmap</a></span>
+      <a href="../../manual/index.html">Manual</a>
+      <span class="nav-right">
+        <span class="nav-pair"><a href="../../about/index.html">Method</a><span class="sl">/</span><a href="../../log/index.html">Log</a></span>
+        <a href="../../releases/index.html">Release notes</a>
+      </span>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/build.py: left navigation + opening of the reading column -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../../index.html">Overview</a></li></ul></details>
+<details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../../brief/index.html">The brief, organised</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../../background/index.html">The programs that inspire</a></li><li><a href="../../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../../background/gsas2/index.html">GSAS-II</a></li></ul></details>
+<details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../../design/index.html">Design: open questions</a></li><li><a href="../../design/proposal/index.html">Proposal (draft)</a></li><li><a href="../../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../../manual/index.html">About the manual</a></li></ul></details>
+<details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../../about/index.html">How this site works</a></li><li><a href="../../log/index.html">The log, every dated step</a></li></ul></details>
+<details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../../releases/index.html">Release notes</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Proposal (draft)</h1>
+
+</header>
+
+
+<article class="page-wide">
+<h1>The proposal <span class="status status-proposed">draft, not decided</span></h1>
+<p class="sub">The app's feature set, and what goes in version 1, version 2 and later. Built from the <a href="../../background/fullprof/index.html">FullProf inventory</a> and the <a href="../../background/gsas2/index.html">GSAS-II gap list</a>. Each feature names its sources: an inventory entry, a gap or a requirement of the <a href="../../brief/index.html">brief</a>. Written for Josu to decide (log <a href="../../log/index.html#L019">L019</a>); a decision entry in the log will say what is adopted. The design questions Q1–Q6 are on the <a href="../index.html">Design</a> page.</p>
+<p class="lede">A draft for Josu to decide, not a decision. Version 1 aims at the refinement a FullProf user does today on constant-wavelength data (laboratory X-rays, synchrotron, reactor neutrons): from the pattern to a published CIF, in one phase or several, with constraints and restraints. It runs inside the Mac app the brief asks for: live plot, interactive background, space groups, control-file builder and editor (R07–R14). Version 2 adds what makes the program complete for facility work: time of flight, joint and sequential refinement, rigid bodies, anisotropic microstructure. Later holds the rest of the FullProf inventory and the L012 list (magnetic, superspace, stacking faults, indexing, structure solution, 2D images, PDF). Where GSAS-II does something better than FullProf (L014), the draft takes the GSAS-II way, and says so.</p>
+<p class="sub">38 features in version 1, 11 features in version 2, 10 features in later.</p>
+<ul class="k-list"><li><strong>Version 1 is done when</strong> the command line and the app reproduce a set of reference refinements from <code>manuals/fullprof/</code> to within their esd's: the Y2O3 laboratory X-ray tutorial, the MgAl2O4 spinel, the Co-doped YBCO neutron tutorial and the quantitative-analysis tutorial. Each one becomes a named test, as difes reproduces FOCUS.</li><li><strong>Every feature has a test and a command-line path</strong> in the core before it has a menu in the app (CLAUDE.md).</li></ul>
+<h2 class="anchored">Data and instruments</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P01" class="odd">
+<td><span class="m">P01</span><br>
+<strong>Constant-wavelength patterns</strong></td>
+<td>Laboratory X-rays with one wavelength or a Kα1/Kα2 doublet (ratio refinable), synchrotron X-rays, reactor neutrons; data with <span class="math inline">\(\sigma\)</span>, variable step kept.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Laboratory X-rays, one or two wavelengths<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Synchrotron X-rays<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Constant-wavelength neutrons<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: x, y, <span class="math inline">\(\sigma\)</span> files with variable step<br>
+<a href="../../brief/index.html#R03">R03</a></td>
+</tr>
+<tr id="P02" class="even">
+<td><span class="m">P02</span><br>
+<strong>Data formats</strong></td>
+<td>xy/xye, FullProf free and instrument formats, GSAS fxye; Panalytical .xrdml and Bruker .brml/.raw read directly, so laboratory users need no conversion.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Free-format and instrument data files<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Binary vendor and HDF5 powder formats</td>
+</tr>
+<tr id="P03" class="odd">
+<td><span class="m">P03</span><br>
+<strong>Excluded regions set on the plot</strong></td>
+<td>Ranges removed from the fit, drawn and dragged on the plot as well as typed.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Excluded regions<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Limits and excluded regions set on the plot</td>
+</tr>
+<tr id="P04" class="even">
+<td><span class="m">P04</span><br>
+<strong>Pattern simulation</strong></td>
+<td>A pattern calculated from the model without data, with optional Poisson noise; also the basis of the core's tests.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Pattern calculation (simulation)</td>
+</tr>
+<tr id="P05" class="odd">
+<td><span class="m">P05</span><br>
+<strong>Time-of-flight neutrons</strong></td>
+<td>TOF patterns with d from Zero, Dtt1, Dtt2; back-to-back exponentials ⊗ pseudo-Voigt; keyword resolution file per bank; multi-bank GSAS/ISIS files; TOF absorption.<br>
+<span class="status status-done">decided</span> <span class="m">Version 2 (L020): version 1 is constant wavelength only.</span></td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Time-of-flight neutrons<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: TOF back-to-back exponentials ⊗ pseudo-Voigt<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: TOF resolution file (Res=5, 6)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Multi-bank TOF files (GSAS, ISIS)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: TOF absorption</td>
+</tr>
+<tr id="P06" class="even">
+<td><span class="m">P06</span><br>
+<strong>Joint multi-pattern refinement</strong></td>
+<td>Several patterns in one refinement (X-rays with neutrons, several banks), a weight per pattern, which phase contributes to which pattern, patterns switched on or off.<br>
+<span class="status status-done">decided</span> <span class="m">Version 2 (L020): it needs the multi-pattern machinery of version 2; the version 1 data model allows several patterns from the start.</span></td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Multi-pattern refinement<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Joint X-ray and neutron refinement<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Which phase contributes to which pattern<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Patterns switched on or off</td>
+</tr>
+<tr id="P07" class="odd">
+<td><span class="m">P07</span><br>
+<strong>Maximum-likelihood weights, point reduction, minimum d per pattern</strong></td>
+<td>The less common data options of FullProf.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Weighting schemes<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Point reduction for fast runs<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Minimum d-spacing per pattern</td>
+</tr>
+<tr id="P08" class="even">
+<td><span class="m">P08</span><br>
+<strong>Energy-dispersive and pink-beam data</strong></td>
+<td>Energy as the scattering variable; pink-beam profiles.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Energy-dispersive X-rays<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Pink-beam profile</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">The crystal structure</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P09" class="odd">
+<td><span class="m">P09</span><br>
+<strong>Space groups, complete</strong></td>
+<td>All 230 groups in all settings from their symbols, or from user operators; operators, symmetry elements, Wyckoff positions and site symmetry available to the user (R12).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Space group from its symbol<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: User-given symmetry operators<br>
+<a href="../../brief/index.html#R12">R12</a></td>
+</tr>
+<tr id="P10" class="even">
+<td><span class="m">P10</span><br>
+<strong>Cell, atoms, occupancies, displacements</strong></td>
+<td>Lattice parameters; positions, occupancies, Biso and overall B; anisotropic β_ij with the site-symmetry restrictions applied automatically.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Lattice parameters<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Atom positions<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Site occupancies<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Isotropic displacement parameters<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Overall displacement parameter<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Anisotropic displacement parameters</td>
+</tr>
+<tr id="P11" class="odd">
+<td><span class="m">P11</span><br>
+<strong>Scattering factors</strong></td>
+<td>X-ray form factors and neutron scattering lengths from tables, user values, anomalous f′ and f″ per pattern.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Scattering lengths and form factors<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Anomalous dispersion</td>
+</tr>
+<tr id="P12" class="even">
+<td><span class="m">P12</span><br>
+<strong>Distances, angles, bond-valence sums</strong></td>
+<td>Listed after each refinement and available to restraints.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Bond distances, angles and bond-valence sums</td>
+</tr>
+<tr id="P13" class="odd">
+<td><span class="m">P13</span><br>
+<strong>Symmetry-mode parametrisation</strong></td>
+<td>A distorted structure refined through the amplitudes of symmetry-adapted modes of a parent structure.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Symmetry-mode parametrisation</td>
+</tr>
+<tr id="P14" class="even">
+<td><span class="m">P14</span><br>
+<strong>Special structure options</strong></td>
+<td>Molecular form factors, fixed partial structure factors, operator subsets per atom, reflections read instead of generated.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Special form factors for molecules<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Fixed partial structure factor<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Subset of operators per atom<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Reflections read instead of generated</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Peak shapes and the instrument</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P15" class="odd">
+<td><span class="m">P15</span><br>
+<strong>Pseudo-Voigt and Thompson–Cox–Hastings with axial divergence</strong></td>
+<td>pV and TCH pV with the Finger–Cox–Jephcoat asymmetry; Caglioti widths; a profile per phase.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Pseudo-Voigt<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Thompson–Cox–Hastings pseudo-Voigt with axial divergence<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Angular dependence of the width (CW)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Peak-shape choice per phase</td>
+</tr>
+<tr id="P16" class="even">
+<td><span class="m">P16</span><br>
+<strong>Instrumental resolution file</strong></td>
+<td>The instrument's widths described once, from a standard, so that sample size and strain are refined apart from the instrument.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Instrumental resolution file (CW)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Instrumental resolution from pseudo-Voigt parameters (Res=-1)</td>
+</tr>
+<tr id="P17" class="odd">
+<td><span class="m">P17</span><br>
+<strong>Empirical asymmetry</strong></td>
+<td>The four-parameter asymmetry correction below a set angle.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Empirical peak asymmetry</td>
+</tr>
+<tr id="P18" class="even">
+<td><span class="m">P18</span><br>
+<strong>Peak positions</strong></td>
+<td>Zero, sample displacement and transparency (also per phase), wavelength refinement.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Zero shift<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Sample displacement and transparency<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Phase-dependent shifts<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Wavelength refinement</td>
+</tr>
+<tr id="P19" class="odd">
+<td><span class="m">P19</span><br>
+<strong>Other profile functions</strong></td>
+<td>Gaussian, Lorentzian, Pearson VII, split and tripled pseudo-Voigt, numerical profiles, tabulated resolution.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Pearson VII<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Split pseudo-Voigt<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Tripled pseudo-Voigt<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Numerical peak shape<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Tabulated resolution with axial divergence (Res=8)</td>
+</tr>
+<tr id="P20" class="even">
+<td><span class="m">P20</span><br>
+<strong>Instrument from fundamental parameters</strong></td>
+<td>The resolution file computed from the diffractometer geometry instead of refined on a standard.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Instrument profile from fundamental parameters</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Background</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P21" class="odd">
+<td><span class="m">P21</span><br>
+<strong>Background functions</strong></td>
+<td>Chebyshev series, refinable interpolated points (linear or spline), polynomial.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Chebyshev background<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Interpolated background points<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Cubic-spline background<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Polynomial background</td>
+</tr>
+<tr id="P22" class="even">
+<td><span class="m">P22</span><br>
+<strong>Background on the plot, by hand and automatic</strong></td>
+<td>Points added, moved and deleted with the mouse; automatic points by asymmetric least squares; any function fitted to the points as a starting background (R11).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Interactive background points<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Automatic background points (FullProfAPP)<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Background function fitted to fixed points, with auto-background<br>
+<a href="../../brief/index.html#R11">R11</a></td>
+</tr>
+<tr id="P23" class="odd">
+<td><span class="m">P23</span><br>
+<strong>Further background terms</strong></td>
+<td>Debye-like terms for amorphous scattering, background from a file or stored profiles, background peaks, Fourier-filtered background.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Debye-like terms<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Background from a file<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Background profiles from files (linear combination)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Fourier-filtered background<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Background peaks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Size and strain</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P24" class="odd">
+<td><span class="m">P24</span><br>
+<strong>Isotropic size and strain</strong></td>
+<td>Size and strain from the sample widths over the resolution file, with apparent size and strain reported per reflection.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Isotropic size and strain<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Microstructure file (.mic)</td>
+</tr>
+<tr id="P25" class="even">
+<td><span class="m">P25</span><br>
+<strong>Anisotropic size and strain</strong></td>
+<td>Strain by the quartic form (Stephens) or spherical harmonics; size by ellipsoid or spherical harmonics; platelets and needles; plots of the refined models.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Anisotropic strain, quartic form<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Anisotropic strain, spherical harmonics<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Anisotropic size, quadratic form<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Anisotropic size, spherical harmonics<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Platelets and needles<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Plots of the refined size, strain and orientation models</td>
+</tr>
+<tr id="P26" class="odd">
+<td><span class="m">P26</span><br>
+<strong>Selective broadening and defect shifts</strong></td>
+<td>Rule-based broadening and shifts for reflection classes, per-reflection widths.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Selective size broadening<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Defect and stress peak shifts<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Per-reflection width and shift</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Intensity corrections</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P27" class="odd">
+<td><span class="m">P27</span><br>
+<strong>Lorentz–polarisation by geometry</strong></td>
+<td>Bragg–Brentano, Debye–Scherrer, transmission, synchrotron; monochromator polarisation.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Lorentz–polarisation by geometry<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Monochromator polarisation<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Synchrotron polarisation</td>
+</tr>
+<tr id="P28" class="even">
+<td><span class="m">P28</span><br>
+<strong>Preferred orientation along one axis</strong></td>
+<td>March–Dollase and exponential functions about a direction.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Preferred orientation, March–Dollase<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Preferred orientation, exponential</td>
+</tr>
+<tr id="P29" class="odd">
+<td><span class="m">P29</span><br>
+<strong>Absorption and microabsorption</strong></td>
+<td>Cylinder (μR, Lobanov–Alte da Veiga) and flat-plate absorption; Bragg–Brentano microabsorption (surface roughness).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Cylinder absorption<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Lobanov–Alte da Veiga absorption for cylinders<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Flat-plate absorption<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Bragg–Brentano microabsorption</td>
+</tr>
+<tr id="P30" class="even">
+<td><span class="m">P30</span><br>
+<strong>Texture beyond one axis</strong></td>
+<td>Multi-axial March–Dollase; spherical-harmonic preferred orientation as in GSAS-II, which FullProf lacks.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Multi-axial March–Dollase (Nor=2)<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Spherical-harmonic preferred orientation</td>
+</tr>
+<tr id="P31" class="odd">
+<td><span class="m">P31</span><br>
+<strong>Further corrections</strong></td>
+<td>Extinction for CW powders (a GSAS-II feature), layered samples, anvil cells, beam overflow, user correction tables.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Extinction for constant-wavelength powder data<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Layered samples in Bragg–Brentano (Ilo=5)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: March–Dollase–Wright orientation for anvil cells (Nor=3)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Beam overflow at low angle<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: User intensity corrections</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Several phases and quantitative analysis</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P32" class="odd">
+<td><span class="m">P32</span><br>
+<strong>Several phases per pattern</strong></td>
+<td>Any number of phases, each with its scale, cell, profile and structure.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Several phases per pattern</td>
+</tr>
+<tr id="P33" class="even">
+<td><span class="m">P33</span><br>
+<strong>Quantitative phase analysis</strong></td>
+<td>Weight fractions with esd's from the scale factors, Brindley microabsorption, amorphous content with an internal standard.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Quantitative phase analysis<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Brindley microabsorption<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Amorphous content with an internal standard</td>
+</tr>
+<tr id="P34" class="odd">
+<td><span class="m">P34</span><br>
+<strong>Phase search against open databases</strong></td>
+<td>Candidate phases fetched from the COD and tested by full-profile refinement.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Full-profile phase search (FullProfAPP)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: CIF download from the COD (FullProfAPP)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Le Bail and Pawley</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P35" class="odd">
+<td><span class="m">P35</span><br>
+<strong>Le Bail fit</strong></td>
+<td>Cell, space group and profile without a structure; extracted intensities written for structure solution.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Le Bail fit (profile matching, constant scale)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Extracted intensities file</td>
+</tr>
+<tr id="P36" class="even">
+<td><span class="m">P36</span><br>
+<strong>Pawley fit</strong></td>
+<td>Intensities refined as parameters, as in GSAS-II; FullProf has Le Bail only.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Pawley refinement</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Parameters, constraints, restraints</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P37" class="odd">
+<td><span class="m">P37</span><br>
+<strong>Named parameters, no numeric codewords</strong></td>
+<td>Every refinable quantity has a readable name (phase, pattern, atom, quantity) and is refined by name, as FullProf's VARY/FIX keywords and GSAS-II's parameter names do; numeric codes are not exposed.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Keyword refinement (VARY/FIX)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Refinement codes<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Linear constraint equations and New Var parameters</td>
+</tr>
+<tr id="P38" class="even">
+<td><span class="m">P38</span><br>
+<strong>Constraints</strong></td>
+<td>Equivalences with multipliers, constraint equations and new variables defined as sums of parameters; symmetry constraints generated automatically.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Strict linear constraints by shared codes<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Keyword constraints (EQUAL, PEQU, SAME_BISO)<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Linear constraint equations and New Var parameters</td>
+</tr>
+<tr id="P39" class="odd">
+<td><span class="m">P39</span><br>
+<strong>Limits on parameters</strong></td>
+<td>Lower and upper bounds, applied during the fit.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Hard limits on parameters</td>
+</tr>
+<tr id="P40" class="even">
+<td><span class="m">P40</span><br>
+<strong>Restraints</strong></td>
+<td>Distance, angle and linear restraints in version 1; plane, chiral and general (expression) restraints and Mogul import later.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Distance restraints<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Angle restraints<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Linear restraints<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: General restraints as Python expressions<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Plane and chiral-volume restraints</td>
+</tr>
+<tr id="P41" class="odd">
+<td><span class="m">P41</span><br>
+<strong>Rigid bodies and TLS</strong></td>
+<td>Groups in Cartesian, spherical or Z-matrix coordinates placed by position and orientation, satellite groups, TLS.<br>
+<span class="status status-done">decided</span> <span class="m">Version 2 (L020); distance, angle and linear restraints stay in version 1.</span></td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Rigid bodies<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Satellite groups<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: TLS</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">The least-squares engine</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P42" class="odd">
+<td><span class="m">P42</span><br>
+<strong>Least squares with analytic derivatives</strong></td>
+<td>Damped least squares (Levenberg–Marquardt with SVD against correlations, as GSAS-II; FullProf uses Gauss–Newton with relaxation factors), divergence control, convergence on shift/esd.<br>
+<span class="status status-done">decided</span> <span class="m">Levenberg–Marquardt with SVD against correlations (L020), the GSAS-II way, more robust than Gauss–Newton with relaxation factors when parameters correlate.</span></td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Least-squares minimiser<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Cycles and convergence<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Relaxation factors<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Local divergence control<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Levenberg–Marquardt least squares with SVD</td>
+</tr>
+<tr id="P43" class="even">
+<td><span class="m">P43</span><br>
+<strong>Agreement factors and statistics</strong></td>
+<td>Rp, Rwp, Rexp, <span class="math inline">\(\chi^2\)</span>, background-corrected R, R_Bragg and R_F per phase, Durbin–Watson, the Bérar factor.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Agreement factors<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Model-selection statistics<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Bérar factor for correlated residuals</td>
+</tr>
+<tr id="P44" class="odd">
+<td><span class="m">P44</span><br>
+<strong>Covariance and uncertainties</strong></td>
+<td>Correlation matrix shown and searchable; the esd of any derived quantity or user expression from the full covariance.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Correlation matrix<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Standard deviations<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Any expression with its s.u. from the full covariance<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Interactive correlation and shift displays</td>
+</tr>
+<tr id="P45" class="even">
+<td><span class="m">P45</span><br>
+<strong>Refinement diagnostics</strong></td>
+<td>Parameter impact (which unrefined parameter would lower <span class="math inline">\(\chi^2\)</span> most), normal probability plot, refinement analysis.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Parameter impact<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Normal probability plot<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Refinement analysis</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">The app and the workflow</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P46" class="odd">
+<td><span class="m">P46</span><br>
+<strong>One project document</strong></td>
+<td>Data, model, constraints, results and refinement history in one document per window, with undo and redo of every model change (R01), as GSAS-II's project and unlike FullProf's .pcr plus side files.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: One project file with a data tree<br>
+<a href="../../brief/index.html#R01">R01</a></td>
+</tr>
+<tr id="P47" class="even">
+<td><span class="m">P47</span><br>
+<strong>Readable control file and FullProf import</strong></td>
+<td>A text control file a person can read and diff, written and read by the core; existing .pcr files imported (Q3).<br>
+<span class="status status-done">decided</span> <span class="m">Q3 (L020): a new readable text format of our own, with a .pcr importer so that FullProf users bring their work.</span></td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: The .pcr control file<br>
+<a href="../../brief/index.html#R13">R13</a><br>
+<a href="../../brief/index.html#R14">R14</a></td>
+</tr>
+<tr id="P48" class="odd">
+<td><span class="m">P48</span><br>
+<strong>Control-file builder</strong></td>
+<td>Dialogs and tables that write the control file, keeping dependent counts consistent (R13).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: EdPCR<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Manual refinement window (FullProfAPP)<br>
+<a href="../../brief/index.html#R13">R13</a></td>
+</tr>
+<tr id="P49" class="even">
+<td><span class="m">P49</span><br>
+<strong>Dedicated editor</strong></td>
+<td>Syntax colouring, completion of keywords, phases and atoms, inline errors from the core's parser, outline, jump from output to parameter (R14, Q4).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../brief/index.html#R14">R14</a></td>
+</tr>
+<tr id="P50" class="odd">
+<td><span class="m">P50</span><br>
+<strong>Live plot each cycle</strong></td>
+<td>Observed, calculated, difference and reflection markers redrawn after every cycle, with R-factors per cycle (R08, Q5).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Live display during refinement<br>
+<a href="../../brief/index.html#R08">R08</a></td>
+</tr>
+<tr id="P51" class="even">
+<td><span class="m">P51</span><br>
+<strong>Data and result graphics</strong></td>
+<td>Zoom, axes in 2<span class="math inline">\(\theta\)</span>, d or Q, linear/√/log intensity, per-phase contributions, (obs−calc)/<span class="math inline">\(\sigma\)</span> and cumulative <span class="math inline">\(\chi^2\)</span>, hkl on the markers, structure view; peak search and single-peak fitting (R09, R10).</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: WinPLOTR Rietveld plot<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Interactive peak search and fitting<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Fit-diagnostic plot modes<br>
+<a href="../../brief/index.html#R09">R09</a><br>
+<a href="../../brief/index.html#R10">R10</a></td>
+</tr>
+<tr id="P52" class="odd">
+<td><span class="m">P52</span><br>
+<strong>Accept or reject, and a history</strong></td>
+<td>After a refinement the user keeps or discards the result; every refinement is logged with its R-factors and can be returned to.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Accept or reject a refinement<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Project notebook with logged parameters</td>
+</tr>
+<tr id="P53" class="even">
+<td><span class="m">P53</span><br>
+<strong>Command line, then scripting</strong></td>
+<td>Every feature on the command line from the start (CLAUDE.md); a Python scripting interface to the core in version 2.<br>
+<span class="nc">open:</span> <span class="m">The Python interface could move to version 1 if Q1 chooses a Python core.</span></td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Command-line run<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Python scripting API</td>
+</tr>
+<tr id="P54" class="odd">
+<td><span class="m">P54</span><br>
+<strong>Sequential and parametric refinement</strong></td>
+<td>A series of patterns refined in turn, then refined parameters plotted with esd's and fitted to equations of temperature or pressure.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Sequential refinement<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Sequential multi-pattern refinement<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Pseudo-variables and parametric fits of sequential results<br>
+<a href="../../background/gsas2/index.html">GSAS-II gap</a>: Histogram wildcards in sequential constraints</td>
+</tr>
+<tr id="P55" class="even">
+<td><span class="m">P55</span><br>
+<strong>Guided refinement</strong></td>
+<td>A refinement built as named steps in the documented order (scale; zero, background, cell; …), run in one go.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Automatic refinement workflow (FullProfAPP)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Refinement strategy guidance</td>
+</tr>
+<tr id="P56" class="odd">
+<td><span class="m">P56</span><br>
+<strong>Batch processing</strong></td>
+<td>Many patterns refined with the same model as a grid, a job scheduler.</td>
+<td><span class="status tier-later">Later</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Batch and multi-pattern grid (FullProfAPP)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Output</h2><div class="table-wrap">
+<table class="inventory proposal caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">Draft tier</th>
+<th data-quarto-table-cell-role="th">From</th>
+</tr>
+</thead>
+<tbody>
+<tr id="P57" class="odd">
+<td><span class="m">P57</span><br>
+<strong>CIF and the standard outputs</strong></td>
+<td>Full CIF of structure and profile ready for deposition; listing and summary; reflection lists; calculated profiles per phase; distances and angles.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: CIF, CFL, FST and VESTA files<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Main listing (.out)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Summary (.sum)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Reflection lists (.hkl)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Per-phase profiles (.sub)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Distances and bond valences (.dis)</td>
+</tr>
+<tr id="P58" class="even">
+<td><span class="m">P58</span><br>
+<strong>Publication plots</strong></td>
+<td>The Rietveld plot exported as PDF and SVG, editable.</td>
+<td><span class="status tier-v1">Version 1</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Publication plots</td>
+</tr>
+<tr id="P59" class="odd">
+<td><span class="m">P59</span><br>
+<strong>Series outputs and interchange files</strong></td>
+<td>Multi-block CIF and CSV of a series; Fourier and structure files for other programs.</td>
+<td><span class="status tier-v2">Version 2</span></td>
+<td class="cite"><a href="../../background/gsas2/index.html">GSAS-II gap</a>: Sequential results as multi-block CIF and CSV<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Fourier files (.fou)<br>
+<a href="../../background/fullprof/index.html">FullProf</a>: Structure files for drawing programs</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 class="anchored">Kept for later (L012)</h2><p>Kept for later, as set in L012: magnetic structures, modulated and superspace structures, stacking faults, indexing, structure solution, 2D image integration, PDF and total scattering. FullProf has each (one line each on the FullProf page); none is in versions 1 or 2. The data model of version 1 should not close the door to magnetic phases (moments on atoms, magnetic space groups), which FullProf users expect next.</p>
+<h2 class="anchored">Decided by Josu (L020)</h2><ul class="k-list"><li><strong>TOF</strong> (P05): version 2. Version 1 is constant wavelength only.</li><li><strong>Joint X-ray + neutron</strong> (P06): version 2, with a data model that allows several patterns from the start.</li><li><strong>Rigid bodies</strong> (P41): version 2. Distance, angle and linear restraints are in version 1.</li><li><strong>The minimiser</strong> (P42): Levenberg–Marquardt with SVD against correlations, as GSAS-II.</li><li><strong>The control file</strong> (P47, Q3): a new readable text format of our own, with a .pcr importer.</li><li><strong>The reference refinements</strong> that define 'version 1 is done': the four tutorials named above (Y2O3, MgAl2O4, Co-doped YBCO, quantitative phase analysis).</li><li>Still open: <strong>Q1, the language of the core</strong>, on which P48 (Python scripting in version 1 or 2) depends.</li></ul>
+</article>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">What this is</h4>
+        <p>The working site of one project: to build a Mac app for Rietveld refinement of powder diffraction data, after a study of the programs the community uses for it. It holds the brief, that study, the design, a dated log of every step, the release notes and the manuals of the core and the app.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
+      </div>
+      <div><h4 class="anchored">This site</h4><ul>
+        <li><a href="../../index.html">Overview</a></li><li><a href="../../brief/index.html">Brief</a></li><li><a href="../../background/index.html">Background</a></li><li><a href="../../design/index.html">Design</a></li><li><a href="../../roadmap/index.html">Roadmap</a></li><li><a href="../../log/index.html">Log</a></li><li><a href="../../about/index.html">Method</a></li></ul></div>
+      <div><h4 class="anchored">Sources</h4><ul>
+        <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
+        <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
+        <li><a href="https://advancedphotonsource.github.io/GSAS-II-tutorials/">GSAS-II</a></li>
+        <li><a href="https://it.iucr.org/A/">International Tables, Vol. A</a></li></ul></div>
+      <div><h4 class="anchored">Status</h4><ul>
+        <li>Published at <a href="https://jmigartua.github.io/diff-ref-struct-site/">jmigartua.github.io/diff-ref-struct-site</a>; the sources are private</li>
+        <li>Rebuilt from <code>data/*.yml</code> on every render</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua · work in progress</span>
+      <span>Quarto · family design kit</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -12,3 +12,7 @@
 .inventory th:nth-child(1) { width: 18%; } .inventory th:nth-child(2) { width: 42%; }
 .inventory th:nth-child(3) { width: 18%; } .inventory th:nth-child(4) { width: 22%; }
 .inventory td.cite { white-space: normal; overflow-wrap: anywhere; }
+/* Proposal (L019): draft tiers. */
+.tier-v1 { color: var(--ok); border-color: var(--ok); }
+.tier-v2 { color: var(--warn); border-color: var(--warn); }
+.tier-later { color: var(--ink-faint); border-color: var(--line-soft); }
