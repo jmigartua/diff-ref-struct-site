@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>The proposal <span class="status status-proposed">draft, not decided</span></h1>
 <p class="sub">The app's feature set, and what goes in version 1, version 2 and later. Built from the <a href="../../background/fullprof/index.html">FullProf inventory</a> and the <a href="../../background/gsas2/index.html">GSAS-II gap list</a>. Each feature names its sources: an inventory entry, a gap or a requirement of the <a href="../../brief/index.html">brief</a>. Written for Josu to decide (log <a href="../../log/index.html#L019">L019</a>); a decision entry in the log will say what is adopted. The design questions Q1–Q6 are on the <a href="../index.html">Design</a> page.</p>
 <p class="lede">A draft for Josu to decide, not a decision. Version 1 aims at the refinement a FullProf user does today on constant-wavelength data (laboratory X-rays, synchrotron, reactor neutrons): from the pattern to a published CIF, in one phase or several, with constraints and restraints. It runs inside the Mac app the brief asks for: live plot, interactive background, space groups, control-file builder and editor (R07–R14). Version 2 adds what makes the program complete for facility work: time of flight, joint and sequential refinement, rigid bodies, anisotropic microstructure. Later holds the rest of the FullProf inventory and the L012 list (magnetic, superspace, stacking faults, indexing, structure solution, 2D images, PDF). Where GSAS-II does something better than FullProf (L014), the draft takes the GSAS-II way, and says so.</p>
-<p class="sub">38 features in version 1, 11 features in version 2, 10 features in later.</p>
+<p class="sub">39 features in version 1, 11 features in version 2, 9 features in later.</p>
 <ul class="k-list"><li><strong>Version 1 is done when</strong> the command line and the app reproduce a set of reference refinements from <code>manuals/fullprof/</code> to within their esd's: the Y2O3 laboratory X-ray tutorial, the MgAl2O4 spinel, the Co-doped YBCO neutron tutorial and the quantitative-analysis tutorial. Each one becomes a named test, as difes reproduces FOCUS.</li><li><strong>Every feature has a test and a command-line path</strong> in the core before it has a menu in the app (CLAUDE.md).</li></ul>
 <h2 class="anchored">Data and instruments</h2><div class="table-wrap">
 <table class="inventory proposal caption-top">
@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="m">P13</span><br>
 <strong>Symmetry-mode parametrisation</strong></td>
 <td>A distorted structure refined through the amplitudes of symmetry-adapted modes of a parent structure.</td>
-<td><span class="status tier-later">Later</span></td>
+<td><span class="status tier-v1">Version 1</span></td>
 <td class="cite"><a href="../../background/fullprof/index.html">FullProf</a>: Symmetry-mode parametrisation</td>
 </tr>
 <tr id="P14" class="even">
