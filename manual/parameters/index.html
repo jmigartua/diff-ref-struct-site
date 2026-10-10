@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">45 entries, 39 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, and when to refine it (after FullProf's manual, p. 14). Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">45 entries, 39 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored"><code>wavelength_1</code> <span class="math inline">\(\lambda_1\)</span> <span class="m">Å · refinable</span></h3><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -163,6 +163,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Not for laboratory data (known); for synchrotron and neutron data with a standard, together with the zero.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Not refined by the engine (core 0.12.0): a .pcr that codes it is refused.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.lambda</code></td>
 </tr>
@@ -193,6 +197,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Never: fixed by the anode.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Not refined by the engine (core 0.12.0): a .pcr that codes it is refused.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.lambda</code></td>
 </tr>
@@ -223,6 +231,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Rarely; fixed at the anode's value.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.ratio</code></td>
 </tr>
@@ -253,6 +265,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Never: fixed by the monochromator.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Not refined by the engine (core 0.12.0).</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.cthm</code></td>
 </tr>
@@ -283,6 +299,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Rarely; synchrotron data with a known polarisation.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Not refined by the engine (core 0.12.0).</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.rpolarz</code></td>
 </tr>
@@ -344,6 +364,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early, with the scale, the first background term and the cell (manual p. 14, step 2).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.zero</code></td>
 </tr>
@@ -374,6 +398,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Late, with the transparency (p. 14, step 9); strongly correlated with the zero.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.sycos</code></td>
 </tr>
@@ -404,6 +432,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Late (p. 14, step 9).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.sysin</code></td>
 </tr>
@@ -435,6 +467,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (p. 14, step 4); with a resolution file, as the strain (step 10).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span> for a TCH phase over a resolution file, where U is the sample's strain alone; none otherwise, where U also carries the instrument's width and may be negative.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.u</code></td>
 </tr>
@@ -465,6 +501,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (p. 14, step 4); fixed at 0 with a resolution file (manual p. 21).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.v</code></td>
 </tr>
@@ -495,6 +535,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>First of the widths (p. 14, step 4); fixed at 0 with a resolution file (p. 21).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.w</code></td>
 </tr>
@@ -525,6 +569,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the microstructure (p. 14, step 10), over a resolution file.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.gauss_size</code></td>
 </tr>
@@ -555,6 +603,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (step 4), as strain over a resolution file (step 10).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span> for a TCH phase over a resolution file (the sample's strain alone); none otherwise.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.x</code></td>
 </tr>
@@ -585,6 +637,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (step 4), as size over a resolution file (step 10).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.y</code></td>
 </tr>
@@ -615,6 +671,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (step 4).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.eta0</code></td>
 </tr>
@@ -645,6 +705,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (step 4), after η0.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.x</code></td>
 </tr>
@@ -676,6 +740,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (p. 14, step 4), starting near 0.01 (p. 54).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.asym</code></td>
 </tr>
@@ -706,6 +774,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With the peak shape (step 4); often fixed from the instrument.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.s_l</code></td>
 </tr>
@@ -736,6 +808,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>With S/L; the two are strongly correlated.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.d_l</code></td>
 </tr>
@@ -767,6 +843,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Rarely: calculated from the composition and packing; strongly correlated with the displacement parameters.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Not refined by the engine (core 0.12.0).</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.mur</code></td>
 </tr>
@@ -797,6 +877,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>When the intensities of one zone are systematically off; late.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> for the March function (undefined at 0); none for the exponential function.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.pref</code></td>
 </tr>
@@ -827,6 +911,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Rarely, after G1.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>0 to 1 (the untextured fraction).</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.pref</code></td>
 </tr>
@@ -888,6 +976,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>The heights, after the structure (step 7), or kept fixed.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.background</code></td>
 </tr>
@@ -918,6 +1010,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>B0 early (step 2), the others late (step 7).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.background</code></td>
 </tr>
@@ -978,6 +1074,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>c0 early, the others late (step 7).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.background</code></td>
 </tr>
@@ -1008,6 +1108,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Late (step 7).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.background</code></td>
 </tr>
@@ -1039,6 +1143,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>First (manual p. 14, step 1).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.scale</code></td>
 </tr>
@@ -1069,6 +1177,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early with the positions (step 3), then turned into individual Biso (step 6).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.bov</code></td>
 </tr>
@@ -1099,6 +1211,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early (step 2), constrained by the crystal system.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> Å.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1129,6 +1245,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early (step 2).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> Å.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1159,6 +1279,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early (step 2).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> Å.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1189,6 +1313,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early (step 2), when the system allows it.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1219,6 +1347,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early (step 2), when the system allows it.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1249,6 +1381,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Early (step 2), when the system allows it.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1279,6 +1415,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>After the scale, cell and zero (step 3), within the site's constraints.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Atom.x</code></td>
 </tr>
@@ -1309,6 +1449,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>After the overall B (step 6).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Atom.biso</code></td>
 </tr>
@@ -1339,6 +1483,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>When required, after the positions (step 5); correlated with B.</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Atom.occ</code></td>
 </tr>
@@ -1369,6 +1517,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Last of the structure, if the data allow (step 8).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Atom.beta</code></td>
 </tr>
@@ -1399,6 +1551,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>Each cycle, from the observed pattern (Le Bail).</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Not refined by the engine (core 0.12.0): profile matching (Le Bail) is a later step.</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.intensities</code></td>
 </tr>
