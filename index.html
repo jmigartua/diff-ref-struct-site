@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="net-stats net-stats-grid">
   <div class="net-stat"><div class="v">26</div><div class="k">requirements in the brief</div></div>
   <div class="net-stat"><div class="v">9</div><div class="k">programs on the long list (2 shortlisted)</div></div>
-  <div class="net-stat"><div class="v">75</div><div class="k">log entries</div></div>
-  <div class="net-stat"><div class="v">27</div><div class="k">decisions recorded</div></div>
+  <div class="net-stat"><div class="v">80</div><div class="k">log entries</div></div>
+  <div class="net-stat"><div class="v">28</div><div class="k">decisions recorded</div></div>
 </div>
-<div class="updated">Site last built 2026-10-10 14:46</div>
+<div class="updated">Site last built 2026-10-10 15:54</div>
     </div>
   </div>
 </section>
@@ -173,11 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="sec-head"><h2 class="anchored">Latest in the log</h2><a class="more" href="log/index.html">All entries →</a></div>
     <p class="sec-intro">Findings, decisions with their reasons, and the work done. Newest first.</p>
 <ul class="home-log">
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L075">R25 and R26: a data file first, several projects in windows, a refinement from a previous control file, the background with the numbers in view</a><span class="s">decision · conversation of 10 October 2026 · APP_WORKFLOWS.md · ecosystem/data/brief.yml R25, R26 · app/ui/app.js (openFileDialog) · manuals/fullprof/FullProf_Manual.pdf (LINE 4, Nba) · manuals/fullprof/1-WinPLOTR/FPS_dec2015_WinPLOTR_TR.pdf (Background points selection)</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L074">App 0.7.0: the Editor and versions, with the guardrails of R24; Refine on the control file</a><span class="s">work · app/ (commit 3bb78ba on branch app, merged into main) · app/README.md · app/REQUESTS.md 13</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L073">R24: guardrails, the model checked while it is edited and before every run</a><span class="s">decision · conversation of 10 October 2026 · ecosystem/data/brief.yml R24 · APP_CONVENTIONS.md §9 · L066, L071</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L072">App 0.6.0: the Data module</a><span class="s">work · app/ (commit 40600eb on branch app, merged into main) · app/README.md · app/REQUESTS.md 8–12</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L071">Core 0.17.0 reviewed: FullProf gives its own numbers on eight exported runs; LaB6 has a fifth fault</a><span class="s">finding · manuals/fullprof/runs/export_runs.py, export_check.txt · FullProf.2k 8.20 (Feb 2025) · core/src/control/pcr_export.rs · L069, L070</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L080">The project's files shown by their role, versions in a visible folder with a refinement log, switching between projects, any file as text</a><span class="s">decision · conversation of 10 October 2026 · APP_WORKFLOWS.md (commit 8b91186) · screenshot of app 0.7.0's sidebar on manuals/fullprof/runs/NdNi-LTOa</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L079">Core 0.18.0 and 0.19.0 reviewed with FullProf: the export holds on every run FullProf accepts; FullProf's background read; what FullProf says of the broken files</a><span class="s">finding · manuals/fullprof/runs/export_runs.py, export_check.txt, background_runs.py, background/, broken_runs.py, broken_check.txt · core/tests/background_points.rs · FullProf.2k 8.20 (Feb 2025) · L076–L078</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L078">The core's part of R25 and R26: background points in a file or inline, splines, a function fitted to points, a control file rebased onto new data</a><span class="s">work · core/src/background.rs, core/src/rebase.rs, core/src/powder.rs (BackgroundModel::Spline, Nba = 1), core/src/jacobian.rs, core/src/control/ (schema.rs, mod.rs, pcr_export.rs), core/src/refinable.rs, core/src/main.rs · core/tests/background_points.rs, core/tests/rebase.rs, core/tests/data/make_background_references.py, background_references.txt · manuals/fullprof/runs/background_runs.py, runs/background/ · manuals/fullprof/FullProf_Manual.pdf pp. 8, 46, 69, 78; FullProf News 17 June 2011 · APP_WORKFLOWS.md W3, W4 · L075</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L077">What FullProf and GSAS-II check before and during a run: neither warns of correlated parameters before it</a><span class="s">finding · manuals/fullprof/FullProf_Manual.pdf pp. 13–16, 69, 72, 75; manuals/fullprof/news/ (2001, 2002, 2003, 2011, 2022) · manuals/fullprof/runs/*/ (.out, .sum, .run.log) · GSAS-II GSASIIdataGUI.py, GSASIIstrIO.py, GSASIIstrMain.py, GSASIImapvars.py, GSASIImath.py, GSASIIobj.py, GSASIIconstrGUI.py, GSASIIphsGUI.py (commit fe944cd)</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L076">LaB6's hole in the matrix fixed; the core's checks (R24): file, model, refinement and the normal matrix before a run</a><span class="s">work · core/src/check.rs, core/src/control/pcr_export.rs, core/src/control/syntax.rs, core/src/control/schema.rs, core/src/lsq.rs, core/src/refinable.rs, core/src/pcr.rs, core/src/main.rs · ecosystem/data/parameters.yml (correlations), ecosystem/tools/build.py · core/tests/check_diagnostics.rs, core/tests/control_file.rs, core/tests/data/make_broken.py, core/tests/data/broken/ · L071, L073</span></div></li>
 </ul>
   </div>
 </section>

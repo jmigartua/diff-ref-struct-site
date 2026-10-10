@@ -368,6 +368,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>None.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#sample_displacement"><code>sample_displacement</code></a>, <a href="#sample_transparency"><code>sample_transparency</code></a>: All three move every peak: <span class="math inline">\(\Delta\)</span>2<span class="math inline">\(\theta\)</span> = 2<span class="math inline">\(\theta\)</span>₀ + S_c cos <span class="math inline">\(\theta\)</span> + S_s sin 2<span class="math inline">\(\theta\)</span> (manual eqs. 3.37–3.39). Over the angles of one pattern cos <span class="math inline">\(\theta\)</span> and sin 2<span class="math inline">\(\theta\)</span> change slowly, so the three shifts are nearly proportional and the data hardly tell them apart. <em>Tip:</em> Refine the zero with the cell first; add S_c or S_s last and one at a time (manual p. 14, steps 2 and 9). <span class="cite">FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.zero</code></td>
 </tr>
@@ -471,6 +475,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge 0\)</span> for a TCH phase over a resolution file, where U is the sample's strain alone; none otherwise, where U also carries the instrument's width and may be negative.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#caglioti_v"><code>caglioti_v</code></a>, <a href="#caglioti_w"><code>caglioti_w</code></a>: H<span class="math inline">\(^{2}\)</span> = U tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> + V tan <span class="math inline">\(\theta\)</span> + W is a quadratic in tan <span class="math inline">\(\theta\)</span> (Caglioti et al. 1958, eq. 11); over the range of tan <span class="math inline">\(\theta\)</span> of one pattern its three coefficients compensate one another, V negative between U and W. <em>Tip:</em> Take U, V, W of the instrument from a standard (a resolution file) and refine only what the sample adds (manual p. 14). <span class="cite">Caglioti_Paoletti_Ricci_1958.pdf, p. 225 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.u</code></td>
 </tr>
@@ -573,6 +581,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge 0\)</span>.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#caglioti_u"><code>caglioti_u</code></a>, <a href="#caglioti_w"><code>caglioti_w</code></a>: I_G enters H_G<span class="math inline">\(^{2}\)</span> as I_G/cos<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> (manual p. 50–51), and 1/cos<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> = tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> + 1: a change of I_G is exactly a change of U and W by the same amount. Refined with U and W, I_G leaves a direction the data cannot fix, and the normal matrix is singular. <em>Tip:</em> Refine I_G only with the instrument's U and W fixed (from a resolution file). <span class="cite">FullProf_Manual.pdf, p. 50 · FullProf_Manual.pdf, p. 51</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.gauss_size</code></td>
 </tr>
@@ -641,6 +653,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge 0\)</span>.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#lorentzian_strain"><code>lorentzian_strain</code></a>: H_L = X tan <span class="math inline">\(\theta\)</span> + Y/cos <span class="math inline">\(\theta\)</span> (manual p. 49; Thompson, Cox &amp; Hastings 1987, pp. 80–82): both terms grow with <span class="math inline">\(\theta\)</span>, and over a short range of angles the two shapes are nearly proportional. <em>Tip:</em> Refine the size term Y first; the strain term X only with data over a wide range of angles. <span class="cite">FullProf_Manual.pdf, p. 49 · Thompson_Cox_Hastings_1987.pdf, pp. 80–82</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.y</code></td>
 </tr>
@@ -915,6 +931,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>0 to 1 (the untextured fraction).</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#scale_factor"><code>scale_factor</code></a>: G₂ is the fraction of the sample without preferred orientation, a constant term of P; Dollase found that adding a constant term to a pole-density profile made the refinement diverge through its correlation with the overall scale (1986, p. 270). <em>Tip:</em> Refine G₁ alone; add G₂ only if the fit needs it, with the scale watched. <span class="cite">Dollase_1986.pdf, p. 270</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.pref</code></td>
 </tr>
@@ -1078,6 +1098,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>None.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#background_chebyshev"><code>background_chebyshev</code></a>: The Chebyshev polynomials T_k are independent over their whole range, from the first point to the last, and they differ most near its ends. When the points fitted do not reach an end (an excluded region at the start, or a range wider than the data) the terms become nearly dependent: Egypt, with 5–6.7° of its 5–75° excluded, has its fifteen terms correlated up to 0.996 (L076; numpy gives 0.995 for the same points). <em>Tip:</em> Refine fewer terms, or let the background function span only the points fitted; for a short or interrupted range, background points interpolated by the user are steadier (manual p. 14, step 2). <span class="cite">FullProf_News_2011.htm L129–137 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.background</code></td>
 </tr>
@@ -1147,6 +1171,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge 0\)</span>.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#overall_b"><code>overall_b</code></a>, <a href="#atom_occupancy"><code>atom_occupancy</code></a>, <a href="#atom_biso"><code>atom_biso</code></a>: The scale multiplies every reflection of the phase; the occupancies multiply the scattering of their sites, and the displacement parameters lower it by exp(−B <span class="math inline">\(\mathrm{s}^{2}\)</span>), which at low sin <span class="math inline">\(\theta\)</span>/λ is close to a constant factor (manual eqs. 3.44–3.46). Together they can trade intensity with the scale. <em>Tip:</em> Refine the scale first; occupancies only with some sites held full, and the overall B before individual B's (manual p. 14, steps 1, 3, 5, 6). <span class="cite">FullProf_Manual.pdf, p. 58 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.scale</code></td>
 </tr>
@@ -1241,6 +1269,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>None.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#atom_biso"><code>atom_biso</code></a>: The overall factor exp(−2B_ov <span class="math inline">\(\mathrm{s}^{2}\)</span>) multiplies |F|², and adding δ to the B of every atom of the phase multiplies |F|² by exp(−2δ <span class="math inline">\(\mathrm{s}^{2}\)</span>): with every atom's B refined, the overall B adds nothing the atoms' B's do not already do. <em>Tip:</em> Refine the overall B, or the atoms' B's, not both (manual p. 14, step 6: the overall factor is turned into individual ones). <span class="cite">FullProf_Manual.pdf, p. 58 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.bov</code></td>
 </tr>
@@ -1275,6 +1307,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> Å.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#zero_shift"><code>zero_shift</code></a>, <a href="#sample_displacement"><code>sample_displacement</code></a>: A change of the cell moves each peak by −2 tan <span class="math inline">\(\theta\)</span> Δd/d (Bragg's law); the zero moves every peak alike and the displacement as cos <span class="math inline">\(\theta\)</span>. Over a short angular range these shifts are nearly proportional. <em>Tip:</em> Take the zero from a standard measured on the instrument when the range is short (manual p. 14), or refine the cell and the zero over a wide range of angles. <span class="cite">FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1309,6 +1345,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> Å.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#zero_shift"><code>zero_shift</code></a>, <a href="#sample_displacement"><code>sample_displacement</code></a>: A change of the cell moves each peak by −2 tan <span class="math inline">\(\theta\)</span> Δd/d (Bragg's law); the zero moves every peak alike and the displacement as cos <span class="math inline">\(\theta\)</span>. Over a short angular range these shifts are nearly proportional. <em>Tip:</em> Take the zero from a standard measured on the instrument when the range is short (manual p. 14), or refine the cell and the zero over a wide range of angles. <span class="cite">FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1343,6 +1383,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> Å.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#zero_shift"><code>zero_shift</code></a>, <a href="#sample_displacement"><code>sample_displacement</code></a>: A change of the cell moves each peak by −2 tan <span class="math inline">\(\theta\)</span> Δd/d (Bragg's law); the zero moves every peak alike and the displacement as cos <span class="math inline">\(\theta\)</span>. Over a short angular range these shifts are nearly proportional. <em>Tip:</em> Take the zero from a standard measured on the instrument when the range is short (manual p. 14), or refine the cell and the zero over a wide range of angles. <span class="cite">FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.cell</code></td>
 </tr>
@@ -1547,6 +1591,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><span class="math inline">\(\ge 0\)</span>.</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#atom_biso"><code>atom_biso</code></a>: Both lower the scattering of a site: the occupancy by a constant factor, the displacement parameter by exp(−B <span class="math inline">\(\mathrm{s}^{2}\)</span>), which differs from a constant only at high sin <span class="math inline">\(\theta\)</span>/λ. With data to a short range of sin <span class="math inline">\(\theta\)</span>/λ they trade one for the other. <em>Tip:</em> Refine occupancies late and one at a time; hold the B's of chemically similar atoms equal (manual p. 14, step 5 and its last paragraph). <span class="cite">FullProf_Manual.pdf, p. 58 · FullProf_Manual.pdf, p. 14</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Atom.occ</code></td>
 </tr>
