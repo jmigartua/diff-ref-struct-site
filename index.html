@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="net-stats net-stats-grid">
   <div class="net-stat"><div class="v">31</div><div class="k">requirements in the brief</div></div>
   <div class="net-stat"><div class="v">9</div><div class="k">programs on the long list (2 shortlisted)</div></div>
-  <div class="net-stat"><div class="v">111</div><div class="k">log entries</div></div>
+  <div class="net-stat"><div class="v">112</div><div class="k">log entries</div></div>
   <div class="net-stat"><div class="v">36</div><div class="k">decisions recorded</div></div>
 </div>
-<div class="updated">Site last built 2026-10-11 09:49</div>
+<div class="updated">Site last built 2026-10-11 10:07</div>
     </div>
   </div>
 </section>
@@ -173,11 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="sec-head"><h2 class="anchored">Latest in the log</h2><a class="more" href="log/index.html">All entries →</a></div>
     <p class="sec-intro">Findings, decisions with their reasons, and the work done. Newest first.</p>
 <ul class="home-log">
+<li><span class="d">2026-10-11</span><div><a href="log/index.html#L112">App 0.10.0 and the Explore design merged; the Publish crate built but not yet committed</a><span class="s">work · app/ (commit fb586f3 on branch app) · explore/ (commit c4938b1 on branch explore) · ../20261009_diff-ref-str-publish/publish (uncommitted) · L104, L106</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L111">Core 0.24.0 merged (its entries renumbered L107–L110); 169 tests pass; FullProf moves the cell half a Gauss–Newton step near the minimum too</a><span class="s">finding · core 0.24.0 (commit 9367603) · manuals/fullprof/runs/shift_control/n3.out, README.md (FullProf 8.20) · L108–L110</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L110">Core 0.24.0: the refinement run as a session (W11) and steered from the control file (W12), with a plan of steps</a><span class="s">work · core/src/lsq.rs, steering.rs, refinable.rs, check.rs (null_direction), pcr.rs, control/schema.rs, control/pcr_export.rs, powder.rs (gaussian_h2), diagnostics.rs (forbidden_in), main.rs (drs refine) · core/tests/steering.rs, reflection_diagnostics.rs, check_diagnostics.rs · ecosystem/data/parameters.yml · app/REQUESTS.md 23–30 (branch app, 4e84548)</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L109">Against FullProf's shift_control runs: the steering agrees parameter by parameter; the first cycle from that start does not, explained in part and frozen (for Josu)</a><span class="s">finding · core/tests/steering.rs (shift_control_against_fullprof) · manuals/fullprof/runs/shift_control/*.out, README.md · manuals/fullprof/runs/Y2O3/y2o3_structure_conv.out (cycle 1) · FullProf_Manual.pdf pp. 19, 43 · L053, L055, L097</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L108">How the core treated multipliers until 0.23.0, which compared runs carry relaxation factors, the scale's class measured, and the largest shifts per cycle measured</a><span class="s">finding · core/src/refinable.rs (pcr_rows), pcr.rs (relax) · manuals/fullprof/runs/shift_control/r05.out, m10.out · the 456 .pcr files of manuals/fullprof/ (line 9) · ecosystem/data/parameters.yml (class, class_source, max_shift) · core/tests/steering.rs, parameter_dictionary.rs, control_file.rs (pcr_export_round_trip), results_file.rs</span></div></li>
-<li><span class="d">2026-10-11</span><div><a href="log/index.html#L107">W11 accepted; W12 built as asked: a lone multiplier is damping, shared ones are a link's coefficients, and no esd is ever scaled</a><span class="s">decision · conversation of 11 October 2026 · APP_WORKFLOWS.md W11, W12 · L095, L097 · FullProf_Manual.pdf pp. 13, 43 (eq. 3.7), 68 (Dum), 77 (LINE 9), 126 (LINE 47) · GSAS-II fe944cd GSASIIstrMain.py (Marquardt), GSASIImapvars.py · core/src/steering.rs, refinable.rs, lsq.rs</span></div></li>
 </ul>
   </div>
 </section>
