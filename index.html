@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="net-stats net-stats-grid">
   <div class="net-stat"><div class="v">30</div><div class="k">requirements in the brief</div></div>
   <div class="net-stat"><div class="v">9</div><div class="k">programs on the long list (2 shortlisted)</div></div>
-  <div class="net-stat"><div class="v">102</div><div class="k">log entries</div></div>
-  <div class="net-stat"><div class="v">33</div><div class="k">decisions recorded</div></div>
+  <div class="net-stat"><div class="v">103</div><div class="k">log entries</div></div>
+  <div class="net-stat"><div class="v">34</div><div class="k">decisions recorded</div></div>
 </div>
-<div class="updated">Site last built 2026-10-11 08:11</div>
+<div class="updated">Site last built 2026-10-11 08:20</div>
     </div>
   </div>
 </section>
@@ -173,11 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="sec-head"><h2 class="anchored">Latest in the log</h2><a class="more" href="log/index.html">All entries →</a></div>
     <p class="sec-intro">Findings, decisions with their reasons, and the work done. Newest first.</p>
 <ul class="home-log">
+<li><span class="d">2026-10-11</span><div><a href="log/index.html#L103">Publish: everything in LaTeX, in Latin Modern, in every figure and table and every preset</a><span class="s">decision · Josu, 11 October 2026 · publish/DESIGN.md §6.3, §9 (branch publish) · publish/mockups/out/*/y2o3_rietveld.pdf (pdffonts) · CLAUDE.md</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L102">Core 0.23.0 merged (its entries renumbered L098–L101); all 156 tests pass; GSAS-II on the Mac reads the results file as the cloud's checkout did</a><span class="s">work · core 0.23.0 (commit a7d9653) · core/tests/data/make_gsas2_results.py, gsas2_results.txt · GSAS-II 5843 (local) · L098–L101</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L101">The results file written in pdCIF, read back and read by GSAS-II; one structure CIF per phase; the file dictionary updated</a><span class="s">work · core/src/results.rs, cif.rs, formats/files.rs, main.rs (drs results) · core/tests/results_file.rs, data/make_gsas2_results.py, data/gsas2_results.txt, data/results/ · GSAS-II 305a159 imports/G2pwd_CIF.py (l. 276–292), G2phase_CIF.py · COMCIFS cif_pd.dic, cif_core.dic (DDL1) · L083, L092, L099</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L100">Readers for FullProf's .prf and .hkl (app request 17); the core's side of W7–W8: per-reflection widths and partitioned intensities, forbidden reflections, a mode phase's parent indices and k-vectors, phase shares, the cumulative χ²</a><span class="s">work · core/src/formats/fullprof_outputs.rs, diagnostics.rs, reflections.rs, modes.rs · core/tests/fullprof_outputs.rs, reflection_diagnostics.rs, symmetry_modes.rs · FullProf_Manual.pdf pp. 9–11 (Prf, Hkl, Irf) · GSAS-II 305a159 GSASIIpwdplot.py · app/REQUESTS.md 17, 19–21 (branch app) · APP_WORKFLOWS.md W7–W8</span></div></li>
 <li><span class="d">2026-10-11</span><div><a href="log/index.html#L099">The file dictionary's names accepted, with two kinds added (reflection notes and Exports); the results file in pdCIF</a><span class="s">decision · Josu, 2026-10-11 · ecosystem/data/files.yml · core/src/formats/files.rs · L091, L092, L093</span></div></li>
-<li><span class="d">2026-10-11</span><div><a href="log/index.html#L098">The mode cases B, D and E agree with FullProf: the 1–6 % of L093 came from the reflection limits, D's λ/2 widths and FullProf's rule for the background below its first point; what is left are single points at the edges of excluded regions, explained and frozen</a><span class="s">finding · manuals/fullprof/runs/modes/ (FullProf 8.20: CODE.pcr, CODE_calc.prf/.out) · FullProf_Manual.pdf p. 75 (Ratio &lt; 0, line 32) · core/src/powder.rs (Convention::background_edge, Model::fullprof_step, Phase::uvw2), lsq.rs (weights) · core/tests/symmetry_modes.rs (mode_runs_against_fullprof, EDGE_POINTS), fullprof_profiles.rs · L033, L035, L037, L082, L093</span></div></li>
 </ul>
   </div>
 </section>
