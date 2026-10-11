@@ -16,3 +16,12 @@
 .tier-v1 { color: var(--ok); border-color: var(--ok); }
 .tier-v2 { color: var(--warn); border-color: var(--warn); }
 .tier-later { color: var(--ink-faint); border-color: var(--line-soft); }
+/* Parameter, operation and file dictionaries (L044, L088, L091): one section per entry. The citation line wraps (a
+   long source must not push the page sideways), every entry's table spans the column with the same label width, and
+   the heading holds the name only, the id, symbol, unit and kind on the line below it. */
+section.param p.cite, section.param span.cite { white-space: normal; overflow-wrap: anywhere; }
+section.param .inventory { width: 100%; table-layout: fixed; }
+section.param .inventory th { width: 11.5rem; }
+section.param .inventory td { overflow-wrap: anywhere; }
+section.param h3 { margin-bottom: 2px; }
+section.param .param-meta { margin: 0 0 10px; color: var(--ink-soft); font-size: 14.5px; }

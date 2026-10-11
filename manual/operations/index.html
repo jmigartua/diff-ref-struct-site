@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <p class="lede">What each operation of the Data module does to a scan and what each of its settings means (app request 16, <a href="../../log/index.html#L088">L088</a>): the unit, the range the core accepts, the default, how a value is proposed, what raising or lowering it does, and the definition it follows. The app's dialogs, <code>drs data settings</code> and this page are generated from the same file, as the parameter dictionary is.</p>
 <p class="sub">10 operations and 2 analyses of the Data module, each setting with its unit, meaning, the range the core accepts, its default, how a value is proposed, what raising and lowering it does, and the definition it follows. Operations change the scan the refinement sees and are kept in the control file; analyses return results and leave the scan as it is. Generated from <code>data/operations.yml</code>; do not edit by hand.</p>
 <h2 id="operation" class="anchored">Operations</h2>
-<section class="param" id="mask"><h3 class="anchored">Mask <code>mask</code></h3><p>Points that stay in the scan but carry no weight in the refinement: a range of x, or a list of points.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span> = ∞ at the masked points (no weight); the others unchanged.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
+<section class="param" id="mask"><h3 class="anchored">Mask</h3><p class="param-meta"><code>mask</code></p><p>Points that stay in the scan but carry no weight in the refinement: a range of x, or a list of points.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span> = ∞ at the masked points (no weight); the others unchanged.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -163,7 +163,7 @@ Points</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="delete"><h3 class="anchored">Delete <code>delete</code></h3><p>Points removed from the scan: a range of x, or a list of points.</p><p class="m">σ: the points that stay are unchanged.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
+<section class="param" id="delete"><h3 class="anchored">Delete</h3><p class="param-meta"><code>delete</code></p><p>Points removed from the scan: a range of x, or a list of points.</p><p class="m">σ: the points that stay are unchanged.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -188,7 +188,7 @@ Points</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="smooth"><h3 class="anchored">Smooth (Savitzky–Golay) <code>smooth</code></h3><p>Each point replaced by a polynomial least-squares fitted over a window of points centred on it; at each end, the polynomial of the first (last) window evaluated at its first (last) half.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span>² of a smoothed point is Σ c_k<span class="math inline">\(^{2}\)</span> <span class="math inline">\(\sigma\)</span>_k<span class="math inline">\(^{2}\)</span> over its coefficients c_k.</p><p class="cite">Definition: A. Savitzky &amp; M. J. E. Golay (1964), Anal. Chem. 36, 1627–1639; as SciPy's savgol_filter(mode = "interp"), against which test data_operations checks it on four real files</p>
+<section class="param" id="smooth"><h3 class="anchored">Smooth (Savitzky–Golay)</h3><p class="param-meta"><code>smooth</code></p><p>Each point replaced by a polynomial least-squares fitted over a window of points centred on it; at each end, the polynomial of the first (last) window evaluated at its first (last) half.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span>² of a smoothed point is Σ c_k<span class="math inline">\(^{2}\)</span> <span class="math inline">\(\sigma\)</span>_k<span class="math inline">\(^{2}\)</span> over its coefficients c_k.</p><p class="cite">Definition: A. Savitzky &amp; M. J. E. Golay (1964), Anal. Chem. 36, 1627–1639; as SciPy's savgol_filter(mode = "interp"), against which test data_operations checks it on four real files</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -208,7 +208,7 @@ Order</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="rebin"><h3 class="anchored">Rebin <code>rebin</code></h3><p>Points combined into fewer: by a factor (each n consecutive points become one at their mean x; the last points that do not make n are dropped), or to a new step (each point's interval, between the midpoints to its neighbours, shared among the new intervals in proportion to the overlap).</p><p class="m">σ: mode sum: <span class="math inline">\(\sigma\)</span>² = Σ (share·<span class="math inline">\(\sigma\)</span>)²; mode average: that divided by the factor (or by the new step over the old).</p><p class="cite">Definition: the core's own (R21, L066); test data_operations (counts conserved in mode sum, exact identities)</p>
+<section class="param" id="rebin"><h3 class="anchored">Rebin</h3><p class="param-meta"><code>rebin</code></p><p>Points combined into fewer: by a factor (each n consecutive points become one at their mean x; the last points that do not make n are dropped), or to a new step (each point's interval, between the midpoints to its neighbours, shared among the new intervals in proportion to the overlap).</p><p class="m">σ: mode sum: <span class="math inline">\(\sigma\)</span>² = Σ (share·<span class="math inline">\(\sigma\)</span>)²; mode average: that divided by the factor (or by the new step over the old).</p><p class="cite">Definition: the core's own (R21, L066); test data_operations (counts conserved in mode sum, exact identities)</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -233,7 +233,7 @@ Mode</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="normalize"><h3 class="anchored">Normalise <code>normalize</code></h3><p>y and <span class="math inline">\(\sigma\)</span> multiplied by one factor: a value over the scan's monitor, its counting time or its maximum; or a factor given.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span> times the same factor.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
+<section class="param" id="normalize"><h3 class="anchored">Normalise</h3><p class="param-meta"><code>normalize</code></p><p>y and <span class="math inline">\(\sigma\)</span> multiplied by one factor: a value over the scan's monitor, its counting time or its maximum; or a factor given.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span> times the same factor.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -258,7 +258,7 @@ Factor</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="add"><h3 class="anchored">Add a scan <code>add</code></h3><p>Another file's scan, times scale, interpolated linearly at this scan's points and added; points outside the other scan are removed.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span>² = <span class="math inline">\(\sigma\)</span>_a<span class="math inline">\(^{2}\)</span> + scale<span class="math inline">\(^{2}\)</span> <span class="math inline">\(\sigma\)</span>_b,interpolated<span class="math inline">\(^{2}\)</span>, <span class="math inline">\(\sigma\)</span>² of an interpolated point (1 − t)²<span class="math inline">\(\sigma\)</span>₁² + t<span class="math inline">\(^{2}\)</span><span class="math inline">\(\sigma\)</span>₂².</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
+<section class="param" id="add"><h3 class="anchored">Add a scan</h3><p class="param-meta"><code>add</code></p><p>Another file's scan, times scale, interpolated linearly at this scan's points and added; points outside the other scan are removed.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span>² = <span class="math inline">\(\sigma\)</span>_a<span class="math inline">\(^{2}\)</span> + scale<span class="math inline">\(^{2}\)</span> <span class="math inline">\(\sigma\)</span>_b,interpolated<span class="math inline">\(^{2}\)</span>, <span class="math inline">\(\sigma\)</span>² of an interpolated point (1 − t)²<span class="math inline">\(\sigma\)</span>₁² + t<span class="math inline">\(^{2}\)</span><span class="math inline">\(\sigma\)</span>₂².</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -283,7 +283,7 @@ Scale</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="subtract"><h3 class="anchored">Subtract a scan <code>subtract</code></h3><p>Another file's scan (an empty holder, a measured background), times scale, interpolated linearly at this scan's points and subtracted; points outside the other scan are removed.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span>² = <span class="math inline">\(\sigma\)</span>_a<span class="math inline">\(^{2}\)</span> + scale<span class="math inline">\(^{2}\)</span> <span class="math inline">\(\sigma\)</span>_b,interpolated<span class="math inline">\(^{2}\)</span>.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
+<section class="param" id="subtract"><h3 class="anchored">Subtract a scan</h3><p class="param-meta"><code>subtract</code></p><p>Another file's scan (an empty holder, a measured background), times scale, interpolated linearly at this scan's points and subtracted; points outside the other scan are removed.</p><p class="m">σ: <span class="math inline">\(\sigma\)</span>² = <span class="math inline">\(\sigma\)</span>_a<span class="math inline">\(^{2}\)</span> + scale<span class="math inline">\(^{2}\)</span> <span class="math inline">\(\sigma\)</span>_b,interpolated<span class="math inline">\(^{2}\)</span>.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -308,7 +308,7 @@ Scale</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="merge"><h3 class="anchored">Merge a scan <code>merge</code></h3><p>The points of another scan joined to these; points at the same x (to <span class="math inline">\(10^{-6}\)</span> of the step) become their mean weighted by 1/<span class="math inline">\(\sigma\)</span>².</p><p class="m">σ: <span class="math inline">\(\sigma\)</span> = (Σ 1/<span class="math inline">\(\sigma\)</span>²)^(−1/2) at the merged points.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
+<section class="param" id="merge"><h3 class="anchored">Merge a scan</h3><p class="param-meta"><code>merge</code></p><p>The points of another scan joined to these; points at the same x (to <span class="math inline">\(10^{-6}\)</span> of the step) become their mean weighted by 1/<span class="math inline">\(\sigma\)</span>².</p><p class="m">σ: <span class="math inline">\(\sigma\)</span> = (Σ 1/<span class="math inline">\(\sigma\)</span>²)^(−1/2) at the merged points.</p><p class="cite">Definition: the core's own (R21, L066); test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -333,7 +333,7 @@ Scale</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="convert"><h3 class="anchored">Convert the axis <code>convert</code></h3><p>x converted to 2<span class="math inline">\(\theta\)</span>, d or Q (d = λ/(2 sin <span class="math inline">\(\theta\)</span>), Q = 4π sin <span class="math inline">\(\theta\)</span>/λ = 2π/d); y and <span class="math inline">\(\sigma\)</span> kept; the points kept in increasing x.</p><p class="m">σ: unchanged (the axis changes, not the counts).</p><p class="cite">Definition: Bragg's law; test data_operations (exact identities)</p>
+<section class="param" id="convert"><h3 class="anchored">Convert the axis</h3><p class="param-meta"><code>convert</code></p><p>x converted to 2<span class="math inline">\(\theta\)</span>, d or Q (d = λ/(2 sin <span class="math inline">\(\theta\)</span>), Q = 4π sin <span class="math inline">\(\theta\)</span>/λ = 2π/d); y and <span class="math inline">\(\sigma\)</span> kept; the points kept in increasing x.</p><p class="m">σ: unchanged (the axis changes, not the counts).</p><p class="cite">Definition: Bragg's law; test data_operations (exact identities)</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -353,7 +353,7 @@ Wavelength</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="wavelength"><h3 class="anchored">Another wavelength <code>wavelength</code></h3><p>2<span class="math inline">\(\theta\)</span> recalculated for another wavelength, sin <span class="math inline">\(\theta\)</span>′ = (λ′/λ) sin <span class="math inline">\(\theta\)</span>; points with |sin <span class="math inline">\(\theta\)</span>′| &gt; 1 removed.</p><p class="m">σ: unchanged.</p><p class="cite">Definition: Bragg's law; test data_operations</p>
+<section class="param" id="wavelength"><h3 class="anchored">Another wavelength</h3><p class="param-meta"><code>wavelength</code></p><p>2<span class="math inline">\(\theta\)</span> recalculated for another wavelength, sin <span class="math inline">\(\theta\)</span>′ = (λ′/λ) sin <span class="math inline">\(\theta\)</span>; points with |sin <span class="math inline">\(\theta\)</span>′| &gt; 1 removed.</p><p class="m">σ: unchanged.</p><p class="cite">Definition: Bragg's law; test data_operations</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -369,7 +369,7 @@ To</th>
 </table>
 </section>
 <h2 id="analysis" class="anchored">Analyses</h2>
-<section class="param" id="peak_search"><h3 class="anchored">Peak search <code>peak_search</code></h3><p>The local maxima of the scan with their prominence (height above the higher of the two bases), height and width at half the prominence; kept when the prominence is at least min_prominence and at least min_significance times the peak's <span class="math inline">\(\sigma\)</span>.</p><p class="m">σ: the scan is unchanged; <span class="math inline">\(\sigma\)</span> decides which peaks are significant.</p><p class="cite">Definition: SciPy's find_peaks and peak_widths(rel_height = 0.5), against which test data_operations checks it; GSAS-II's own candidates (gsas2_peak_candidates) are given beside it</p>
+<section class="param" id="peak_search"><h3 class="anchored">Peak search</h3><p class="param-meta"><code>peak_search</code></p><p>The local maxima of the scan with their prominence (height above the higher of the two bases), height and width at half the prominence; kept when the prominence is at least min_prominence and at least min_significance times the peak's <span class="math inline">\(\sigma\)</span>.</p><p class="m">σ: the scan is unchanged; <span class="math inline">\(\sigma\)</span> decides which peaks are significant.</p><p class="cite">Definition: SciPy's find_peaks and peak_widths(rel_height = 0.5), against which test data_operations checks it; GSAS-II's own candidates (gsas2_peak_candidates) are given beside it</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -389,7 +389,7 @@ Least significance</th>
 </tbody>
 </table>
 </section>
-<section class="param" id="auto_background"><h3 class="anchored">Automatic background <code>auto_background</code></h3><p>A smooth curve under the peaks by asymmetrically reweighted penalised least squares (arPLS): a Whittaker smoother whose weights drop where the data stand above the curve; with points every N/100 of the scan, as GSAS-II takes them for its fixed points.</p><p class="m">σ: the scan is unchanged.</p><p class="cite">Definition: S.-J. Baek, A. Park, Y.-J. Ahn &amp; J. Choo (2015), Analyst 140, 250–257; as pybaselines' whittaker.arpls, which GSAS-II uses (GSASIIpwd.py autoBkgCalc); test data_operations against both</p>
+<section class="param" id="auto_background"><h3 class="anchored">Automatic background</h3><p class="param-meta"><code>auto_background</code></p><p>A smooth curve under the peaks by asymmetrically reweighted penalised least squares (arPLS): a Whittaker smoother whose weights drop where the data stand above the curve; with points every N/100 of the scan, as GSAS-II takes them for its fixed points.</p><p class="m">σ: the scan is unchanged.</p><p class="cite">Definition: S.-J. Baek, A. Park, Y.-J. Ahn &amp; J. Choo (2015), Analyst 140, 250–257; as pybaselines' whittaker.arpls, which GSAS-II uses (GSASIIpwd.py autoBkgCalc); test data_operations against both</p>
 <table class="inventory caption-top">
 <colgroup>
 <col style="width: 50%">
