@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="./brief/index.html">The brief, organised</a></li></ul></details>
 <details class="group" open=""><summary class="t">Background</summary><ul><li><a href="./background/index.html">The programs that inspire</a></li><li><a href="./background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="./background/gsas2/index.html">GSAS-II</a></li></ul></details>
 <details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="./design/index.html">Design: open questions</a></li><li><a href="./design/proposal/index.html">Proposal (draft)</a></li><li><a href="./roadmap/index.html">Roadmap: the phases</a></li></ul></details>
-<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="./manual/index.html">About the manual</a></li><li><a href="./manual/parameters/index.html">Parameters: the theory</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="./manual/index.html">About the manual</a></li><li><a href="./manual/parameters/index.html">Parameters: the theory</a></li><li><a href="./manual/operations/index.html">Data operations: the settings</a></li></ul></details>
 <details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="./about/index.html">How this site works</a></li><li><a href="./log/index.html">The log, every dated step</a></li></ul></details>
 <details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="./releases/index.html">Release notes</a></li></ul></details>
 </nav>
@@ -144,10 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="net-stats net-stats-grid">
   <div class="net-stat"><div class="v">29</div><div class="k">requirements in the brief</div></div>
   <div class="net-stat"><div class="v">9</div><div class="k">programs on the long list (2 shortlisted)</div></div>
-  <div class="net-stat"><div class="v">86</div><div class="k">log entries</div></div>
+  <div class="net-stat"><div class="v">89</div><div class="k">log entries</div></div>
   <div class="net-stat"><div class="v">30</div><div class="k">decisions recorded</div></div>
 </div>
-<div class="updated">Site last built 2026-10-10 21:15</div>
+<div class="updated">Site last built 2026-10-11 05:56</div>
     </div>
   </div>
 </section>
@@ -173,11 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="sec-head"><h2 class="anchored">Latest in the log</h2><a class="more" href="log/index.html">All entries →</a></div>
     <p class="sec-intro">Findings, decisions with their reasons, and the work done. Newest first.</p>
 <ul class="home-log">
+<li><span class="d">2026-10-11</span><div><a href="log/index.html#L089">Core 0.21.0 and app 0.8.0 merged; Josu's mode-crystallography material added, its book's chapters marked as no reference</a><span class="s">work · core 0.21.0, app 0.8.0 (branch app, d0e11b3) · manuals/bcs/README.md (commit 3fc3938) · mode-crystallography-manual/course-um6p-2024/04_tools_materials/1_sr2scsbo6_300K_structure_014_data_LR (FullProf 8.20)</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L088">The data operations' settings in a dictionary (request 16), a data file written (request 12), the line of each point (request 15)</a><span class="s">work · core 0.21.0 · ecosystem/data/operations.yml, tools/build.py, site/manual/operations/ · core/src/operation_table.rs, data_ops.rs, formats/write.rs, formats/mod.rs, control/pcr_export.rs, main.rs · core/tests/operation_dictionary.rs, data_write.rs · app/REQUESTS.md (branch app) 12–16</span></div></li>
+<li><span class="d">2026-10-10</span><div><a href="log/index.html#L087">FullProf's background settled on all eleven variants: the quarter within single precision, the spline's end point at the data's end and none past it; the χ² differences frozen per variant</a><span class="s">finding · core/tests/background_points.rs (fullprof_interpolation, FROZEN_CHI2), core/tests/data/make_fullprof_profiles.py, fullprof_profiles.txt · core/src/powder.rs, background.rs · manuals/fullprof/runs/background/ (FullProf 8.20) · L081, L082, L085</span></div></li>
 <li><span class="d">2026-10-10</span><div><a href="log/index.html#L086">R27–R29: our own file names in a file dictionary, a results file of our own in place of .prf, and refinement by symmetry modes</a><span class="s">decision · conversation of 10 October 2026 · ecosystem/data/brief.yml R27–R29 · ecosystem/data/proposal.yml P13 · manuals/fullprof/FP_tests (mode .pcr files) · manuals/fullprof/news (2008–2010, 2016) · L020, L044, L062, L082, L084</span></div></li>
 <li><span class="d">2026-10-10</span><div><a href="log/index.html#L085">Core 0.20.0 reviewed with FullProf's new background runs: the .bac predicted exactly; the quarter rule fails for 31 spline points; app 0.8.0 not merged</a><span class="s">finding · manuals/fullprof/runs/background_runs.py, background/ (FullProf 8.20) · core/tests/background_points.rs, fullprof_profiles.rs · app/src-tauri/src/modules/refine.rs, project.rs (branch app, 42231a6) · L079, L082, L084</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L084">Core 0.20.0: FullProf's background, drs check with its data, every file of a project named, distances, angles, bond valences and a CIF for deposition</a><span class="s">work · core 0.20.0 · core/src/background.rs, check.rs, formats/project.rs, bonds.rs, cfl.rs, bv_table.rs, cif_write.rs, main.rs · core/tests/background_points.rs, check_diagnostics.rs, file_kinds.rs, bond_str.rs, cif_deposition.rs · manuals/fullprof/runs/background_runs.py</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L083">Bond_Str's distances, angles and bond-valence sums reproduced on 77 .dis files; three of its rules that the default does not follow</a><span class="s">finding · CrysFML (crysfml 0.8.0 on PyPI, LGPL-3): Src/CFML_Geom/Geom_Distances.f90, Geom_Angles.f90, Src/CFML_EnBVS/EnBVS_CostF.f90, EnBVS_SetTab.f90, Src/CFML_Tables/Tab_Set_BVST.f90 · docs/bond_str.pdf · manuals/fullprof/*/*.dis · core/tests/bond_str.rs, cif_deposition.rs</span></div></li>
-<li><span class="d">2026-10-10</span><div><a href="log/index.html#L082">FullProf's background read: its spline has one point of its own at the end of the data; the .prf prints Backg less a quarter of its least value; a .bac is read in the first format only</a><span class="s">finding · manuals/fullprof/runs/background/ (FullProf 8.20) · background_runs.py · core/tests/background_points.rs · manual p. 8 and its footnote, p. 69, p. 78</span></div></li>
 </ul>
   </div>
 </section>
