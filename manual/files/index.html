@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <article class="page-wide">
 <h1>Files</h1>
 <p class="lede">Every kind of file in a project started in the app (R27, <a href="../../log/index.html#L091">L091</a>): its folder and name, what it holds, its format, and the files that do the same in FullProf and GSAS-II. The core, the command line and the app take their names from the same file, as they take the parameters' names from the parameter dictionary. A project that comes from FullProf keeps FullProf's names.</p>
-<p class="sub">18 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
+<p class="sub">21 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
 <h2 id="principles" class="anchored">Principles</h2><ul class="k-list"><li>Readable names, no numeric codes: a file says what it is in words, never FullProf's CODFILn, _calc or 1.fst (R27).</li><li>Phases by their names, not their numbers: {phase} is the phase's name as the control file gives it.</li><li>One place per role: a folder for each kind of input and output, so that the project's folder holds the control file and little else.</li><li>Versions by their time: a version or a result is named by the control file and the time it was made, so that names sort in time and never collide.</li><li>Measured files keep their own names: the data are the instrument's, and renaming them would lose the link to the lab book.</li><li>Spaces are allowed, as in the versions decided in L080: every file is a name a person reads; the command line quotes them.</li></ul>
 <h2 id="layout" class="anchored">The project folder</h2>
 <table class="inventory caption-top">
@@ -153,43 +153,43 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><code>(the project's folder)</code></td>
 <td><code>{project}.drc</code></td>
 <td><a href="#control">Control file</a></td>
-<td>decided (L070: the extension .drc); the name is proposed: the project's name for the first control file, the user's for the others</td>
+<td>decided (L070: the extension .drc; L099: the name, the project's for the first control file, the user's for the others)</td>
 </tr>
 <tr class="even">
 <td><code>Data/</code></td>
 <td><code>{original}</code></td>
 <td><a href="#data">Measured data</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <td><code>Data/</code></td>
 <td><code>{data} processed.xys</code></td>
 <td><a href="#processed_data">Data after the operations</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="even">
 <td><code>(the project's folder)</code></td>
 <td><code>{control} background.drb</code></td>
 <td><a href="#background_points">Background points</a></td>
-<td>decided (L081: the format and the extension .drb); the name is proposed</td>
+<td>decided (L081: the format and the extension .drb; L099: the name)</td>
 </tr>
 <tr class="odd">
 <td><code>Structures/</code></td>
 <td><code>{phase}.cif</code></td>
 <td><a href="#structure">Structure</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="even">
 <td><code>Structures/</code></td>
 <td><code>{phase} AMPLIMODES.txt</code></td>
 <td><a href="#modes_analysis">Symmetry-mode analysis</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <td><code>Instrument/</code></td>
 <td><code>{instrument}.irf</code></td>
 <td><a href="#resolution">Instrument resolution</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="even">
 <td><code>Versions/</code></td>
@@ -205,53 +205,71 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <td><code>Results/</code></td>
-<td><code>{control} {time}.{results}</code></td>
+<td><code>{control} {time} results.cif</code></td>
 <td><a href="#results">Results of a refinement</a></td>
-<td>proposed (the name); the format awaits R28</td>
+<td>decided (L092: pdCIF; L099: the name)</td>
 </tr>
 <tr class="odd">
 <td><code>Results/</code></td>
 <td><code>{control} {phase}.cif</code></td>
 <td><a href="#deposition_cif">CIF for deposition</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="even">
 <td><code>Results/</code></td>
 <td><code>{control} {phase} bonds.txt</code></td>
 <td><a href="#bonds_report">Distances, angles and bond valences</a></td>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <td><code>FullProf/</code></td>
 <td><code>{control}.pcr</code></td>
 <td><a href="#fullprof_pcr_export">Control file exported for FullProf</a></td>
-<td>proposed (FullProf's names, which FullProf requires, in a folder of their own)</td>
+<td>decided (L099: FullProf's names, which FullProf requires, in a folder of their own)</td>
 </tr>
 <tr class="even">
 <td><code>FullProf/</code></td>
 <td><code>{control}.bac</code></td>
 <td><a href="#fullprof_background_export">Background file exported for FullProf</a></td>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="odd">
 <td><code>FullProf/</code></td>
 <td><code>{control}{n}.hkl</code></td>
 <td><a href="#fullprof_reflections_export">Reflection list exported for FullProf</a></td>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="even">
 <td><code>FullProf/</code></td>
 <td><code>{control}.irf</code></td>
 <td><a href="#fullprof_resolution_export">Resolution file exported for FullProf</a></td>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="odd">
 <td><code>FullProf/</code></td>
 <td><code>{control}.xys</code></td>
 <td><a href="#fullprof_data_export">Data exported for FullProf</a></td>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="even">
+<td><code>(the project's folder)</code></td>
+<td><code>{control} notes.toml</code></td>
+<td><a href="#reflection_notes">Reflection notes</a></td>
+<td>decided (L099)</td>
+</tr>
+<tr class="odd">
+<td><code>Exports/</code></td>
+<td><code>{control} reflections.csv</code></td>
+<td><a href="#export_reflections">Reflections, exported</a></td>
+<td>decided (L099)</td>
+</tr>
+<tr class="even">
+<td><code>Exports/</code></td>
+<td><code>{control} profile.csv</code></td>
+<td><a href="#export_profile">Profile, exported</a></td>
+<td>decided (L099)</td>
+</tr>
+<tr class="odd">
 <td><code>.drs/</code></td>
 <td><code>{original}</code></td>
 <td><a href="#app_state">The app's state</a></td>
@@ -294,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>decided (L070: the extension .drc); the name is proposed: the project's name for the first control file, the user's for the others</td>
+<td>decided (L070: the extension .drc; L099: the name, the project's for the first control file, the user's for the others)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -336,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -378,7 +396,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -420,7 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>decided (L081: the format and the extension .drb); the name is proposed</td>
+<td>decided (L081: the format and the extension .drb; L099: the name)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -462,7 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -504,7 +522,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -546,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -644,7 +662,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Name</th>
-<td><code>Results/{control} {time}.{results}</code> (extension pending R28 (the format is Josu's choice, L092))</td>
+<td><code>Results/{control} {time} results.cif</code> (extension cif)</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Role</th>
@@ -652,11 +670,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Contents</th>
-<td>Everything a refinement produced (R28): observed, calculated, difference, <span class="math inline">\(\sigma\)</span>, background, each phase's curve, excluded regions, reflections, agreement factors, the model and the control file, the data file.</td>
+<td>Everything a refinement produced (R28): the agreement factors, the refined parameters with their standard uncertainties, the control file, every phase (cell, symmetry, atoms with their uncertainties, R_Bragg), the profile (2<span class="math inline">\(\theta\)</span>, Yobs, its weight, the background, Ycal, each phase's curve), the excluded regions, the reflections (h k l, multiplicity, d, 2<span class="math inline">\(\theta\)</span>, FWHM, |F|², I calc, I obs partitioned by the model and its <span class="math inline">\(\sigma\)</span>).</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Format</th>
-<td>pending R28</td>
+<td>powder CIF (pdCIF): the IUCr's DDL1 core and powder dictionaries where they name an item, the local prefix _drs_ for the rest; one data block for the whole, one per phase, one for the pattern, linked by _pd_block_id (core/src/results.rs)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">FullProf</th>
@@ -668,15 +686,15 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Written by</th>
-<td>the app after each refinement (the record), drs refine</td>
+<td>results::write (drs results); the app after each refinement (the record)</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed (the name); the format awaits R28</td>
+<td>decided (L092: pdCIF; L099: the name)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
-<td>One results file per refinement, named by its control file and time like the versions, so that each version has its results.</td>
+<td>One results file per refinement, named by its control file and time like the versions, so that each version has its results; a CIF that GSAS-II and the journals read.</td>
 </tr>
 </tbody>
 </table>
@@ -710,11 +728,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Written by</th>
-<td>drs cif (cif_write::deposition)</td>
+<td>drs cif (cif_write::deposition); drs results, with the results file (results::write)</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -756,7 +774,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed</td>
+<td>decided (L099)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -798,7 +816,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed (FullProf's names, which FullProf requires, in a folder of their own)</td>
+<td>decided (L099: FullProf's names, which FullProf requires, in a folder of their own)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -840,7 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -882,7 +900,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -924,7 +942,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
@@ -966,11 +984,137 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
-<td>proposed (FullProf's name)</td>
+<td>decided (L099: FullProf's name)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
 <td>Written beside the exported .pcr that names it.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="reflection_notes"><h3 class="anchored">Reflection notes</h3><p class="param-meta"><code>reflection_notes</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>{control} notes.toml</code> (extension toml)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>input</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>The user's notes on the refinement's reflections and peaks (W8): a reflection or a 2<span class="math inline">\(\theta\)</span> and what was seen there.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>TOML, written by the app</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>none</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>the app</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L099)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Notes are the user's own writing, so they stay visible beside the control file they belong to, not in .drs/ (L093).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="export_reflections"><h3 class="anchored">Reflections, exported</h3><p class="param-meta"><code>export_reflections</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Exports/{control} reflections.csv</code> (extension csv)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>One line per reflection: phase, wavelength, h k l, multiplicity, 2<span class="math inline">\(\theta\)</span>, d, FWHM, η, |F|², I calc, I obs partitioned by the model, its <span class="math inline">\(\sigma\)</span>, (I obs − I calc)/<span class="math inline">\(\sigma\)</span>.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>CSV with a header line (results::reflections_csv)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>CODFILn.hkl (Hkl ≠ 0)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the reflection list export (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/exports/G2export_csv.py">G2export_csv.py</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs results --exports; the app's Export, on demand</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L099)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Written only when asked: the record is the results file (L093); an Exports folder keeps what leaves the project apart.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="export_profile"><h3 class="anchored">Profile, exported</h3><p class="param-meta"><code>export_profile</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Exports/{control} profile.csv</code> (extension csv)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>One line per point: 2<span class="math inline">\(\theta\)</span>, Yobs, <span class="math inline">\(\sigma\)</span>, Ycal, the background, each phase's curve, the weighted difference, the cumulative <span class="math inline">\(\chi^2\)</span> as a fraction of the whole.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>CSV with a header line (results::profile_csv)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>CODFIL.prf, CODFILn.sub</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the powder pattern export (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/exports/G2export_csv.py">G2export_csv.py</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs results --exports; the app's Export, on demand</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L099)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Written only when asked, beside the reflections' export.</td>
 </tr>
 </tbody>
 </table>
