@@ -1,3 +1,3 @@
 # diff-ref-struct · project site
 
-Rendered site of the private repository diff-ref-struct, published by its Action from commit f99a57d. Not a source: every run replaces it whole.
+Rendered site of the private repository diff-ref-struct, published by its Action from commit 37ad5c2. Not a source: every run replaces it whole.
