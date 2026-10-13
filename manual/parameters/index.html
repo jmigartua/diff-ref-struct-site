@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">49 entries, 40 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">51 entries, 42 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -771,6 +771,98 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.y</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="quartic_strain"><h3 class="anchored">Anisotropic strain, quartic form</h3><p class="param-meta"><code>quartic_strain</code> · <span class="math inline">\(S_{HKL}\)</span> · <span class="math inline">\(10^{-8}\)</span> Å⁻⁴ · refinable</p><p>The coefficients of Stephens' quartic form in hkl, the variance of 1/d<span class="math inline">\(^{2}\)</span> over the crystallites: a strain broadening that depends on the reflection.</p><p class="eq"><span class="math inline">\(\sigma^2(M_{hkl}) = 10^{-8}\sum_{H+K+L=4} S_{HKL}\,h^H k^K l^L,\quad D_{ST} = \sqrt{8\ln 2}\,\frac{180}{\pi}\,\frac{\sigma(M_{hkl})}{M_{hkl}},\quad H_G^2 \mathrel{+}= [(1-\xi)D_{ST}]^2\tan^2\theta,\quad H_L \mathrel{+}= \xi D_{ST}\tan\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 22 · FullProf_Manual.pdf, p. 121 · NdNi_LTOa_calc1.mic. Paper: J. Rodríguez-Carvajal. Study of micro-structural effects by powder diffraction using the program FullProf. Laboratoire Léon Brillouin (manuals/fullprof/docs/Microstructural_effects.pdf)</p><p class="m">Stephens' paper (J. Appl. Cryst. 32, 281, 1999) is not in the repository: the form, its factor <span class="math inline">\(10^{-8}\)</span> and the split by ξ are as the manual (pp. 22, 121) and the <code>.mic</code> header state them, checked on FullProf's run of <span class="math inline">\(\mathrm{Nd_{2}NiO_{4}}\)</span> (fullprof_anisotropic_strain, L211). The Laue classes whose terms are tied by Stephens' relations (tetragonal, trigonal, hexagonal, cubic) and −1 (the manual lists S_301 twice, p. 119) are not read yet.</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>S_HKL, LINE 37 of the phase with |Str| = 1 and Strain-Model ≠ 0 (pp. 119–121); the terms of each Laue class in its order (Strain-Model 2, −2, 3 read: 1 2/m 1, 1 1 2/m, mmm)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Mustrain;i, generalized (the same quartic form, its coefficients scaled otherwise; <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L650">GSASIIobj.py L650</a>); not compared</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−36.73 to 20.49 (NdNi_LTOa.pcr, the one file the core reads with them)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none (no anisotropic strain)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the microstructure (p. 14, step 10), over a resolution file, once the isotropic U and X no longer account for the widths.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None: an S_HKL may be negative (S_220 of <span class="math inline">\(\mathrm{Nd_{2}NiO_{4}}\)</span> is −36.7); a negative sum gives no broadening.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; Not named by the manual's LINE 9 (p. 77); believed profile, as LINES 26–38 are the phase's profile parameters (L211))</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#caglioti_u"><code>caglioti_u</code></a>: S_HKL proportional to the square of the reciprocal metric (<span class="math inline">\(\sigma\)</span>²(M) ∝ M<span class="math inline">\(^{2}\)</span>) give a D_ST the same for every reflection, so a width (1 − ξ)²D_ST<span class="math inline">\(^{2}\)</span> tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> that U tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span> also gives (manual p. 22): refined together with U, that direction is not fixed by the data. <em>Tip:</em> Over a resolution file, refine U or the quartic form, not both, or hold U at zero. <span class="cite">FullProf_Manual.pdf, p. 22</span></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.quartic_strain</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="quartic_strain_lorentzian"><h3 class="anchored">Anisotropic strain, Lorentzian share</h3><p class="param-meta"><code>quartic_strain_lorentzian</code> · <span class="math inline">\(\xi\)</span> · 1 · refinable</p><p>The share of the anisotropic strain's width taken by the Lorentzian part of the TCH profile; the rest is Gaussian.</p><p class="eq"><span class="math inline">\(H_G^2 \mathrel{+}= [(1-\xi)D_{ST}]^2\tan^2\theta,\quad H_L \mathrel{+}= \xi D_{ST}\tan\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 22 · FullProf_Manual.pdf, p. 121 · NdNi_LTOa_calc1.mic. Paper: J. Rodríguez-Carvajal. Study of micro-structural effects by powder diffraction using the program FullProf. Laboratoire Léon Brillouin (manuals/fullprof/docs/Microstructural_effects.pdf)</p><p class="m">As the <code>.mic</code> header writes it (lines 36–38): the Gaussian strain (U + [(1 − ξ)D_ST]²) tan<span class="math inline">\(^{2}\)</span><span class="math inline">\(\theta\)</span>, the Lorentzian (X + ξ D_ST) tan <span class="math inline">\(\theta\)</span>.</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>XI, LINE 38 of the phase ("Lorentzian strain coeff.", p. 121)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Mustrain;mx (the Gauss–Lorentz mixing of the strain, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L650">GSASIIobj.py L650</a>); not compared</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.136 (NdNi_LTOa.pcr)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the quartic form, once its S_HKL are found.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>0 to 1.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; Not named by the manual's LINE 9 (p. 77); believed profile, as the quartic form (L211))</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#lorentzian_strain"><code>lorentzian_strain</code></a>: ξ D_ST tan <span class="math inline">\(\theta\)</span> adds to X tan <span class="math inline">\(\theta\)</span> in H_L: where D_ST hardly depends on hkl, ξ and X move the same width. <em>Tip:</em> Refine ξ with X fixed, or X with ξ fixed. <span class="cite">NdNi_LTOa_calc1.mic</span></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.quartic_strain</code></td>
 </tr>
 </tbody>
 </table>
