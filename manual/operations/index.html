@@ -365,6 +365,11 @@ Wavelength</th>
 To</th>
 <td>The new wavelength λ′. <span class="m">Unit: Å. Range: positive; the scan's x must be 2<span class="math inline">\(\theta\)</span>, and its λ known. Default: required. Proposed: Cu Kα1, 1.5406 Å, to compare with laboratory data.</span> <em>Raising it:</em> the peaks move to higher 2<span class="math inline">\(\theta\)</span>, the high-angle points past 180° are removed. <em>Lowering it:</em> the peaks move to lower 2<span class="math inline">\(\theta\)</span>.</td>
 </tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"><code>from</code><br>
+From</th>
+<td>The wavelength the scan was measured with, for a scan that states none (a control file's λ1, W7's Use λ from); a scan that states its own is converted from it, and a different from is refused. <span class="m">Unit: Å. Range: positive. Default: the scan's own λ. Proposed: the control file's λ1.</span> <em>Raising it:</em> the same scan read as measured at a longer wavelength: the peaks move to lower 2<span class="math inline">\(\theta\)</span>. <em>Lowering it:</em> the peaks move to higher 2<span class="math inline">\(\theta\)</span>. <span class="cite">app request 34</span></td>
+</tr>
 </tbody>
 </table>
 </section>
