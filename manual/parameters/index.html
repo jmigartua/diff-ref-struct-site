@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">54 entries, 45 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">55 entries, 46 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -435,7 +435,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">FullProf</th>
-<td>Sycos, line 14 (p. 82; meaning p. 56)</td>
+<td>Sycos, line 14 (p. 82; meaning p. 56). FullProf 8.20 shifts by Sycos·cos 2<span class="math inline">\(\theta\)</span>, not by the manual's cos <span class="math inline">\(\theta\)</span>: its <code>.prf</code> ticks and <code>.sub</code> profiles (NdNi-HTO, cuf1k; L267), the compatibility rule <code>Convention::displacement</code></td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">GSAS-II</th>
@@ -867,6 +867,52 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.quartic_strain</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="shape_size"><h3 class="anchored">Anisotropic size by shape</h3><p class="param-meta"><code>shape_size</code> · <span class="math inline">\(S_Z\)</span> · 1 · refinable</p><p>The Lorentzian size broadening of crystallites of a shape: platelets (|cos φ|), needles (sin φ), φ the angle between the scattering vector and the platelets' normal or the needles' axis; or the antiphase domains of <span class="math inline">\(\mathrm{Cu_{3}Au}\)</span>, broadening the reflections whose h, k, l are not all of one parity.</p><p class="eq"><span class="math inline">\(H_L \mathrel{+}= \frac{360}{\pi^2}\,10^{-3}\,\lambda\, S_Z\, g(\mathbf{h})/\cos\theta,\quad g = |\cos\varphi|,\ \sin\varphi\ \text{or}\ 1\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 23 · FullProf_Manual.pdf, p. 24 · prba10k_calc.out · pdfinal_calc.out. Paper: J. Rodríguez-Carvajal. Study of micro-structural effects by powder diffraction using the program FullProf. Laboratoire Léon Brillouin (manuals/fullprof/docs/Microstructural_effects.pdf)</p><p class="m">k_s = (360/π²) λ <span class="math inline">\(10^{-3}\)</span> as the manual gives it for the quadratic form of size (p. 23); the needles' sin φ and the platelets' |cos φ| as on p. 24. FullProf's vector is taken as a direction [u v w] of the crystal; prba10k's [0 0 1] in a tetragonal cell cannot tell it from a reciprocal one (L267).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>LorSiz with Size-Model 1, −1 (LINE 27, the vector on LINE 36) or −14 (pp. 108, 118)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Size;a, the uniaxial size along an axis (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L651">GSASIIobj.py L651</a>); a different form, not compared</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.058 (prba10k, needles), 9.99 (Pd3MnD, antiphase)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>After the isotropic size Y, when the widths depend on the direction of h.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; Not named by the manual's LINE 9 (p. 77); believed profile, as Y (L267))</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#lorentzian_size"><code>lorentzian_size</code></a>: Both add to H_L over cos <span class="math inline">\(\theta\)</span>: where g(h) varies little among the reflections, S_Z and Y move the same widths. <em>Tip:</em> Refine Y first, then S_Z with reflections of several directions in the range. <span class="cite">prba10k_calc.out</span></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.shape_size</code></td>
 </tr>
 </tbody>
 </table>
