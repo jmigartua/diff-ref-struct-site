@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">51 entries, 42 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">54 entries, 45 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -160,11 +160,11 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">When to refine</th>
-<td>Not for laboratory data (known); for synchrotron and neutron data with a standard, together with the zero.</td>
+<td>Not for laboratory data (known); for synchrotron and neutron data with a standard, together with the zero, the cell fixed (manual p. 83: "Cell parameters should be fixed if wavelength is to be refined").</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Limits</th>
-<td>Not refined by the engine (core 0.12.0): a .pcr that codes it is refused.</td>
+<td>Above 0.001 Å. Refined for a pattern of one wavelength only, λ₂ moving with λ₁ as FullProf writes both (FP_tests/pb_ho.pcr and eight more patterns); a doublet's is refused (FullProf refines a single wavelength, p. 83; P18, L233).</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Class</th>
@@ -175,6 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>none</td>
 </tr>
 <tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#cell_a"><code>cell_a</code></a>, <a href="#cell_b"><code>cell_b</code></a>, <a href="#cell_c"><code>cell_c</code></a>: Bragg's law fixes λ/d, not λ and d apart: a wavelength k times larger with every cell edge k times longer gives the same peak positions (only the form factors and Debye–Waller terms at s = 1/2d tell them apart, weakly). <em>Tip:</em> Fix the cell at a standard's values when the wavelength is refined, as the manual says (p. 83). <span class="cite">FullProf_Manual.pdf, p. 83</span></td>
+</tr>
+<tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.lambda</code></td>
 </tr>
@@ -1117,6 +1121,136 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.mur</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="microabsorption_p0"><h3 class="anchored">Micro-absorption P₀</h3><p class="param-meta"><code>microabsorption_p0</code> · <span class="math inline">\(P_0\)</span> · 1 · refinable</p><p>The constant part of the loss of intensity by surface roughness in Bragg–Brentano geometry.</p><p class="eq"><span class="math inline">\(S_r(h) = 1 - P(h),\quad P(h) = P_0 + C_p\,\frac{\tau}{\sin\theta_h}\left(1 - \frac{\tau}{\sin\theta_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 55 · FullProf_Manual.pdf, p. 84. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>P0, line 15, read when More ≠ 0 on line 14 for a Bragg–Brentano X-ray pattern (p. 84)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>SurfRoughA, SurfRoughB (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L674-L675">GSASIIobj.py L674–675</a>): Suortti's exponential form (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L129-L140">GSASIIpwd.py L129–140</a>), not this expression</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 in the three files with line 15 (FP_tests/ce.pcr, ce1.pcr, ce2.pcr)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely: with Cp and <span class="math inline">\(\tau\)</span>, after the structure, for a rough flat sample in Bragg–Brentano geometry; correlated with the displacement parameters.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed: not in the manual's list; a property of the sample and pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.microabsorption</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="microabsorption_cp"><h3 class="anchored">Micro-absorption Cp</h3><p class="param-meta"><code>microabsorption_cp</code> · <span class="math inline">\(C_p\)</span> · 1 · refinable</p><p>The amplitude of the angle-dependent loss of intensity by surface roughness in Bragg–Brentano geometry.</p><p class="eq"><span class="math inline">\(P(h) = P_0 + C_p\,\frac{\tau}{\sin\theta_h}\left(1 - \frac{\tau}{\sin\theta_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 55 · FullProf_Manual.pdf, p. 84. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Cp, line 15 (p. 84)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>SurfRoughA in Suortti's exponential form (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L129-L140">GSASIIpwd.py L129–140</a>), not this expression</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>1.1988–1.4999 in FP_tests/ce.pcr, ce1.pcr, ce2.pcr (<span class="math inline">\(\mathrm{CeO_{2}}\)</span>, Cu Kα)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely: with <span class="math inline">\(\tau\)</span>, after the structure; strongly correlated with B (both lower the intensity at low angles relative to high).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed: not in the manual's list; a property of the sample and pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#microabsorption_tau"><code>microabsorption_tau</code></a>, <a href="#overall_b"><code>overall_b</code></a>, <a href="#atom_biso"><code>atom_biso</code></a>: P(h) changes the intensity smoothly with sin <span class="math inline">\(\theta\)</span>, as the Debye–Waller factor exp(−2B <span class="math inline">\(\mathrm{s}^{2}\)</span>) does: over one pattern the two shapes compensate, and Cp and <span class="math inline">\(\tau\)</span> compensate each other (<span class="math inline">\(\tau\)</span>/sin <span class="math inline">\(\theta\)</span> appears in both factors). <em>Tip:</em> Refine the displacement parameters first; add Cp and <span class="math inline">\(\tau\)</span> together only for a rough sample, and compare with a smoother one (the manual's refs. 25 and 26 give the limits). <span class="cite">FullProf_Manual.pdf, p. 55</span></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.microabsorption</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="microabsorption_tau"><h3 class="anchored">Micro-absorption τ</h3><p class="param-meta"><code>microabsorption_tau</code> · <span class="math inline">\(\tau\)</span> · 1 · refinable</p><p>The roughness parameter of the angle-dependent loss of intensity in Bragg–Brentano geometry, in units of sin <span class="math inline">\(\theta\)</span>.</p><p class="eq"><span class="math inline">\(P(h) = P_0 + C_p\,\frac{\tau}{\sin\theta_h}\left(1 - \frac{\tau}{\sin\theta_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 55 · FullProf_Manual.pdf, p. 84. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Tau, line 15 (p. 84)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>SurfRoughB in Suortti's exponential form (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L129-L140">GSASIIpwd.py L129–140</a>), not this expression</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.1325–0.1451 in FP_tests/ce.pcr, ce1.pcr, ce2.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely: with Cp, after the structure.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed: not in the manual's list; a property of the sample and pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.microabsorption</code></td>
 </tr>
 </tbody>
 </table>
