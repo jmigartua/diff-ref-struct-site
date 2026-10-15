@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Inference and the family · diff-ref-struct – diff-ref-struct · Rietveld refinement for the Mac</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<!-- Site header, family kit. Root-absolute hrefs are rewritten by Quarto to
+     page-relative links at render time. -->
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">diff <span class="accent">ref</span> struct
+      <span class="wordmark-sub">Rietveld refinement for the Mac · powder diffraction with X-rays, synchrotron and neutrons · started October 2026</span>
+    </a>
+    <!-- The entries are the groups of data/nav.yml, in the same order; the two navigations say the same thing. -->
+    <nav class="site-nav">
+      <a href="../../index.html">Overview</a>
+      <a href="../../brief/index.html">Brief</a>
+      <a href="../../background/index.html">Background</a>
+      <span class="nav-pair"><a href="../../design/index.html">Design</a><span class="sl">/</span><a href="../../roadmap/index.html">Roadmap</a></span>
+      <a href="../../manual/index.html">Manual</a>
+      <span class="nav-right">
+        <span class="nav-pair"><a href="../../about/index.html">Method</a><span class="sl">/</span><a href="../../log/index.html">Log</a></span>
+        <a href="../../releases/index.html">Release notes</a>
+      </span>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/build.py: left navigation + opening of the reading column -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../../index.html">Overview</a></li></ul></details>
+<details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../../brief/index.html">The brief, organised</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../../background/index.html">The programs that inspire</a></li><li><a href="../../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../../background/gsas2/index.html">GSAS-II</a></li></ul></details>
+<details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../../design/index.html">Design: open questions</a></li><li><a href="../../design/results-file/index.html">The results file: the choice</a></li><li><a href="../../design/proposal/index.html">Proposal (draft)</a></li><li><a href="../../design/inference/index.html">Inference and the family (assessed)</a></li><li><a href="../../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../../manual/index.html">About the manual</a></li><li><a href="../../manual/parameters/index.html">Parameters: the theory</a></li><li><a href="../../manual/operations/index.html">Data operations: the settings</a></li><li><a href="../../manual/files/index.html">Files</a></li></ul></details>
+<details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../../about/index.html">How this site works</a></li><li><a href="../../log/index.html">The log, every dated step</a></li></ul></details>
+<details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../../releases/index.html">Release notes</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">Inference before refinement, and the family’s configuration space</h1>
+
+</header>
+
+
+<article class="page-article">
+<h1>Inference before refinement, and the family's configuration space <span class="status status-proposed">assessed, not decided</span></h1>
+<p class="lede">Two ideas of Josu's of 15 October 2026, assessed for him to decide (<a href="../../log/index.html#L286">L286</a>). The first: before any refinement, from the data, the parent structure and the candidate low symmetries alone, search the configuration space and return the regions where the parameters most probably are. The second: carry that search over the configuration space of a whole family of materials — the double perovskites first — along the chemical axes (the B cation, the B′ cation, substitutions, chemical pressure), then to other families. Both come from the inverse-problems project with Iñigo González de Arrieta (its <a href="https://jmigartua.github.io/inverse-problems-configuration-space-site/discourse/index.html">discourse</a> and <a href="https://jmigartua.github.io/inverse-problems-configuration-space-site/programme/index.html">programme</a>, P1–P7).</p>
+<p class="sub">The verdict first, then each idea taken apart: what it is when said precisely, what it would give, where it is weak, what already exists in the literature and in this core, and what it would cost. Then the shape it would take in this project and what Josu decides. Claims about the field were checked by web search on 15 October 2026 and say so; what is believed and not opened is marked <i>not checked</i>.</p>
+
+<h2 id="verdict" class="anchored">0. The verdict</h2>
+<ul class="k-list">
+<li><b>Both ideas make sense, and they are one idea.</b> The first is the formal version of what a refiner does by hand when choosing the subgroup and the starting amplitudes; it gives that choice a number and the result a region. But its answers depend on a prior over the amplitudes and the cell, and a vague prior makes the comparison of subgroups unreliable (§1.4). The second idea is where a measured prior comes from: the family's known structures, which for the double perovskites are already typed records in the Perovskite Atlas (47 materials, 41 structures, 13 series, every value with its source page). The family map is the prior of the single refinement, and every refinement updates the family map. Neither works well alone.</li>
+<li><b>What would be new.</b> Bayesian Rietveld exists for one structure at a time (Fancher et al. 2016; Gagin and Levin 2015), probabilities over extinction symbols exist (Markvardsen et al. 2001), the symmetry-mode search with modes switched on and off exists (Kerman et al. 2012, with ISODISTORT and TOPAS), and black-box tuning of a refinement's settings exists (Ozaki et al. 2020). None of them, checked by search, compares the subgroups of a parent by their evidence in mode coordinates, folds the domain-equivalent solutions, marginalises the nuisance parameters, learns the prior from a family, and says which measurement would decide: and none lives inside a refinement program. That combination is the module.</li>
+<li><b>The word "machine learning" is wrong for the family and should not be used.</b> A family is tens of compounds, not a hundred thousand patterns. At that size the honest tool is a hierarchical Bayesian model, which at <span class="math inline">\(n = 40\)</span> works and states its uncertainty; a network would overfit and would not say so. The corpus of the inverse-problems project (P3, tens of thousands of simulated refinements) is a different thing and comes later, if at all.</li>
+<li><b>The risk to name first.</b> The credible regions mean something only if the likelihood is honest. Rietveld's <span class="math inline">\(\chi^2\)</span> is not a likelihood: the residuals are correlated and structured, and a posterior built on <span class="math inline">\(\exp(-\chi^2/2)\)</span> is as overconfident as the printed e.s.d.'s. The design must declare how the misfit is modelled (§1.3), and the toy must test calibration: that a 90 % region contains the truth 90 % of the time. If that test fails, the module is a search tool, not an inference tool, and should say so.</li>
+<li><b>Recommended order.</b> The toy first (two weeks, the inverse project's P2, on a synthetic double perovskite with this core); the module only if the toy's regions are calibrated. Then a crate of its own, <code>drs-infer</code>, with the Atlas as the family's source, and an app module that shows what the crate computes. Nothing before Josu decides §4.</li>
+</ul>
+
+<h2 id="one" class="anchored">1. The first idea: inference before refinement</h2>
+
+<h3 id="one-what" class="anchored">1.1 What it is, said precisely</h3>
+<p>The information at hand is the pattern <span class="math inline">\(d\)</span>, the parent <span class="math inline">\(G\)</span> with its structure, and a list of candidate subgroups <span class="math inline">\(H_1 \dots H_K\)</span> (for the rock-salt-ordered double perovskites the list is known and finite: the twelve space groups of Howard, Kennedy and Woodward 2003, with their group–subgroup tree; checked by search). Each <span class="math inline">\(H_k\)</span> is a model: the parent plus the symmetry modes <span class="math inline">\(H_k\)</span> allows, with amplitudes <span class="math inline">\(Q\)</span>, a cell, a profile, a background and a scale. "Where are the parameters most probably" is three questions, nested:</p>
+<ol class="k-list">
+<li><b>Which subgroup.</b> <span class="math inline">\(P(H_k \mid d) \propto P(d \mid H_k)\,P(H_k)\)</span>, where the evidence <span class="math inline">\(P(d \mid H_k) = \int L(\theta)\,\pi(\theta \mid H_k)\,d\theta\)</span> averages the likelihood over the prior. The evidence penalises the modes a subgroup adds unless the data want them. That is the question the refiner answers today by comparing <span class="math inline">\(\chi^2\)</span> and R-factors across models with different numbers of parameters, which is not a valid comparison and which everyone makes anyway.</li>
+<li><b>Where, within the subgroup.</b> The posterior over the amplitudes and the cell, with the profile, background and scale marginalised. This is the inverse project's <i>tube</i>: the region, not the point. It is multimodal for a trivial reason, the domain-equivalent amplitude sets (the core enumerates them: case A has 4, <code>Modes::equivalent_amplitudes</code>, L218), and for a real one when two distinct distortions fit (the ridge between two minima of Explore's map F10).</li>
+<li><b>Which amplitudes this data can determine at all.</b> The identifiability of each mode as a function of the radiation, the range and the noise: a property of the forward map and the instrument, not of the sample, computable before the measurement for a hypothetical structure (the inverse project's P1 and P4).</li>
+</ol>
+<p>The search is not instead of the refinement; it is before it. The posterior's modes become the control file the refinement starts from, and Explore shows the path from there. The two modules share one object: Explore's <span class="math inline">\(\chi^2\)</span> map is the conditional cut of the posterior with the other parameters held; the marginal, which Explore prices at <span class="math inline">\(n^2\)</span> refinements and offers only as an option (its §2.4), is what a sampler returns for every pair at once.</p>
+
+<h3 id="one-gives" class="anchored">1.2 What it would give that no program gives</h3>
+<ul class="k-list">
+<li><b>The subgroup choice with a number.</b> Evidence ratios between I4/m, I2/m and P2<sub>1</sub>/n for Sr<sub>2</sub>ScSbO<sub>6</sub> at 450 K, instead of "the R-factors are similar and P2<sub>1</sub>/n has three more parameters". Case C of Josu's material is exactly that situation.</li>
+<li><b>A start that is not a guess.</b> A least-squares refinement by modes cannot start at the parent: at zero amplitude the superstructure reflections have zero derivative with respect to the X-point amplitudes and the matrix is singular (Explore's §6.2). It is started "near" the parent, at a value the user picks, and from +0.1 Å it reached the mirror solution (§6.3). A sampler does not care about the saddle, and its modes, folded by the domain equivalence, are the right starts.</li>
+<li><b>The region as the result</b> (the inverse project's Q5): an amplitude is reported as a value only when its marginal is narrow; otherwise as its region, with the directions the data do not fix named in the modes' names.</li>
+<li><b>Which measurement decides.</b> Given the posterior from the X-ray pattern, the expected information gain of a neutron pattern, of a longer range, of a lower temperature, on the subgroup question and on each amplitude: computed from the Jacobian over the posterior, before the beam time is asked for. No refinement program does this; it is P6's idea carried to diffraction.</li>
+<li><b>The k-point test first, which is cheap and decisive.</b> Before any sampler, the pattern's own superstructure reflections say which k-points of the parent carry intensity, hence which irreps can be primary; that prunes the subgroup tree with the core's reflection lists and absences alone (the generalisation of Markvardsen et al.'s probabilities over extinction symbols, 2001, checked by search). A sampler that does not need to visit a branch the data have already excluded is a cheaper sampler.</li>
+</ul>
+
+<h3 id="one-weak" class="anchored">1.3 Where it is weak</h3>
+<ol class="k-list">
+<li><b>The likelihood.</b> <span class="math inline">\(\exp(-\chi^2/2)\)</span> with Poisson weights assumes independent residuals. A Rietveld residual is correlated over the width of a peak and structured by profile and background misfit; the printed e.s.d.'s are known to be too small for that reason (Bérar's factor is the standard patch, and the core computes it). A posterior built on the raw <span class="math inline">\(\chi^2\)</span> inherits the error exactly. Fancher et al. 2016 (Sci. Rep. 6, 31625; checked by search) found their MCMC uncertainties larger than Rietveld's on the NIST silicon standard; Gagin and Levin 2015 add an explicit correlated systematic-error term to the model (<i>not checked</i>: J. Appl. Cryst. 48, 1201, from memory). The design must choose, and say, one of: the likelihood tempered by <span class="math inline">\(\chi^2_\nu\)</span> (Bérar's factor as a temperature; crude, cheap, and what the e.s.d.'s already do), or a discrepancy term for the residual's structure after Kennedy and O'Hagan 2001 (right, and a model of its own with parameters to set). The toy decides between them by calibration, not by taste.</li>
+<li><b>The prior volume decides the evidence.</b> The evidence's penalty on an added mode is the ratio of the posterior's width to the prior's width in that amplitude: a prior ten times wider costs the mode a factor ten (Lindley's paradox; standard, <i>not checked</i> against a particular source). So evidence ratios between subgroups are only as meaningful as the amplitude prior, and "a few ångström, uniform" is not a prior anyone would defend. The measured prior of §2 is the answer; without it, the module reports the evidences with their sensitivity to the prior's width, and no verdict.</li>
+<li><b>Cost.</b> One pattern costs 5 ms on case A (3 199 points, 17 parameters) and 40 ms on Y<sub>2</sub>O<sub>3</sub> (13 091 points, 79 parameters) (Explore's measured costs). A sampler's <span class="math inline">\(10^5\)</span> evaluations are 8 min and 67 min per subgroup on one thread; the core's pool (half the cores) divides that by 4 to 8; twelve subgroups multiply it. Feasible on a Mac, not interactive. Three things cut it to minutes: the scale and the background are linear in the pattern and are solved exactly at every sample instead of sampled (the sampled dimension falls to the amplitudes, the cell, the zero and the profile: about twelve for case A); a Laplace approximation around every minimum found by multi-start least squares, which the core already has, is a hundred times cheaper than a sampler and is the first version (§3); and the k-point test prunes the tree.</li>
+<li><b>The subgroup list is not computed by the core.</b> The core decomposes a distortion given the parent, the subgroup and the transformation (<code>mode_decomposition</code>, L263) and reads ISODISTORT's files (L278); it does not enumerate the isotropy subgroups of a parent for a set of irreps, which is ISOTROPY's job and a large one. For the perovskite families the trees are tabulated: twelve space groups for the rock-salt-ordered double perovskites (Howard, Kennedy and Woodward 2003), fifteen Glazer tilt systems for ABX<sub>3</sub> (Howard and Stokes 1998; <i>not checked</i>, from memory). The first version takes the tabulated tree of its family as data, with its source; a general enumeration is set aside.</li>
+<li><b>Multimodality is real, not only trivial.</b> After the domain-equivalent sets are folded, two distortions of different physics can still fit one pattern within noise (the inverse project's structural and practical non-identifiability). A Laplace approximation sees one basin; a multi-start sees the basins its starts fall in; only a sampler built for several modes (nested sampling, Skilling 2004–2006, <i>not checked</i>; or an ensemble sampler) sees them with their relative mass. That is why the sampler comes after the Laplace version and not instead of it: it is needed exactly where the cheap version is wrong, and the toy shows where.</li>
+<li><b>One pattern, today.</b> The posterior from X-rays and neutrons together is the product of the two likelihoods, and it is the case where the module pays most (the oxygen tilts from the neutrons, the cation displacements from the X-rays). The core's multi-pattern refinement is not built (one cell for two patterns waits for it, L110). The module's joint posterior waits with it.</li>
+</ol>
+
+<h3 id="one-exists" class="anchored">1.4 What exists, checked on 15 October 2026</h3>
+
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Work</th>
+<th data-quarto-table-cell-role="th">What it does</th>
+<th data-quarto-table-cell-role="th">What it does not do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fancher et al. 2016, Sci. Rep. 6, 31625 (<a href="https://www.nature.com/articles/srep31625">checked</a>)</td>
+<td>MCMC over the Rietveld model's parameters, posteriors for all of them, on the NIST silicon standard; uncertainties larger than Rietveld's</td>
+<td>one structure, one space group; no model comparison; coordinates, not modes</td>
+</tr>
+<tr class="even">
+<td>Gagin and Levin 2015 (<em>not checked</em>)</td>
+<td>a Bayesian treatment of unknown systematic errors in Rietveld refinement</td>
+<td>the same</td>
+</tr>
+<tr class="odd">
+<td>Markvardsen, David, Johnson and Shankland 2001, Acta Cryst. A57 (<a href="https://www.chem.ox.ac.uk/node/1736756">checked</a>; ExtSym)</td>
+<td>relative probabilities of the extinction symbols of a crystal system from the integrated intensities</td>
+<td>stops at the extinction symbol; nothing about distortions or amplitudes</td>
+</tr>
+<tr class="even">
+<td>Kerman et al. 2012, Acta Cryst. A68 (<a href="https://iso.byu.edu/2012%20Kerman.pdf">checked</a>; ISODISTORT and TOPAS)</td>
+<td>the symmetry modes of a P1 supercell as on/off switches, a global search for the active ones, the superstructure found from the pattern</td>
+<td>a point search: no evidence, no posterior, no prior; a script around a commercial program</td>
+</tr>
+<tr class="odd">
+<td>Ozaki et al. 2020, npj Comput. Mater. 6, 75 (<a href="https://hub.optuna.org/samplers/bbo_rietveld/">checked</a>; BBO-Rietveld)</td>
+<td>Bayesian optimisation of a refinement's settings (which parameters, in what order) to minimise R<sub>wp</sub>; beats an expert on Y<sub>2</sub>O<sub>3</sub> in about 100 trials</td>
+<td>"Bayesian" in the optimiser only: the result is one R<sub>wp</sub> and one point; nothing about the posterior over the structure</td>
+</tr>
+<tr class="even">
+<td>Riesel et al. 2024, J. Am. Chem. Soc. (<a href="https://news.mit.edu/2024/ai-model-can-reveal-crystalline-materials-structures-0919">checked</a>, through MIT's news; Crystalyze)</td>
+<td>a generative network proposes structures from a powder pattern; right on about 67 % of 100 RRUFF patterns</td>
+<td>a point generator; no symmetry, no uncertainty, no family; trained on simulated patterns of known structures</td>
+</tr>
+<tr class="odd">
+<td>This core, 0.49.0</td>
+<td>the forward model (5–40 ms a pattern), the modes with AMPLIMODES's normalisation, the equivalent amplitude sets, the normal matrix and its eigen-spectrum (R24, E5), the covariance, multi-start by script, a thread pool for the <span class="math inline">\(\chi^2\)</span> map, ISODISTORT's files read</td>
+<td>no prior, no sampler, no evidence, no subgroup tree, no multi-pattern likelihood</td>
+</tr>
+</tbody>
+</table>
+
+<p>So the pieces exist separately and the core has the expensive one, the forward model, with its derivatives. What has not been built anywhere is the composition: evidences across a family's tree in mode coordinates, the domain equivalence folded, the nuisances solved, the prior measured from the family, the design question answered, inside the program that then refines.</p>
+
+<h2 id="two" class="anchored">2. The second idea: the family's configuration space</h2>
+
+<h3 id="two-what" class="anchored">2.1 What it is, said precisely</h3>
+<p>The configuration space of one refinement is <span class="math inline">\(\theta\)</span>: amplitudes, cell, profile, the rest. The "generalised" space adds the chemistry <span class="math inline">\(c\)</span>: which ions on A, B, B′ and X, the fraction <span class="math inline">\(x\)</span> of a substitution, and the descriptors that summarise them (the ionic radii, the tolerance factor <span class="math inline">\(t\)</span>, the charge difference and the radius ratio of B and B′, which decide the rock-salt order), plus the temperature. A family is a region of <span class="math inline">\(c\)</span> with one parent and one tree; a series such as Sr<sub>2</sub>MSbO<sub>6</sub> (M = Ln) is a path through it; chemical pressure is the path along <span class="math inline">\(r_{\mathrm A}\)</span> or <span class="math inline">\(r_{\mathrm B}\)</span>; a temperature series is the path along <span class="math inline">\(T\)</span>.</p>
+<p>What is learned over the family is not a posterior for one compound. It is the map <span class="math inline">\(c \mapsto p(\theta \mid c)\)</span>: how the amplitudes of <span class="math inline">\(\Gamma\)</span><sub>4</sub><sup>+</sup>, X<sub>3</sub><sup>+</sup> and X<sub>5</sub><sup>+</sup>, the cell, the tilt angles, the space group at a temperature and the transition temperatures depend on the chemistry, with their scatter. Written as a model, that is a hierarchy: each compound's parameters are drawn from the family's distribution, whose centre is a smooth function of the descriptors (a low-order regression, or a Gaussian process when the smoothness is not to be assumed) and whose width is the family's scatter plus each study's error. Its predictive distribution for a new composition <span class="math inline">\(c_\ast\)</span> is exactly the prior §1.4 asked for; and the new compound's refinement, once done, is one more row of the family and moves the map. The loop closes: the family is the prior of the refinement, the refinement is the update of the family.</p>
+
+<h3 id="two-corpus" class="anchored">2.2 The corpus exists: the Perovskite Atlas</h3>
+<p>Josu's Perovskite Atlas (<code>~/Claude/Projects/igartua/perovskite-atlas</code>, read 15 October 2026) holds the family as typed records with evidence: 47 materials, 41 structures, 66 transitions, 13 series, 47 samples, 41 datasets, all rock-salt-ordered double perovskites with the Fm-3m aristotype: the Sr<sub>2</sub>MSbO<sub>6</sub> and Ca<sub>2</sub>MSbO<sub>6</sub> antimonates across the lanthanides, the Sr<sub>2</sub>(Co,Mg)TeO<sub>6</sub> and Sr<sub>2</sub>(Ni,Mg)TeO<sub>6</sub> substitution series, the SrLnMRuO<sub>6</sub> ruthenates, the ALn<sub>2</sub>CuTi<sub>2</sub>O<sub>9</sub> family. A structure's record carries its symmetry-mode decomposition against the parent, by irrep, with the k-vector, the isotropy subgroup, the amplitude with its e.s.d. and the convention (<code>amplimodes-cell</code>), and each value points at its source page; a material carries its tolerance factor, its oxidation states and its phase sequence (Sr<sub>2</sub>CoTeO<sub>6</sub>: Fm-3m → I4/m → I2/m → P2<sub>1</sub>/n on cooling, <span class="math inline">\(t = 0.9758\)</span>). <code>make derive</code> already recomputes tolerance factors, volumes and decompositions from the CIFs. This is P3 of the inverse project done by hand over thirty years, for one family, with the parent unambiguous and recorded: it answers the project's Q3 (which family) better than ABX<sub>3</sub>, because the data are the group's own and the tree is short.</p>
+
+<h3 id="two-gives" class="anchored">2.3 What it would give</h3>
+<ul class="k-list">
+<li><b>A prediction before synthesis, with its credibility.</b> For Sr<sub>2</sub>(Co<sub>0.5</sub>Mg<sub>0.5</sub>)TeO<sub>6</sub> at 300 K: the probable space group, the amplitudes with their predictive widths, the cell. The refinement then measures how far the compound is from its family's expectation.</li>
+<li><b>The quantitative version of a known qualitative law.</b> That the tilts grow as <span class="math inline">\(t\)</span> falls below one, and that the sequence of subgroups follows, is textbook; the function with its scatter, from one group's consistent data, is not written anywhere and is a result on its own.</li>
+<li><b>Design across the family.</b> Which member of a series, which temperature, which substitution would show the I2/m → I4/m transition, or would separate two subgroups whose evidences the single pattern leaves close: the expected information gain of §1.2, summed over the family's map.</li>
+<li><b>The family drawn.</b> Explore's subspaces for one refinement become the family's: every compound a point in (<span class="math inline">\(t\)</span>, amplitude) with its region, the new one marked, the series as paths. That figure is both an app view and an Atlas page.</li>
+</ul>
+
+<h3 id="two-weak" class="anchored">2.4 Where it is weak</h3>
+<ol class="k-list">
+<li><b>The size.</b> Forty structures. That rules out anything that learns a function without a stated form, and it is why the model is hierarchical regression on a few descriptors and not a network. It also means the map's uncertainty is large where the family is thin (the Ca antimonates are nine compounds, all P2<sub>1</sub>/n at room temperature, with no high-temperature study), and the map must say so rather than interpolate confidently.</li>
+<li><b>Heterogeneity.</b> The values come from different instruments, radiations and temperatures, and from refinements whose e.s.d.'s are Rietveld's, hence too small by an unknown factor per study; the amplitudes' normalisation differs between AMPLIMODES and ISODISTORT and between reference cells (the core knows both; the Atlas records the convention). The family model needs a per-study error inflation as a parameter and the amplitudes brought to one convention by the core, not by hand.</li>
+<li><b>Selection.</b> The Atlas holds what was made, crystallised and published. The map is of that, and a compound the family could not make is not in it. Said plainly on the page, it is a limitation; unsaid, a bias.</li>
+<li><b>Circularity, the real danger.</b> A prior from the family pulls a new compound toward the family. The interesting compounds are the ones that break the trend, and a module that smooths them into it would be worse than none. Two safeguards, both standard output: the information gain of the data over the prior for every parameter (how many prior widths the data moved it), so that a compound that moved far is flagged as new; and prior-predictive and posterior-predictive checks (does the family predict a pattern like this one; does the fitted model reproduce the pattern's features), printed with every result.</li>
+<li><b>"Then more families."</b> Each family is a parent, a tree and its descriptors: ABX<sub>3</sub> with the fifteen Glazer systems, the 1:2 and 1:3 ordered perovskites (Howard and Stokes 2004, checked by search: ten and eleven structures), the Ruddlesden–Popper phases. The machinery is family-agnostic if those three things are its inputs and nothing about perovskites is wired in. But the second family comes after the first works end to end, and the first is the one with the data.</li>
+</ol>
+
+<h2 id="shape" class="anchored">3. The shape it would take here</h2>
+<ul class="k-list">
+<li><b>A crate of its own, <code>drs-infer</code></b>, beside <code>drs-publish</code>: it depends on the core for the forward model, the modes, the equivalent sets, the normal matrix and the covariance, and holds what the core does not: the priors (as files with provenance), the k-point test, multi-start with Laplace evidences, the folding by equivalence, the sampler, the identifiability maps, the design computation, the family model, and a command line (<code>drs-infer survey</code>, <code>drs-infer family</code>). Why not inside <code>core/</code>: the core's tests are bit-exact against FullProf and its code is deterministic; a sampler is stochastic, seeded and long-running, and its tests are statistical (calibration over many draws). L139's rule, every calculation in the core and none in the app, is kept: the crate is core-side, and the app module draws what it returns. Josu may still prefer a module <code>infer</code> inside the core; the difference is build and test hygiene, not principle.</li>
+<li><b>A stream of its own</b>, as Explore, Publish and Plots: a folder <code>infer/</code> for the design, the toy and the requests (<code>infer/REQUESTS.md</code>, IN1 …), a branch <code>infer</code>, a worktree, and later <code>app/ui/modules/infer/</code>. The name is Josu's: Infer is proposed (Survey, Prior and Search set aside: each names one view).</li>
+<li><b>The Atlas as the family's source</b>, not a copy of it: an export from its computed layer (one row per structure: descriptors, temperature, instrument, amplitudes by irrep in one convention with their e.s.d.'s, the source) that the crate reads as a family file, with the Atlas's commit as its provenance. The family's map goes back to the Atlas as a notebook page. Whether the Atlas becomes a stream of this project or stays its own project with an export is Josu's.</li>
+<li><b>The app module</b>: a survey view (the subgroups ranked by evidence, with their sensitivity to the prior's width, and the k-point test's verdict), the marginals drawn over Explore's maps (the same axes, the posterior's contour beside the <span class="math inline">\(\chi^2\)</span> map), the family map with the compound on it, and a design view (candidate measurements ranked by what they would decide). Every number from the crate; the module a viewer.</li>
+<li><b>The order of work</b>, and what each step must pass before the next:
+  <ol class="k-list">
+  <li><b>The diagnostic</b> (the inverse project's P1): the stiffness spectrum and the weak directions in the modes' names from R24 and E5, and the credible region of a chosen pair, printed by <code>drs check</code>. Days; the core alone.</li>
+  <li><b>The toy</b> (P2): a synthetic double perovskite from a known P2<sub>1</sub>/n structure, patterns simulated with the core's Poisson noise under one instrument, the twelve subgroups surveyed by multi-start least squares and Laplace evidences with the equivalents folded; then the calibration test, the one that decides: over a hundred noise draws, do the 90 % regions hold the truth 90 % of the time, under the tempered likelihood and under a discrepancy term; then the information removed (a shorter range, more noise, X-rays for neutrons) and the regions watched to lengthen. Two weeks. The claim "the region means something" becomes a passing test or a failed one.</li>
+  <li><b><code>drs-infer</code> 0.1</b>: what the toy used, as a crate with its tests and its command line, on case A's real data.</li>
+  <li><b>The sampler</b>, for the cases the toy shows the Laplace version gets wrong (the saddle, a ridge, two basins): the linear parameters solved inside, the rest sampled on the core's thread pool.</li>
+  <li><b>The family</b>: the Atlas export, the hierarchical model, the prior file, the information gain and the predictive checks. A quarter, with Josu, since the descriptors and the error model are his judgement.</li>
+  <li><b>The app module</b>, after the crate has a command line for every view.</li>
+  </ol>
+  Multi-pattern likelihoods wait for the core's multi-pattern refinement; a general enumeration of isotropy subgroups is set aside.</li>
+</ul>
+
+<h2 id="decide" class="anchored">4. For Josu to decide</h2>
+<ol class="k-list">
+<li><b>Go ahead</b> with the diagnostic and the toy, with the rule that the module is built only if the toy's regions are calibrated; or set the ideas aside for now.</li>
+<li><b>The home:</b> a crate <code>drs-infer</code> and a stream <code>infer</code>, or a module inside the core.</li>
+<li><b>The name</b> of the module: Infer, or another.</li>
+<li><b>The likelihood:</b> the tempered <span class="math inline">\(\chi^2\)</span> first and the discrepancy term if calibration fails; or the discrepancy term from the start.</li>
+<li><b>The family:</b> the rock-salt-ordered double perovskites with the Atlas as the source, read by export with its commit as provenance; and whether the Atlas becomes a stream of this project.</li>
+<li><b>The inverse-problems project:</b> whether this is its phase 1 (its Q2 answered by diffraction leading, its Q3 by this family), to be put to Iñigo; and whether the toy is logged there as P2 taken up, with its code in that project's <code>p2-toy/</code> or in this project's <code>infer/</code>.</li>
+<li><b>The brief:</b> whether R33 (inference before refinement) and R34 (the family's configuration space) are appended now, or when the toy passes.</li>
+</ol>
+</article>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">What this is</h4>
+        <p>The working site of one project: to build a Mac app for Rietveld refinement of powder diffraction data, after a study of the programs the community uses for it. It holds the brief, that study, the design, a dated log of every step, the release notes and the manuals of the core and the app.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
+      </div>
+      <div><h4 class="anchored">This site</h4><ul>
+        <li><a href="../../index.html">Overview</a></li><li><a href="../../brief/index.html">Brief</a></li><li><a href="../../background/index.html">Background</a></li><li><a href="../../design/index.html">Design</a></li><li><a href="../../roadmap/index.html">Roadmap</a></li><li><a href="../../log/index.html">Log</a></li><li><a href="../../about/index.html">Method</a></li></ul></div>
+      <div><h4 class="anchored">Sources</h4><ul>
+        <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
+        <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
+        <li><a href="https://advancedphotonsource.github.io/GSAS-II-tutorials/">GSAS-II</a></li>
+        <li><a href="https://it.iucr.org/A/">International Tables, Vol. A</a></li></ul></div>
+      <div><h4 class="anchored">Status</h4><ul>
+        <li>Published at <a href="https://jmigartua.github.io/diff-ref-struct-site/">jmigartua.github.io/diff-ref-struct-site</a>; the sources are private</li>
+        <li>Rebuilt from <code>data/*.yml</code> on every render</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua · work in progress</span>
+      <span>Quarto · family design kit</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
