@@ -41,7 +41,7 @@
     var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
     var root = folder((wm || links[0]).pathname);
     var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
-    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; if (/^I\d\d$/.test(f)) return 'ideas'; return map[f] || f; }
     var here = key(location.pathname);
     links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
   })();

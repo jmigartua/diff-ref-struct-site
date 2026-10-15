@@ -105,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <a href="../brief/index.html">Brief</a>
       <a href="../background/index.html">Background</a>
       <span class="nav-pair"><a href="../design/index.html">Design</a><span class="sl">/</span><a href="../roadmap/index.html">Roadmap</a></span>
+      <a href="../ideas/index.html" class="nav-ideas">Ideas</a>
       <a href="../manual/index.html">Manual</a>
       <span class="nav-right">
         <span class="nav-pair"><a href="../about/index.html">Method</a><span class="sl">/</span><a href="../log/index.html">Log</a></span>
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../brief/index.html">The brief, organised</a></li></ul></details>
 <details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../background/index.html">The programs that inspire</a></li><li><a href="../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../background/gsas2/index.html">GSAS-II</a></li></ul></details>
 <details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../design/index.html">Design: open questions</a></li><li><a href="../design/results-file/index.html">The results file: the choice</a></li><li><a href="../design/proposal/index.html">Proposal (draft)</a></li><li><a href="../design/inference/index.html">Inference and the family (assessed)</a></li><li><a href="../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Ideas</summary><ul><li><a href="../ideas/index.html">The seed-place</a></li><li><a href="../ideas/I01/index.html">I01 · Themes and skins for the app's appearance</a></li><li><a href="../ideas/I02/index.html">I02 · Extensions: modules installed from outside the app, and where their numbers come from</a></li><li><a href="../ideas/I03/index.html">I03 · The seed-place: a home for ideas, in every project's site and later for the family</a></li></ul></details>
 <details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../manual/index.html">About the manual</a></li><li><a href="../manual/parameters/index.html">Parameters: the theory</a></li><li><a href="../manual/operations/index.html">Data operations: the settings</a></li><li><a href="../manual/files/index.html">Files</a></li></ul></details>
 <details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../about/index.html">How this site works</a></li><li><a href="../log/index.html">The log, every dated step</a></li></ul></details>
 <details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../releases/index.html">Release notes</a></li></ul></details>
@@ -268,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
     var root = folder((wm || links[0]).pathname);
     var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
-    function key(path) { var f = folder(path); if (f === root) return 'overview'; return map[f] || f; }
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; if (/^I\d\d$/.test(f)) return 'ideas'; return map[f] || f; }
     var here = key(location.pathname);
     links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
   })();
@@ -361,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
       </div>
       <div><h4 class="anchored">This site</h4><ul>
-        <li><a href="../index.html">Overview</a></li><li><a href="../brief/index.html">Brief</a></li><li><a href="../background/index.html">Background</a></li><li><a href="../design/index.html">Design</a></li><li><a href="../roadmap/index.html">Roadmap</a></li><li><a href="../log/index.html">Log</a></li><li><a href="../about/index.html">Method</a></li></ul></div>
+        <li><a href="../index.html">Overview</a></li><li><a href="../brief/index.html">Brief</a></li><li><a href="../background/index.html">Background</a></li><li><a href="../design/index.html">Design</a></li><li><a href="../roadmap/index.html">Roadmap</a></li><li><a href="../ideas/index.html">Ideas</a></li><li><a href="../log/index.html">Log</a></li><li><a href="../about/index.html">Method</a></li></ul></div>
       <div><h4 class="anchored">Sources</h4><ul>
         <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
         <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
