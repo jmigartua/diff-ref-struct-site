@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <article class="page-wide">
 <h1>Files</h1>
 <p class="lede">Every kind of file in a project started in the app (R27, <a href="../../log/index.html#L091">L091</a>): its folder and name, what it holds, its format, and the files that do the same in FullProf and GSAS-II. The core, the command line and the app take their names from the same file, as they take the parameters' names from the parameter dictionary. A project that comes from FullProf keeps FullProf's names.</p>
-<p class="sub">23 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
+<p class="sub">26 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
 <h2 id="principles" class="anchored">Principles</h2><ul class="k-list"><li>Readable names, no numeric codes: a file says what it is in words, never FullProf's CODFILn, _calc or 1.fst (R27).</li><li>Phases by their names, not their numbers: {phase} is the phase's name as the control file gives it.</li><li>One place per role: a folder for each kind of input and output, so that the project's folder holds the control file and little else.</li><li>Versions by their time: a version or a result is named by the control file and the time it was made, so that names sort in time and never collide.</li><li>Measured files keep their own names: the data are the instrument's, and renaming them would lose the link to the lab book.</li><li>Spaces are allowed, as in the versions decided in L080: every file is a name a person reads; the command line quotes them.</li></ul>
 <h2 id="layout" class="anchored">The project folder</h2>
 <table class="inventory caption-top">
@@ -223,6 +223,18 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <td><code>Results/</code></td>
+<td><code>{control} {time} summary.txt</code></td>
+<td><a href="#run_summary">Summary of a refinement</a></td>
+<td>decided (L256)</td>
+</tr>
+<tr class="even">
+<td><code>Results/</code></td>
+<td><code>{control} {time} listing.txt</code></td>
+<td><a href="#run_listing">Listing of a refinement</a></td>
+<td>decided (L256)</td>
+</tr>
+<tr class="odd">
+<td><code>Results/</code></td>
 <td><code>{control} {phase}.cif</code></td>
 <td><a href="#deposition_cif">CIF for deposition</a></td>
 <td>decided (L099)</td>
@@ -282,6 +294,12 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>decided (L099)</td>
 </tr>
 <tr class="odd">
+<td><code>Exports/</code></td>
+<td><code>{control} {phase} intensities.int</code></td>
+<td><a href="#export_intensities">Extracted intensities, exported</a></td>
+<td>decided (L256: FullProf's format, read by FullProf with Irf = 4 and by its simulated annealing)</td>
+</tr>
+<tr class="even">
 <td><code>.drs/</code></td>
 <td><code>{original}</code></td>
 <td><a href="#app_state">The app's state</a></td>
@@ -795,6 +813,90 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 </section>
+<section class="param" id="run_summary"><h3 class="anchored">Summary of a refinement</h3><p class="param-meta"><code>run_summary</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Results/{control} {time} summary.txt</code> (extension txt)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>What a run reached, to read (P57): the agreement over all the points and over those with Bragg contributions (Rp, Rwp, Rexp, <span class="math inline">\(\chi^2\)</span>, the conventional R's, the deviance, the Durbin–Watson d and its bound, the goodness of fit in <span class="math inline">\(\sigma\)</span>'s), the global <span class="math inline">\(\chi^2\)</span>, the Bérar factor, each phase's reflections, R_Bragg, R_F, volume and weight fraction, the amorphous content, and the refined parameters with their esd's.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>plain text (listing::summary_text)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>CODFIL.sum</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs results, with the results file</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L256)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Written beside the results file it summarises, named by its control file and time; the record stays the results file (L093), the summary is for reading.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="run_listing"><h3 class="anchored">Listing of a refinement</h3><p class="param-meta"><code>run_listing</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Results/{control} {time} listing.txt</code> (extension txt)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>A run cycle by cycle (P57): each cycle's agreement, the steps refused, the steering's notes, every parameter's value, shift, esd and shift/esd and each phase's R_Bragg and R_F; the summary at the end.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>plain text (listing::listing_text)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>CODFIL.out</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the refinement's log in the .gpx (its covariance and history)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs results, with the results file</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L256)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Written beside the results file, named by its control file and time, so that a run can be followed cycle by cycle without the app.</td>
+</tr>
+</tbody>
+</table>
+</section>
 <section class="param" id="deposition_cif"><h3 class="anchored">CIF for deposition</h3><p class="param-meta"><code>deposition_cif</code></p>
 <table class="inventory caption-top">
 <tbody>
@@ -1211,6 +1313,48 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
 <td>Written only when asked, beside the reflections' export.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="export_intensities"><h3 class="anchored">Extracted intensities, exported</h3><p class="param-meta"><code>export_intensities</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Exports/{control} {phase} intensities.int</code> (extension int)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>A Le Bail phase's extracted intensities for structure solution or an integrated-intensity refinement (P35): per reflection h k l, j·Lp·|F|², its <span class="math inline">\(\sigma\)</span> and 2<span class="math inline">\(\theta\)</span>, the overlapped reflections grouped in clusters by FullProf's rule (−1 within a cluster, the sum on its last reflection).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>FullProf's CODFILn_cltr.int, Fortran format (3i4,2f16.5,i4,3f14.4) (lebail::int_file)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>CODFILn_cltr.int (Jbt = 2, More = 1, Jvi = 11; manual, the output files)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs results --exports, one per Le Bail phase; the app's Export, on demand</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L256: FullProf's format, read by FullProf with Irf = 4 and by its simulated annealing)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Written in FullProf's format so that the programs that read it read ours; one file per phase, named by the phase.</td>
 </tr>
 </tbody>
 </table>
