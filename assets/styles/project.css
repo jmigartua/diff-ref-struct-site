@@ -70,6 +70,11 @@ article.ideas h1 .status { font-size: 11px; vertical-align: middle; margin-left:
 article.ideas .sub .num { font-family: var(--mono); font-size: 12.5px; color: var(--teal); letter-spacing: 0.06em; }
 article.ideas .facts { margin-top: 18px; }
 article.ideas p, article.ideas ul { max-width: 76ch; }
+.idea-note { border-left: 3px solid var(--line); padding-left: 18px; margin: 18px 0 26px; }
+.idea-note h3 { margin-top: 0; }
+.idea-note .idea-note-date { margin: -6px 0 10px; }
+.idea-note .idea-note-date .d { font-family: var(--mono); font-size: 12.5px; color: var(--teal); letter-spacing: 0.04em; }
+.idea-note h4 { font-family: var(--sans); font-size: 12.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-faint); margin: 20px 0 6px; }
 .idea-log li { padding-bottom: 14px; }
 .idea-log .d { font-family: var(--mono); font-size: 12.5px; color: var(--teal); letter-spacing: 0.04em; display: block; }
 .idea-log p { margin: 2px 0 0; color: var(--ink); font-size: 15px; max-width: 76ch; }
