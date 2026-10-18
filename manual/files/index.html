@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <article class="page-wide">
 <h1>Files</h1>
 <p class="lede">Every kind of file in a project started in the app (R27, <a href="../../log/index.html#L091">L091</a>): its folder and name, what it holds, its format, and the files that do the same in FullProf and GSAS-II. The core, the command line and the app take their names from the same file, as they take the parameters' names from the parameter dictionary. A project that comes from FullProf keeps FullProf's names.</p>
-<p class="sub">29 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
+<p class="sub">30 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
 <h2 id="principles" class="anchored">Principles</h2><ul class="k-list"><li>Readable names, no numeric codes: a file says what it is in words, never FullProf's CODFILn, _calc or 1.fst (R27).</li><li>Phases by their names, not their numbers: {phase} is the phase's name as the control file gives it.</li><li>One place per role: a folder for each kind of input and output, so that the project's folder holds the control file and little else.</li><li>Versions by their time: a version or a result is named by the control file and the time it was made, so that names sort in time and never collide.</li><li>Measured files keep their own names: the data are the instrument's, and renaming them would lose the link to the lab book.</li><li>Spaces are allowed, as in the versions decided in L080: every file is a name a person reads; the command line quotes them.</li></ul>
 <h2 id="layout" class="anchored">The project folder</h2>
 <table class="inventory caption-top">
@@ -158,168 +158,174 @@ document.addEventListener("DOMContentLoaded", function () {
 <td>decided (L070: the extension .drc; L099: the name, the project's for the first control file, the user's for the others)</td>
 </tr>
 <tr class="even">
+<td><code>(the project's folder)</code></td>
+<td><code>{control} pattern {n}.drc</code></td>
+<td><a href="#pattern_control">A pattern's control file of a joint refinement</a></td>
+<td>decided (L329)</td>
+</tr>
+<tr class="odd">
 <td><code>Data/</code></td>
 <td><code>{original}</code></td>
 <td><a href="#data">Measured data</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Data/</code></td>
 <td><code>{data} processed.xys</code></td>
 <td><a href="#processed_data">Data after the operations</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>(the project's folder)</code></td>
 <td><code>{stem} background.drb</code></td>
 <td><a href="#background_points">Background points</a></td>
 <td>decided (L081: the format and the extension .drb; L099: the name; L116: one kind, {stem}, Josu's decision on the app's request 29)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Plots/</code></td>
 <td><code>{set} {operation}.xys</code></td>
 <td><a href="#derived_data">Derived pattern of a plot set</a></td>
 <td>proposed (L175)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Plots/</code></td>
 <td><code>{set}.drv</code></td>
 <td><a href="#plot_set">Plot set</a></td>
 <td>proposed (L192); the extension is Josu's to confirm (plots/DESIGN.md §2.2)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Publish/</code></td>
 <td><code>{name}.drp</code></td>
 <td><a href="#publication_set">Publication set</a></td>
 <td>proposed (publish/DESIGN.md §5.1, the app's request 37); the extension is Josu's to confirm (L192)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Structures/</code></td>
 <td><code>{phase}.cif</code></td>
 <td><a href="#structure">Structure</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Structures/</code></td>
 <td><code>{phase} AMPLIMODES.txt</code></td>
 <td><a href="#modes_analysis">Symmetry-mode analysis</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Instrument/</code></td>
 <td><code>{instrument}.irf</code></td>
 <td><a href="#resolution">Instrument resolution</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Versions/</code></td>
 <td><code>{control} {time}.drc</code></td>
 <td><a href="#version">Version of the control file</a></td>
 <td>decided (L080)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Versions/</code></td>
 <td><code>{control} refinement log.md</code></td>
 <td><a href="#refinement_log">Refinement log</a></td>
 <td>decided (L080)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Results/</code></td>
 <td><code>{control} {time} results.cif</code></td>
 <td><a href="#results">Results of a refinement</a></td>
 <td>decided (L092: pdCIF; L099: the name)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Results/</code></td>
 <td><code>{control} {time} summary.txt</code></td>
 <td><a href="#run_summary">Summary of a refinement</a></td>
 <td>decided (L256)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Results/</code></td>
 <td><code>{control} {time} listing.txt</code></td>
 <td><a href="#run_listing">Listing of a refinement</a></td>
 <td>decided (L256)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Results/</code></td>
 <td><code>{control} {phase}.cif</code></td>
 <td><a href="#deposition_cif">CIF for deposition</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Results/</code></td>
 <td><code>{control} {phase} bonds.txt</code></td>
 <td><a href="#bonds_report">Distances, angles and bond valences</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Exports/FullProf/</code></td>
 <td><code>{control}.pcr</code></td>
 <td><a href="#fullprof_pcr_export">Control file exported for FullProf</a></td>
 <td>decided (L099: FullProf's names, which FullProf requires, in a folder of their own; L123: in Exports/FullProf/, Josu, where FullProf/ holds the original files)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Exports/FullProf/</code></td>
 <td><code>{control}.bac</code></td>
 <td><a href="#fullprof_background_export">Background file exported for FullProf</a></td>
 <td>decided (L099: FullProf's name; L123: in Exports/FullProf/, Josu, where FullProf/ holds the original files)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Exports/FullProf/</code></td>
 <td><code>{control}{n}.hkl</code></td>
 <td><a href="#fullprof_reflections_export">Reflection list exported for FullProf</a></td>
 <td>decided (L099: FullProf's name; L123: in Exports/FullProf/, Josu, where FullProf/ holds the original files)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Exports/FullProf/</code></td>
 <td><code>{control}.irf</code></td>
 <td><a href="#fullprof_resolution_export">Resolution file exported for FullProf</a></td>
 <td>decided (L099: FullProf's name; L123: in Exports/FullProf/, Josu, where FullProf/ holds the original files)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Exports/FullProf/</code></td>
 <td><code>{control}.xys</code></td>
 <td><a href="#fullprof_data_export">Data exported for FullProf</a></td>
 <td>decided (L099: FullProf's name; L123: in Exports/FullProf/, Josu, where FullProf/ holds the original files)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>(the project's folder)</code></td>
 <td><code>{control} notes.toml</code></td>
 <td><a href="#reflection_notes">Reflection notes</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Exports/</code></td>
 <td><code>{control} reflections.csv</code></td>
 <td><a href="#export_reflections">Reflections, exported</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Results/</code></td>
 <td><code>{control} {time} series.csv</code></td>
 <td><a href="#series_table">Series of refinements, table</a></td>
 <td>decided (L317)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Results/</code></td>
 <td><code>{control} {time} series.cif</code></td>
 <td><a href="#series_cif">Series of refinements, CIF</a></td>
 <td>decided (L317)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>Exports/</code></td>
 <td><code>{control} profile.csv</code></td>
 <td><a href="#export_profile">Profile, exported</a></td>
 <td>decided (L099)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>Exports/</code></td>
 <td><code>{control} {phase} intensities.int</code></td>
 <td><a href="#export_intensities">Extracted intensities, exported</a></td>
 <td>decided (L256: FullProf's format, read by FullProf with Irf = 4 and by its simulated annealing)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>.drs/</code></td>
 <td><code>{original}</code></td>
 <td><a href="#app_state">The app's state</a></td>
@@ -342,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Contents</th>
-<td>The refinement: the pattern and its data file, the phases and their atoms (or symmetry modes), what is refined, the cycles, the conventions.</td>
+<td>The refinement: the pattern and its data file, the phases and their atoms (or symmetry modes), what is refined, the cycles, the conventions. A joint refinement's (P06, L329): its patterns' control files (pattern_control) with their weights, refined flags and phases, the phases' names, and the parameters the patterns share ([[joint.pattern]], [[joint.phase]], [[joint.tie]]).</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Format</th>
@@ -367,6 +373,48 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
 <td>The file the user works on stays in sight at the top of the project's folder; named after the project, it is found without looking.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="pattern_control"><h3 class="anchored">A pattern's control file of a joint refinement</h3><p class="param-meta"><code>pattern_control</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>{control} pattern {n}.drc</code> (extension drc)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>control</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>One pattern of a joint refinement (P06): its data file, its instrument, the phases that contribute to it with their own scale, profile and cell, and its free parameters, as a control file of one pattern.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>diff-ref-struct control file, as <code>control</code> (core/src/control); the joint control file names it</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>the pattern's lines of a multi-pattern CODFIL.pcr (FullProf_Manual.pdf, p. 64)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>a histogram of the project file NAME.gpx</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>Joint::control_files (drs joint --save); the app's joint refinement</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L329)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Each pattern stays a control file of its own, which every reader of one pattern opens; the joint control file, {control}.drc, names them with their weights, flags, contributions and the parameters they share.</td>
 </tr>
 </tbody>
 </table>
