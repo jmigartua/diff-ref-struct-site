@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <article class="page-wide">
 <h1>Files</h1>
 <p class="lede">Every kind of file in a project started in the app (R27, <a href="../../log/index.html#L091">L091</a>): its folder and name, what it holds, its format, and the files that do the same in FullProf and GSAS-II. The core, the command line and the app take their names from the same file, as they take the parameters' names from the parameter dictionary. A project that comes from FullProf keeps FullProf's names.</p>
-<p class="sub">27 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
+<p class="sub">29 kinds of file in a project started in the app, each with its folder, name, role, contents and format, and the files that do the same in FullProf and GSAS-II. Names marked <i>proposed</i> await Josu's acceptance (L091); a project that comes from FullProf keeps FullProf's names. Generated from <code>data/files.yml</code>; do not edit by hand.</p>
 <h2 id="principles" class="anchored">Principles</h2><ul class="k-list"><li>Readable names, no numeric codes: a file says what it is in words, never FullProf's CODFILn, _calc or 1.fst (R27).</li><li>Phases by their names, not their numbers: {phase} is the phase's name as the control file gives it.</li><li>One place per role: a folder for each kind of input and output, so that the project's folder holds the control file and little else.</li><li>Versions by their time: a version or a result is named by the control file and the time it was made, so that names sort in time and never collide.</li><li>Measured files keep their own names: the data are the instrument's, and renaming them would lose the link to the lab book.</li><li>Spaces are allowed, as in the versions decided in L080: every file is a name a person reads; the command line quotes them.</li></ul>
 <h2 id="layout" class="anchored">The project folder</h2>
 <table class="inventory caption-top">
@@ -294,6 +294,18 @@ document.addEventListener("DOMContentLoaded", function () {
 <td><code>{control} reflections.csv</code></td>
 <td><a href="#export_reflections">Reflections, exported</a></td>
 <td>decided (L099)</td>
+</tr>
+<tr class="odd">
+<td><code>Results/</code></td>
+<td><code>{control} {time} series.csv</code></td>
+<td><a href="#series_table">Series of refinements, table</a></td>
+<td>decided (L317)</td>
+</tr>
+<tr class="even">
+<td><code>Results/</code></td>
+<td><code>{control} {time} series.cif</code></td>
+<td><a href="#series_cif">Series of refinements, CIF</a></td>
+<td>decided (L317)</td>
 </tr>
 <tr class="odd">
 <td><code>Exports/</code></td>
@@ -1321,6 +1333,90 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Why this name</th>
 <td>Written only when asked: the record is the results file (L093); an Exports folder keeps what leaves the project apart.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="series_table"><h3 class="anchored">Series of refinements, table</h3><p class="param-meta"><code>series_table</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Results/{control} {time} series.csv</code> (extension csv)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>A sequential refinement (P54, P59), one line per pattern: its label, external parameter (the temperature its header gives), cycles, stop, <span class="math inline">\(\chi^2\)</span>, Rp, Rwp, Rexp, each phase's cell volume and su, every free parameter's value and su by name.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>CSV with a header line (sequential::series_csv); read by drs parametric</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>CODFIL.seq (Rpa = −2)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the sequential results' CSV export (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/exports/G2export_csv.py">G2export_csv.py</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs sequential</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L317)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>Written beside the results files, named by the control file and time; one table of the whole series, which a spreadsheet, Plots and drs parametric read.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="series_cif"><h3 class="anchored">Series of refinements, CIF</h3><p class="param-meta"><code>series_cif</code></p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<td><code>Results/{control} {time} series.cif</code> (extension cif)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Role</th>
+<td>output</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Contents</th>
+<td>A sequential refinement (P59): an index block of the patterns (label, parameter, <span class="math inline">\(\chi^2\)</span>, Rwp, overall block id), then every pattern's results file, its blocks renamed to stay unique.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Format</th>
+<td>pdCIF, multi-block (sequential::series_cif; split_series gives each pattern's results file back)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>none: one CODFIL.sum and .prf per pattern</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the sequential results as a multi-block CIF (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/exports/G2export_CIF.py">G2export_CIF.py</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Written by</th>
+<td>drs sequential</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Status</th>
+<td>decided (L317)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Why this name</th>
+<td>One file holds the whole series for deposition and for Publish (D8), every number the core's.</td>
 </tr>
 </tbody>
 </table>
