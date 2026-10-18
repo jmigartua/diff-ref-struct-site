@@ -850,7 +850,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Format</th>
-<td>powder CIF (pdCIF): the IUCr's DDL1 core and powder dictionaries where they name an item, the local prefix _drs_ for the rest; one data block for the whole, one per phase, one for the pattern, linked by _pd_block_id (core/src/results.rs)</td>
+<td>powder CIF (pdCIF): the IUCr's DDL1 core and powder dictionaries where they name an item, the local prefix _drs_ for the rest; one data block for the whole, one per phase, one for the pattern, linked by _pd_block_id (core/src/results.rs); a joint refinement's, one block per pattern (|pattern 1, |pattern 2, …) with its weight and agreement, its reflections with their pattern, and the contributions of the phases (P41, core/src/joint.rs)</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">FullProf</th>
@@ -862,7 +862,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Written by</th>
-<td>results::write (drs results); the app after each refinement (the record)</td>
+<td>results::write (drs results), Joint::results (drs joint); the app after each refinement (the record)</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Status</th>
