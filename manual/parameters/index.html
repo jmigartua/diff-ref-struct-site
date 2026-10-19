@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">95 entries, 83 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">99 entries, 87 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -3054,6 +3054,174 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">When to refine</th>
 <td>With the scale factors, when the profile's share of the pattern is not known.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_file_scale"><h3 class="anchored">Background file scale b₁</h3><p class="param-meta"><code>background_file_scale</code> · <span class="math inline">\(b_1\)</span> · 1 · refinable</p><p>The factor on a background read from a file (FullProf's Nba = 1); FullProf reads 0 as 1.</p><p class="eq"><span class="math inline">\(b_i = b_1\,B\left[(1 + b_3)\,2\theta_i + b_4\right] + b_2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 46 · y2o3_bac_b3b4.out</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>b1 … b4, line 17 with Nba = 1 (manual eq. 3.6, p. 46): the .bac file's background CODFIL.bac moved and scaled; the .out writes Back(2<span class="math inline">\(\theta\)</span>) = a·BackRead[(1 + c)2<span class="math inline">\(\theta\)</span> + d] + b</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II's fixed background has a multiplier only (fixback, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L978">GSASIIpwd.py L978</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.8 in runs/background_terms/y2o3_bac_b1b2.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>When the file's background is right in shape and off in size or place; b1 and b2 with the scale factors, b3 and b4 late.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_file_offset"><h3 class="anchored">Background file offset b₂</h3><p class="param-meta"><code>background_file_offset</code> · <span class="math inline">\(b_2\)</span> · counts · refinable</p><p>A constant added to a background read from a file (Nba = 1).</p><p class="eq"><span class="math inline">\(b_i = b_1\,B\left[(1 + b_3)\,2\theta_i + b_4\right] + b_2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 46 · y2o3_bac_b3b4.out</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>b1 … b4, line 17 with Nba = 1 (manual eq. 3.6, p. 46): the .bac file's background CODFIL.bac moved and scaled; the .out writes Back(2<span class="math inline">\(\theta\)</span>) = a·BackRead[(1 + c)2<span class="math inline">\(\theta\)</span> + d] + b</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II's fixed background has a multiplier only (fixback, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L978">GSASIIpwd.py L978</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>5 in y2o3_bac_b1b2.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>When the file's background is right in shape and off in size or place; b1 and b2 with the scale factors, b3 and b4 late.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_file_stretch"><h3 class="anchored">Background file stretch b₃</h3><p class="param-meta"><code>background_file_stretch</code> · <span class="math inline">\(b_3\)</span> · 1 · refinable</p><p>The stretch of the angle a background read from a file is read at, (1 + b₃)2<span class="math inline">\(\theta\)</span> (Nba = 1).</p><p class="eq"><span class="math inline">\(b_i = b_1\,B\left[(1 + b_3)\,2\theta_i + b_4\right] + b_2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 46 · y2o3_bac_b3b4.out</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>b1 … b4, line 17 with Nba = 1 (manual eq. 3.6, p. 46): the .bac file's background CODFIL.bac moved and scaled; the .out writes Back(2<span class="math inline">\(\theta\)</span>) = a·BackRead[(1 + c)2<span class="math inline">\(\theta\)</span> + d] + b</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II's fixed background has a multiplier only (fixback, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L978">GSASIIpwd.py L978</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.01 in y2o3_bac_b3b4.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>When the file's background is right in shape and off in size or place; b1 and b2 with the scale factors, b3 and b4 late.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>Above −1 (at −1 the file is read at one angle).</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_file_shift"><h3 class="anchored">Background file shift b₄</h3><p class="param-meta"><code>background_file_shift</code> · <span class="math inline">\(b_4\)</span> · deg · refinable</p><p>The shift of the angle a background read from a file is read at, (1 + b₃)2<span class="math inline">\(\theta\)</span> + b₄ (Nba = 1).</p><p class="eq"><span class="math inline">\(b_i = b_1\,B\left[(1 + b_3)\,2\theta_i + b_4\right] + b_2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 46 · y2o3_bac_b3b4.out</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>b1 … b4, line 17 with Nba = 1 (manual eq. 3.6, p. 46): the .bac file's background CODFIL.bac moved and scaled; the .out writes Back(2<span class="math inline">\(\theta\)</span>) = a·BackRead[(1 + c)2<span class="math inline">\(\theta\)</span> + d] + b</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II's fixed background has a multiplier only (fixback, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L978">GSASIIpwd.py L978</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.5 in y2o3_bac_b3b4.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>When the file's background is right in shape and off in size or place; b1 and b2 with the scale factors, b3 and b4 late.</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Limits</th>
