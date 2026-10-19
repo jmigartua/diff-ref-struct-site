@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">55 entries, 46 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">84 entries, 73 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 </section>
-<section class="param" id="instrument_resolution"><h3 class="anchored">Instrument resolution</h3><p class="param-meta"><code>instrument_resolution</code> · <span class="math inline">\(U_i, V_i, W_i, X_i, Y_i, Z_i\)</span> · deg<span class="math inline">\(^{2}\)</span> (U, V, W), deg (X, Y, Z) · read, not refined</p><p>The instrument's Gaussian and Lorentzian widths, from a resolution file; added to the sample's.</p><p class="eq"><span class="math inline">\(H_{G,i}^2 = (U_i \tan\theta + V_i)\tan\theta + W_i,\quad H_{L,i} = X_i \tan\theta + \frac{Y_i}{\cos\theta} + Z_i\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 70. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<section class="param" id="instrument_resolution"><h3 class="anchored">Instrument resolution</h3><p class="param-meta"><code>instrument_resolution</code> · <span class="math inline">\(U_i, V_i, W_i, X_i, Y_i, Z_i\)</span> · deg<span class="math inline">\(^{2}\)</span> (U, V, W), deg (X, Y, Z) · read, not refined</p><p>The instrument's Gaussian and Lorentzian widths, from a resolution file; added to the sample's.</p><p class="eq"><span class="math inline">\(H_{G,i}^2 = (U_i \tan\theta + V_i)\tan\theta + W_i,\quad H_{L,i} = X_i \tan\theta + \frac{Y_i}{\cos\theta} + Z_i\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 70. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">A TOF pattern's resolution file (Res = 5, 6; P05) gives instead Zero, Dtt1, Dtt2, Hodges' terms, <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(\gamma\)</span>, α, β (ZD2TOF, ZD2TOT, SIGMA, GAMMA, ALFBE, ALFBT, TWOTH), added to the bank's and the phases' values (docs/TOF_FullProf.pdf): <code>tof::Instrument</code>.</p>
 <table class="inventory caption-top">
 <tbody>
 <tr class="odd">
@@ -380,13 +380,43 @@ document.addEventListener("DOMContentLoaded", function () {
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
-<td><code>Model.instrumental</code></td>
+<td><code>Model.instrumental</code>, <code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_bank_two_theta"><h3 class="anchored">TOF bank angle 2θ</h3><p class="param-meta"><code>tof_bank_two_theta</code> · <span class="math inline">\(2\theta_B\)</span> · deg · read, not refined</p><p>The detector bank's scattering angle; it sets the Lorentz factor, the wavelength of each reflection and the absorption.</p><p class="eq"><span class="math inline">\(I_h \propto d_h^4 \sin\theta_B,\quad \lambda_h = 2 d_h \sin\theta_B\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The d<span class="math inline">\(^{4}\)</span> sin <span class="math inline">\(\theta\)</span>_B Lorentz factor against FullProf's intensities: 0.9531/0.9533 (arg_si, 144.8°), 0.9997 (CeO2, 90°), 0.9943 (lamn_pol, 29.0°) (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>2SinTh (2ThetaBank), line 14 (p. 82); TWOTH of a TOF resolution file replaces it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>2-theta (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>28.955–174.02° on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
 </tr>
 </tbody>
 </table>
 </section>
 <h2 id="position" class="anchored">Peak positions</h2>
-<section class="param" id="zero_shift"><h3 class="anchored">Zero shift</h3><p class="param-meta"><code>zero_shift</code> · <span class="math inline">\(2\theta_0\)</span> · deg 2<span class="math inline">\(\theta\)</span> · refinable</p><p>The offset of the detector's angle reading, added to every peak position.</p><p class="eq"><span class="math inline">\(2\theta_h = 2\arcsin\frac{\lambda}{2 d_h} + 2\theta_0 + S_c \cos\theta + S_s \sin 2\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<section class="param" id="zero_shift"><h3 class="anchored">Zero shift</h3><p class="param-meta"><code>zero_shift</code> · <span class="math inline">\(2\theta_0\)</span> · deg 2<span class="math inline">\(\theta\)</span> · refinable</p><p>The offset of the detector's angle reading, added to every peak position.</p><p class="eq"><span class="math inline">\(2\theta_h = 2\arcsin\frac{\lambda}{2 d_h} + 2\theta_0 + S_c \cos\theta + S_s \sin 2\theta\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 56 · FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">In a TOF pattern the zero is a time, T₀ in µs, on line 14 (p. 82): T_h = T₀ + Dtt1 d + Dtt2 d<span class="math inline">\(^{2}\)</span> + Dtt_1overd/d (P05, <code>tof_dtt1</code>).</p>
 <table class="inventory caption-top">
 <tbody>
 <tr class="odd">
@@ -512,6 +542,342 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.sysin</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_dtt1"><h3 class="anchored">TOF Dtt1 (DIFC)</h3><p class="param-meta"><code>tof_dtt1</code> · <span class="math inline">\(D_1\)</span> · µs/Å · refinable</p><p>The time of flight per Å of d-spacing: the bank's flight path and angle in one constant.</p><p class="eq"><span class="math inline">\(T_h = T_0 + D_1 d_h + D_2 d_h^2 + \frac{D_{-1}}{d_h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The position's form: FullProf's .prf ticks follow it with Dtt_1overd; its .hkl and .out print Dtt1·d alone for Npr = 9 (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Dtt1, line 14 of a TOF pattern (p. 82)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>difC (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>4570.6–49549.8 µs/Å on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern); 0 in lamn_pol_irf, whose resolution file gives it</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Early, with the zero and the scale, on a standard; held for the sample.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed: the manual's LINE 9 names the zero's class (global, p. 77), and Dtt1 is on its line 14)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_dtt2"><h3 class="anchored">TOF Dtt2 (DIFA)</h3><p class="param-meta"><code>tof_dtt2</code> · <span class="math inline">\(D_2\)</span> · µs/Å² · refinable</p><p>The quadratic term of the time of flight in d.</p><p class="eq"><span class="math inline">\(T_h = T_0 + D_1 d_h + D_2 d_h^2 + \frac{D_{-1}}{d_h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Dtt2, line 14 (p. 82); unused with Npr = 10</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>difA (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−1.54–52.66 µs/Å² on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>After Dtt1, when the positions at long d need it.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_dtt_1overd"><h3 class="anchored">TOF Dtt_1overd (DIFB)</h3><p class="param-meta"><code>tof_dtt_1overd</code> · <span class="math inline">\(D_{-1}\)</span> · µs·Å · refinable</p><p>The term of the time of flight in 1/d.</p><p class="eq"><span class="math inline">\(T_h = T_0 + D_1 d_h + D_2 d_h^2 + \frac{D_{-1}}{d_h}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 82. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Dtt_1overd, line 14 of FullProf's newer files (its .out: "TOF=TOF+dtt_1overD/dsp"; the 2001 manual's line 14 has none)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>difB (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely: short d-spacings with a strong absorption or a moderator term.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_thermal_zero"><h3 class="anchored">TOF thermal zero</h3><p class="param-meta"><code>tof_thermal_zero</code> · <span class="math inline">\(T_{0t}\)</span> · µs · refinable</p><p>The zero of the thermal neutrons' time of flight (Hodges).</p><p class="eq"><span class="math inline">\(T_h = n\,(T_0 + D_1 d_h) + (1 - n)\left(T_{0t} + D_{1t} d_h - \frac{D_{2t}}{d_h}\right),\quad n = \tfrac{1}{2}\operatorname{erfc}\!\left(w\,(x_c - d_h^{-1})\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 84–85. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">T to 0.003 µs against the .out of gabriela's 1288 reflections (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Zerot, line 16 (Npr = 10, pp. 84–85)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II has no epithermal–thermal crossover</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 23.9607 µs (the one Npr = 10 run of L334)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard measured over the crossover; held for the sample.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_thermal_dtt1"><h3 class="anchored">TOF thermal Dtt1</h3><p class="param-meta"><code>tof_thermal_dtt1</code> · <span class="math inline">\(D_{1t}\)</span> · µs/Å · refinable</p><p>The thermal neutrons' time of flight per Å.</p><p class="eq"><span class="math inline">\(T_h = n\,(T_0 + D_1 d_h) + (1 - n)\left(T_{0t} + D_{1t} d_h - \frac{D_{2t}}{d_h}\right),\quad n = \tfrac{1}{2}\operatorname{erfc}\!\left(w\,(x_c - d_h^{-1})\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 84–85. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">T to 0.003 µs against the .out of gabriela's 1288 reflections (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Dtt1t, line 16 (pp. 84–85)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II has no epithermal–thermal crossover</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 7459.78 µs/Å (the one Npr = 10 run of L334)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard measured over the crossover; held for the sample.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_thermal_dtt2"><h3 class="anchored">TOF thermal Dtt2</h3><p class="param-meta"><code>tof_thermal_dtt2</code> · <span class="math inline">\(D_{2t}\)</span> · µs·Å · refinable</p><p>The thermal neutrons' term in 1/d, subtracted.</p><p class="eq"><span class="math inline">\(T_h = n\,(T_0 + D_1 d_h) + (1 - n)\left(T_{0t} + D_{1t} d_h - \frac{D_{2t}}{d_h}\right),\quad n = \tfrac{1}{2}\operatorname{erfc}\!\left(w\,(x_c - d_h^{-1})\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 84–85. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">T to 0.003 µs against the .out of gabriela's 1288 reflections (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Dtt2t, line 16 (pp. 84–85)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II has no epithermal–thermal crossover</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 19.952 µs·Å (the one Npr = 10 run of L334)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard measured over the crossover; held for the sample.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_crossover"><h3 class="anchored">TOF crossover</h3><p class="param-meta"><code>tof_crossover</code> · <span class="math inline">\(x_c\)</span> · Å⁻¹ · refinable</p><p>The 1/d at which the epithermal and thermal times of flight cross.</p><p class="eq"><span class="math inline">\(T_h = n\,(T_0 + D_1 d_h) + (1 - n)\left(T_{0t} + D_{1t} d_h - \frac{D_{2t}}{d_h}\right),\quad n = \tfrac{1}{2}\operatorname{erfc}\!\left(w\,(x_c - d_h^{-1})\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 84–85. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">T to 0.003 µs against the .out of gabriela's 1288 reflections (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>x-cross, line 16 (pp. 84–85)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II has no epithermal–thermal crossover</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 1.264 Å⁻¹ (the one Npr = 10 run of L334)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard measured over the crossover; held for the sample.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_crossover_width"><h3 class="anchored">TOF crossover width</h3><p class="param-meta"><code>tof_crossover_width</code> · <span class="math inline">\(w\)</span> · Å · refinable</p><p>How sharply the epithermal time of flight gives way to the thermal one.</p><p class="eq"><span class="math inline">\(T_h = n\,(T_0 + D_1 d_h) + (1 - n)\left(T_{0t} + D_{1t} d_h - \frac{D_{2t}}{d_h}\right),\quad n = \tfrac{1}{2}\operatorname{erfc}\!\left(w\,(x_c - d_h^{-1})\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, pp. 84–85. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">T to 0.003 µs against the .out of gabriela's 1288 reflections (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Width, line 16 (pp. 84–85)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II has no epithermal–thermal crossover</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 2.363 Å (the one Npr = 10 run of L334)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard measured over the crossover; held for the sample.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; believed, as Dtt1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
 </tr>
 </tbody>
 </table>
@@ -1003,6 +1369,300 @@ document.addEventListener("DOMContentLoaded", function () {
 </tbody>
 </table>
 </section>
+<section class="param" id="tof_sigma0"><h3 class="anchored">TOF σ₀</h3><p class="param-meta"><code>tof_sigma0</code> · <span class="math inline">\(\sigma_0\)</span> · µs<span class="math inline">\(^{2}\)</span> · refinable</p><p>A term of the variance of the Gaussian part of a TOF peak.</p><p class="eq"><span class="math inline">\(\sigma_h^2 = \sigma_0 + \sigma_1 d_h^2 + \sigma_2 d_h^4 + \sigma_Q d_h,\quad H_G = \sqrt{8 \ln 2\, \sigma_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">HwG of FullProf's .out met (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Sig-0, line 27 (p. 111)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>sig-0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.750–3.015 µs<span class="math inline">\(^{2}\)</span> on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\sigma\)</span>₁ first, then <span class="math inline">\(\sigma\)</span>₂ and <span class="math inline">\(\sigma\)</span>₀ (p. 111: <span class="math inline">\(\sigma\)</span>₀ simultaneously with <span class="math inline">\(\sigma\)</span>₂ only when needed).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_sigma1"><h3 class="anchored">TOF σ₁</h3><p class="param-meta"><code>tof_sigma1</code> · <span class="math inline">\(\sigma_1\)</span> · µs<span class="math inline">\(^{2}\)</span>/Å² · refinable</p><p>A term of the variance of the Gaussian part of a TOF peak.</p><p class="eq"><span class="math inline">\(\sigma_h^2 = \sigma_0 + \sigma_1 d_h^2 + \sigma_2 d_h^4 + \sigma_Q d_h,\quad H_G = \sqrt{8 \ln 2\, \sigma_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">HwG of FullProf's .out met (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Sig-1, line 27 (p. 111)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>sig-1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.223–90.875 µs<span class="math inline">\(^{2}\)</span>/Å² on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\sigma\)</span>₁ first, then <span class="math inline">\(\sigma\)</span>₂ and <span class="math inline">\(\sigma\)</span>₀ (p. 111: <span class="math inline">\(\sigma\)</span>₀ simultaneously with <span class="math inline">\(\sigma\)</span>₂ only when needed).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_sigma2"><h3 class="anchored">TOF σ₂</h3><p class="param-meta"><code>tof_sigma2</code> · <span class="math inline">\(\sigma_2\)</span> · µs<span class="math inline">\(^{2}\)</span>/Å⁴ · refinable</p><p>A term of the variance of the Gaussian part of a TOF peak.</p><p class="eq"><span class="math inline">\(\sigma_h^2 = \sigma_0 + \sigma_1 d_h^2 + \sigma_2 d_h^4 + \sigma_Q d_h,\quad H_G = \sqrt{8 \ln 2\, \sigma_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">HwG of FullProf's .out met (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Sig-2, line 27 (p. 111)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>sig-2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−77.22–12.54 µs<span class="math inline">\(^{2}\)</span>/Å⁴ on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\sigma\)</span>₁ first, then <span class="math inline">\(\sigma\)</span>₂ and <span class="math inline">\(\sigma\)</span>₀ (p. 111: <span class="math inline">\(\sigma\)</span>₀ simultaneously with <span class="math inline">\(\sigma\)</span>₂ only when needed).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_sigma_q"><h3 class="anchored">TOF σ_Q</h3><p class="param-meta"><code>tof_sigma_q</code> · <span class="math inline">\(\sigma_Q\)</span> · µs<span class="math inline">\(^{2}\)</span>/Å · refinable</p><p>A term of the variance of the Gaussian part of a TOF peak.</p><p class="eq"><span class="math inline">\(\sigma_h^2 = \sigma_0 + \sigma_1 d_h^2 + \sigma_2 d_h^4 + \sigma_Q d_h,\quad H_G = \sqrt{8 \ln 2\, \sigma_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m"><span class="math inline">\(\sigma\)</span>_Q·d as GSAS-II's sig-q, believed: alum's 0.001 is below the print of FullProf's .out (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Sigma-Q, line 27 of FullProf's newer files (the 2001 manual's Xt)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>sig-q (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L2510">GSASIIpwd.py L2510</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0–0.001 µs<span class="math inline">\(^{2}\)</span>/Å on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\sigma\)</span>₁ first, then <span class="math inline">\(\sigma\)</span>₂ and <span class="math inline">\(\sigma\)</span>₀ (p. 111: <span class="math inline">\(\sigma\)</span>₀ simultaneously with <span class="math inline">\(\sigma\)</span>₂ only when needed).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_gamma0"><h3 class="anchored">TOF γ₀</h3><p class="param-meta"><code>tof_gamma0</code> · <span class="math inline">\(\gamma_0\)</span> · µs · refinable</p><p>A term of the FWHM of the Lorentzian part of a TOF peak.</p><p class="eq"><span class="math inline">\(H_{L,h} = \gamma_0 + \gamma_1 d_h + \gamma_2 d_h^2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">H and η from H_G and H_L by the Thompson–Cox–Hastings relations: FullProf's Hw and ETA met (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Gam-0, line 27-2 (p. 111)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Z (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 µs on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\gamma_1\)</span> after the Gaussian terms, for a sample's size and strain.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_gamma1"><h3 class="anchored">TOF γ₁</h3><p class="param-meta"><code>tof_gamma1</code> · <span class="math inline">\(\gamma_1\)</span> · µs/Å · refinable</p><p>A term of the FWHM of the Lorentzian part of a TOF peak.</p><p class="eq"><span class="math inline">\(H_{L,h} = \gamma_0 + \gamma_1 d_h + \gamma_2 d_h^2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">H and η from H_G and H_L by the Thompson–Cox–Hastings relations: FullProf's Hw and ETA met (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Gam-1, line 27-2 (p. 111)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>X (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0–5.369 µs/Å on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\gamma_1\)</span> after the Gaussian terms, for a sample's size and strain.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_gamma2"><h3 class="anchored">TOF γ₂</h3><p class="param-meta"><code>tof_gamma2</code> · <span class="math inline">\(\gamma_2\)</span> · µs/Å² · refinable</p><p>A term of the FWHM of the Lorentzian part of a TOF peak.</p><p class="eq"><span class="math inline">\(H_{L,h} = \gamma_0 + \gamma_1 d_h + \gamma_2 d_h^2\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 111. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">H and η from H_G and H_L by the Thompson–Cox–Hastings relations: FullProf's Hw and ETA met (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Gam-2, line 27-2 (p. 111)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Y (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 µs/Å² on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td><span class="math inline">\(\gamma_1\)</span> after the Gaussian terms, for a sample's size and strain.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
 <h2 id="asymmetry" class="anchored">Peak asymmetry</h2>
 <section class="param" id="berar_baldinozzi"><h3 class="anchored">Bérar–Baldinozzi asymmetry</h3><p class="param-meta"><code>berar_baldinozzi</code> · <span class="math inline">\(P_1, P_2, P_3, P_4\)</span> · 1 · refinable</p><p>The four coefficients of the empirical asymmetry multiplier, below AsyLim.</p><p class="eq"><span class="math inline">\(A(u) = 1 + \frac{P_1 F_a(u) + P_2 F_b(u)}{\tan\theta_h} + \frac{P_3 F_a(u) + P_4 F_b(u)}{\tan 2\theta_h},\ u = \frac{2\theta_h - 2\theta}{H},\ F_a = 2u e^{-u^2},\ F_b = (8u^3 - 12u) e^{-u^2}\)</span></p><p class="cite">Equation as printed in: Berar_Baldinozzi_1993.pdf, pp. 128–129 · FullProf_Manual.pdf, p. 54. Paper: J.-F. Bérar &amp; G. Baldinozzi (1993). Modeling of line-shape asymmetry in powder diffraction. J. Appl. Cryst. 26, 128–129. doi:10.1107/S0021889892009725</p><p class="m">The paper's u is positive on the low-angle side (eqs. 1–3, p. 128), as FullProf computes it; the manual's eq. 3.29 prints the opposite sign. FullProf's F_b = (4u<span class="math inline">\(^{2}\)</span> − 3)F_a is the paper's + 3F_a (L035): <code>Convention::berar_baldinozzi</code>; a .pcr's (P1, P2, P3, P4) are imported as (P1 + 3P2, P2, P3 + 3P4, P4), exactly (L050).</p>
 <table class="inventory caption-top">
@@ -1126,6 +1786,426 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.d_l</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_alpha0"><h3 class="anchored">TOF α₀</h3><p class="param-meta"><code>tof_alpha0</code> · <span class="math inline">\(\alpha_0\)</span> · µs<span class="math inline">\(^{-1}\)</span> · refinable</p><p>The constant of the rise of a TOF peak (its leading exponential).</p><p class="eq"><span class="math inline">\(\alpha_h = \alpha_0 + \frac{\alpha_1}{d_h} + \frac{\alpha_Q}{\sqrt{d_h}},\quad \beta_h = \beta_0 + \frac{\beta_1}{d_h^4} + \frac{\beta_Q}{d_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 112 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">With Npr = 10 α₀ + α₁ d is a time (µs) mixed with the thermal one as 1/α (the 2003 document's Panel 10); α_Q, β_Q found from alum's .out to its six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>alph0, line 30 (p. 112)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none (GSAS-II's alpha has the 1/d term alone)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0 µs<span class="math inline">\(^{-1}\)</span> on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard; α₁ and β₀, β₁ first (p. 112).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_alpha1"><h3 class="anchored">TOF α₁</h3><p class="param-meta"><code>tof_alpha1</code> · <span class="math inline">\(\alpha_1\)</span> · µs<span class="math inline">\(^{-1}\)</span>·Å · refinable</p><p>The 1/d term of the rise of a TOF peak.</p><p class="eq"><span class="math inline">\(\alpha_h = \alpha_0 + \frac{\alpha_1}{d_h} + \frac{\alpha_Q}{\sqrt{d_h}},\quad \beta_h = \beta_0 + \frac{\beta_1}{d_h^4} + \frac{\beta_Q}{d_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 112 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">With Npr = 10 α₀ + α₁ d is a time (µs) mixed with the thermal one as 1/α (the 2003 document's Panel 10); α_Q, β_Q found from alum's .out to its six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>alph1, line 30 (p. 112)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>alpha (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>3·<span class="math inline">\(10^{-6}\)</span>–0.717 µs<span class="math inline">\(^{-1}\)</span>·Å on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard; α₁ and β₀, β₁ first (p. 112).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_alpha_q"><h3 class="anchored">TOF α_Q</h3><p class="param-meta"><code>tof_alpha_q</code> · <span class="math inline">\(\alpha_Q\)</span> · µs<span class="math inline">\(^{-1}\)</span>·Å^½ · refinable</p><p>The 1/√d term of the rise of a TOF peak.</p><p class="eq"><span class="math inline">\(\alpha_h = \alpha_0 + \frac{\alpha_1}{d_h} + \frac{\alpha_Q}{\sqrt{d_h}},\quad \beta_h = \beta_0 + \frac{\beta_1}{d_h^4} + \frac{\beta_Q}{d_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 112 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">With Npr = 10 α₀ + α₁ d is a time (µs) mixed with the thermal one as 1/α (the 2003 document's Panel 10); α_Q, β_Q found from alum's .out to its six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>alphQ, line 30 of FullProf's newer files</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.1046–0 µs<span class="math inline">\(^{-1}\)</span>·Å^½ on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard; α₁ and β₀, β₁ first (p. 112).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_beta0"><h3 class="anchored">TOF β₀</h3><p class="param-meta"><code>tof_beta0</code> · <span class="math inline">\(\beta_0\)</span> · µs<span class="math inline">\(^{-1}\)</span> · refinable</p><p>The constant of the decay of a TOF peak (its trailing exponential).</p><p class="eq"><span class="math inline">\(\alpha_h = \alpha_0 + \frac{\alpha_1}{d_h} + \frac{\alpha_Q}{\sqrt{d_h}},\quad \beta_h = \beta_0 + \frac{\beta_1}{d_h^4} + \frac{\beta_Q}{d_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 112 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">With Npr = 10 α₀ + α₁ d is a time (µs) mixed with the thermal one as 1/α (the 2003 document's Panel 10); α_Q, β_Q found from alum's .out to its six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>beta0, line 30 (p. 112)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>beta-0 (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−<span class="math inline">\(10^{-6}\)</span>–0.0514 µs<span class="math inline">\(^{-1}\)</span> on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard; α₁ and β₀, β₁ first (p. 112).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_beta1"><h3 class="anchored">TOF β₁</h3><p class="param-meta"><code>tof_beta1</code> · <span class="math inline">\(\beta_1\)</span> · µs<span class="math inline">\(^{-1}\)</span>·Å⁴ · refinable</p><p>The 1/d<span class="math inline">\(^{4}\)</span> term of the decay of a TOF peak.</p><p class="eq"><span class="math inline">\(\alpha_h = \alpha_0 + \frac{\alpha_1}{d_h} + \frac{\alpha_Q}{\sqrt{d_h}},\quad \beta_h = \beta_0 + \frac{\beta_1}{d_h^4} + \frac{\beta_Q}{d_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 112 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">With Npr = 10 α₀ + α₁ d is a time (µs) mixed with the thermal one as 1/α (the 2003 document's Panel 10); α_Q, β_Q found from alum's .out to its six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>beta1, line 30 (p. 112)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>beta-1 (believed from GSAS-II's TOF instrument parameters, not checked line by line)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−<span class="math inline">\(10^{-6}\)</span>–0.0427 µs<span class="math inline">\(^{-1}\)</span>·Å⁴ on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard; α₁ and β₀, β₁ first (p. 112).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_beta_q"><h3 class="anchored">TOF β_Q</h3><p class="param-meta"><code>tof_beta_q</code> · <span class="math inline">\(\beta_Q\)</span> · µs<span class="math inline">\(^{-1}\)</span>·Å² · refinable</p><p>The 1/d<span class="math inline">\(^{2}\)</span> term of the decay of a TOF peak.</p><p class="eq"><span class="math inline">\(\alpha_h = \alpha_0 + \frac{\alpha_1}{d_h} + \frac{\alpha_Q}{\sqrt{d_h}},\quad \beta_h = \beta_0 + \frac{\beta_1}{d_h^4} + \frac{\beta_Q}{d_h^2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 112 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">With Npr = 10 α₀ + α₁ d is a time (µs) mixed with the thermal one as 1/α (the 2003 document's Panel 10); α_Q, β_Q found from alum's .out to its six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>betaQ, line 30 of FullProf's newer files</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>beta-q (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L2484">GSASIIpwd.py L2484</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−0.0449–0 µs<span class="math inline">\(^{-1}\)</span>·Å² on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard; α₁ and β₀, β₁ first (p. 112).</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_alpha0_thermal"><h3 class="anchored">TOF thermal α₀</h3><p class="param-meta"><code>tof_alpha0_thermal</code> · <span class="math inline">\(\alpha_{0t}\)</span> · µs · refinable</p><p>A term of the thermal neutrons' rise or decay time (Hodges), mixed with the epithermal one by the crossover.</p><p class="eq"><span class="math inline">\(\frac{1}{\alpha_h} = n\,(\alpha_0 + \alpha_1 d_h) + (1 - n)\left(\alpha_{0t} - \frac{\alpha_{1t}}{d_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 113 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The 2003 document's form, 1/α mixed; the manual (p. 112) mixes α itself. FullProf's .out follows the document, to six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>alph0t, line 31 (Npr = 10, p. 113)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 7.387, 27.18, 4.0124, 4.733 µs, µs·Å (α₀ₜ, β₀ₜ, α₁ₜ, β₁ₜ)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard over the crossover.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_beta0_thermal"><h3 class="anchored">TOF thermal β₀</h3><p class="param-meta"><code>tof_beta0_thermal</code> · <span class="math inline">\(\beta_{0t}\)</span> · µs · refinable</p><p>A term of the thermal neutrons' rise or decay time (Hodges), mixed with the epithermal one by the crossover.</p><p class="eq"><span class="math inline">\(\frac{1}{\alpha_h} = n\,(\alpha_0 + \alpha_1 d_h) + (1 - n)\left(\alpha_{0t} - \frac{\alpha_{1t}}{d_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 113 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The 2003 document's form, 1/α mixed; the manual (p. 112) mixes α itself. FullProf's .out follows the document, to six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>beta0t, line 31 (p. 113)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 7.387, 27.18, 4.0124, 4.733 µs, µs·Å (α₀ₜ, β₀ₜ, α₁ₜ, β₁ₜ)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard over the crossover.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_alpha1_thermal"><h3 class="anchored">TOF thermal α₁</h3><p class="param-meta"><code>tof_alpha1_thermal</code> · <span class="math inline">\(\alpha_{1t}\)</span> · µs·Å · refinable</p><p>A term of the thermal neutrons' rise or decay time (Hodges), mixed with the epithermal one by the crossover.</p><p class="eq"><span class="math inline">\(\frac{1}{\alpha_h} = n\,(\alpha_0 + \alpha_1 d_h) + (1 - n)\left(\alpha_{0t} - \frac{\alpha_{1t}}{d_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 113 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The 2003 document's form, 1/α mixed; the manual (p. 112) mixes α itself. FullProf's .out follows the document, to six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>alph1t, line 31 (p. 113)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 7.387, 27.18, 4.0124, 4.733 µs, µs·Å (α₀ₜ, β₀ₜ, α₁ₜ, β₁ₜ)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard over the crossover.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_beta1_thermal"><h3 class="anchored">TOF thermal β₁</h3><p class="param-meta"><code>tof_beta1_thermal</code> · <span class="math inline">\(\beta_{1t}\)</span> · µs·Å · refinable</p><p>A term of the thermal neutrons' rise or decay time (Hodges), mixed with the epithermal one by the crossover.</p><p class="eq"><span class="math inline">\(\frac{1}{\alpha_h} = n\,(\alpha_0 + \alpha_1 d_h) + (1 - n)\left(\alpha_{0t} - \frac{\alpha_{1t}}{d_h}\right)\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 113 · TOF_FullProf.pdf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The 2003 document's form, 1/α mixed; the manual (p. 112) mixes α itself. FullProf's .out follows the document, to six digits (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>beta1t, line 31 (p. 113)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>gabriela's TOF pattern alone: 7.387, 27.18, 4.0124, 4.733 µs, µs·Å (α₀ₜ, β₀ₜ, α₁ₜ, β₁ₜ)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read with Npr = 10</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With a standard over the crossover.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
 </tr>
 </tbody>
 </table>
@@ -1417,6 +2497,90 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.pref_direction</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_extinction"><h3 class="anchored">TOF extinction</h3><p class="param-meta"><code>tof_extinction</code> · <span class="math inline">\(E_x\)</span> · Å⁴/(<span class="math inline">\(10^{-12}\)</span> cm)² · refinable</p><p>Sabine's extinction of a powder in a TOF pattern.</p><p class="eq"><span class="math inline">\(x = E_x \left(\frac{\lambda_h F_h}{V}\right)^2,\quad E_h = E_L \cos^2\theta_B + E_B \sin^2\theta_B,\quad E_B = (1 + x)^{-1/2}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 110. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">Sabine, Von Dreele &amp; Jørgensen (1988), as GSAS: x/(E_x F<span class="math inline">\(^{2}\)</span> λ²) = 1/V<span class="math inline">\(^{2}\)</span> on every reflection of arg_si_ext10 and ext100 (L341). E_L = 1 − x/2 + x<span class="math inline">\(^{2}\)</span>/4 − 5x<span class="math inline">\(^{3}\)</span>/48 + 7x<span class="math inline">\(^{4}\)</span>/192 for x <span class="math inline">\(\le 1\)</span>, √(2/πx)(1 − 1/8x − 3/128x<span class="math inline">\(^{2}\)</span> − 15/1024x<span class="math inline">\(^{3}\)</span>) above.</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Extinc, Shape1's place on line 26 of a TOF phase (p. 110)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Extinction (Sabine) of the phase's histogram data (believed)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0–265.3 on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Last, when the strong low-d reflections are calculated too strong.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; believed: FullProf codes it on the scale's line 26-1 with the profile's Shape1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="tof_absorption"><h3 class="anchored">TOF absorption</h3><p class="param-meta"><code>tof_absorption</code> · <span class="math inline">\(A_1\)</span> · Å⁻¹ · refinable</p><p>The sample's absorption per Å of wavelength in a TOF pattern, by the bank's absorption function.</p><p class="eq"><span class="math inline">\(x = A_1 \lambda_h:\ \frac{1 - e^{-2x}}{2x}\ \text{(flat plate)},\ e^{-(1.7133 - 0.0368 s^2) x + (0.0927 + 0.375 s^2) x^2}\ \text{(cylinder)},\ e^{-x}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 113 · FullProf_Manual.pdf, p. 76. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">Each function found from FullProf's CORR (arg_si_abs1, _calc, _abs3: to six digits, 8·<span class="math inline">\(10^{-6}\)</span> for the cylinder); the manual's Iabscor 3 is e^{−cλ²}, FullProf's e^{−x} (L341). ABS2 is refused: FullProf's two runs with it stopped (L334).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>ABS1, line 33 of a TOF phase (p. 113), by Iabscor of line 8 (p. 76)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>Absorption of the histogram's sample parameters (believed)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0–0.149 Å⁻¹ on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Late, with the displacement parameters it correlates with.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge 0\)</span>.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; believed: the manual names no class for ABS1)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.tof</code></td>
 </tr>
 </tbody>
 </table>
@@ -2328,6 +3492,36 @@ document.addEventListener("DOMContentLoaded", function () {
 </table>
 </section>
 <h2 id="calculation" class="anchored">Calculation controls</h2>
+<section class="param" id="tof_max"><h3 class="anchored">TOF range end</h3><p class="param-meta"><code>tof_max</code> · <span class="math inline">\(T_{\max}\)</span> · µs · read, not refined</p><p>The pattern's last time of flight, the period of the Fourier background.</p><p class="eq"><span class="math inline">\(b_i = \sum_j B_j \cos\frac{j \pi T_i}{T_{\max}}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 76. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">FullProf's Fourier background in TOF: C = T_max/π, where the manual (p. 47) writes C = T_max; arg_si_calc.prf's background met to its print, 0.03 (L341).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>TOF-max, line 9 of a TOF pattern (p. 76)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>the histogram's upper limit</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>19380.8–247540.2 µs on the six TOF runs of L334 (arg_si, CeO2_PEARL, alum, lamn_pol, nac_osiris, gabriela's TOF pattern)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: read</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.tof</code></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section class="param" id="peak_window"><h3 class="anchored">Peak window</h3><p class="param-meta"><code>peak_window</code> · <span class="math inline">\(W_{dt}\)</span> · FWHM · read, not refined</p><p>The half-range over which a peak is calculated, in units of its FWHM; beyond it the profile is zero.</p><p class="eq"><span class="math inline">\(\Omega(x) = 0 \quad\text{for}\quad |x| &gt; W_{dt}\, H\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p><p class="m">The default calculates each peak to ±Wdt·H and tapers it to zero by <span class="math inline">\(\pm\)</span>1.25·Wdt·H, so that <span class="math inline">\(\chi^2\)</span> is continuous as widths and positions change (L058; FullProf cuts it at the edge: <code>Convention::window_edge</code>). FullProf counts the window without X tan <span class="math inline">\(\theta\)</span> for TCH and takes one more low point when X ≠ 0 (L035, L042): <code>Convention::peak_window</code>. No exact translation: a .pcr keeps FullProf's window on import (L050); switching it to the default moves <span class="math inline">\(\chi^2\)</span> by up to 6.2% on the FullProf runs (YVO3, with the tapered edge, L058).</p>
 <table class="inventory caption-top">
 <tbody>
