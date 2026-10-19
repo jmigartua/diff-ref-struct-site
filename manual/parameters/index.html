@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">88 entries, 77 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">92 entries, 81 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -2784,6 +2784,174 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="odd">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Model.background</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_debye_amplitude"><h3 class="anchored">Background Debye-like amplitude</h3><p class="param-meta"><code>background_debye_amplitude</code> · <span class="math inline">\(A_j\)</span> · counts · refinable</p><p>The amplitude of a Debye-like term of the background: the diffuse scattering of a pair of atoms at distance r_j in an amorphous part or a liquid (FullProf's Nba = −1).</p><p class="eq"><span class="math inline">\(b_i = \sum_m B_m \left(\frac{2\theta_i}{\mathrm{BKPOS}} - 1\right)^m + \sum_j A_j \frac{\sin(Q_i r_j)}{Q_i r_j},\quad Q_i = \frac{4\pi\sin\theta_i}{\lambda_1}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45 · nac_3t2_calc.prf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>BC_j, the line after the six coefficients of line 17 ("Additional background coefficients"), Nba = −1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>DebyeA;n (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L677">GSASIIobj.py L677</a>), with a damping exp(−U Q<span class="math inline">\(^{2}\)</span>) and a factor ff (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L1083">GSASIIpwd.py L1083</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>−37.5 to 33.0 in FP_tests/nac_3t2.pcr (3T2, <span class="math inline">\(\mathrm{Na_{2}Ca_{3}Al_{2}F_{14}}\)</span>)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the polynomial, after the structure, when an amorphous part or a liquid gives the background its waves.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_debye_distance"><h3 class="anchored">Background Debye-like distance</h3><p class="param-meta"><code>background_debye_distance</code> · <span class="math inline">\(r_j\)</span> · Å · refinable</p><p>The distance of a Debye-like term of the background, the separation of the pair of atoms whose diffuse scattering it is.</p><p class="eq"><span class="math inline">\(A_j \frac{\sin(Q_i r_j)}{Q_i r_j}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 45 · nac_3t2_calc.prf. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>r_j, the line pair after the amplitudes', Nba = −1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>DebyeR;n (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIobj.py#L678">GSASIIobj.py L678</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>1.40–4.95 Å in FP_tests/nac_3t2.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>none: given</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Rarely, and only with its amplitude fixed: a distance is a bond length of the amorphous part, best known from its chemistry.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>r &gt; 0.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_inverse_power"><h3 class="anchored">Background inverse powers</h3><p class="param-meta"><code>background_inverse_power</code> · <span class="math inline">\(c_j\)</span> · counts·deg^j · refinable</p><p>The coefficients of 1/2<span class="math inline">\(\theta\)</span>, 1/2<span class="math inline">\(\theta\)</span>² and 1/2<span class="math inline">\(\theta\)</span>³ added to a polynomial of nine coefficients (FullProf's Nba = −3), for the steep background at low angles.</p><p class="eq"><span class="math inline">\(b_i = \sum_{m=0}^{8} B_m \left(\frac{2\theta_i}{\mathrm{BKPOS}} - 1\right)^m + \sum_{j=1}^{3} c_j (2\theta_i)^{-j}\)</span></p><p class="cite">Equation as printed in: Fullprof_News_2003.htm L963 · y2o3_poly12_b10.prf · y2o3_poly12_b12.prf</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>the 10th to 12th coefficients of line 17, Nba = −3 (News of 28 July 2003, whose formula is an image that is lost: the form read from FullProf's runs, 2<span class="math inline">\(\theta\)</span> in degrees, L353)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: GSAS-II's 'chebyschev-1' and 'cosine' series have no inverse powers (<a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L978">GSASIIpwd.py L978</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>whatever the data give</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Late (step 7), for a pattern that starts at low angle with a background falling steeply.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="background_profile"><h3 class="anchored">Background profile coefficient</h3><p class="param-meta"><code>background_profile</code> · <span class="math inline">\(k_n\)</span> · 1 · refinable</p><p>The coefficient of a background profile read from a file (an empty holder's pattern, a calculated thermal diffuse scattering), added to the background function.</p><p class="eq"><span class="math inline">\(b_i = f(2\theta_i) + \sum_n k_n\, P_n(2\theta_i)\)</span></p><p class="cite">Equation as printed in: Fullprof_News_2003.htm L1149–1153 · y2o3_more2_two.out</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>MORE = 2 or 3 on line 14: the number of profiles and their coefficients, then their codewords; profile n from {data}_n.bac</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>a fixed background histogram with its multiplier (fixback, <a href="https://github.com/AdvancedPhotonSource/GSAS-II/blob/305a15985ba1fc1e084efd5a11193276c476f4b2/GSASII/GSASIIpwd.py#L978">GSASIIpwd.py L978</a>)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.5 and 2 in runs/background_terms/y2o3_more2_two.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>With the scale factors, when the profile's share of the pattern is not known.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>None.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>global (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Model.background_terms</code></td>
 </tr>
 </tbody>
 </table>
