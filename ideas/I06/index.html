@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The minimisation itself: what molecular dynamics, DFT relaxations, Monte Carlo and machine learning can lend to the Rietveld engine, with the same results · diff-ref-struct – diff-ref-struct · Rietveld refinement for the Mac</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-afe927e19676d0e50b1726048be49fb1.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- KaTeX auto-render: publication titles carry TeX inside generated HTML that
+     Quarto's own math pipeline never sees (same approach as thermomat). -->
+<script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+/* The header ribbon is sticky; the side columns and anchor targets need its height. */
+(function () {
+  function headH() {
+    var t = document.querySelector(".topline"), h = document.querySelector(".site-head");
+    var px = (t ? t.offsetHeight : 0) + (h ? h.offsetHeight : 0);
+    if (px) document.documentElement.style.setProperty("--head-h", px + "px");
+  }
+  document.addEventListener("DOMContentLoaded", headH);
+  window.addEventListener("load", headH);
+  window.addEventListener("resize", headH);
+})();
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.renderMathInElement) {
+    renderMathInElement(document.body, {
+      delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }, { left: "\\(", right: "\\)", display: false }],
+      throwOnError: false
+    });
+  }
+  /* Quarto's KaTeX pipeline writes <span class="math inline">TeX</span> without delimiters and renders
+     them in a loop that reads firstChild.data; that loop dies at the first span the auto-render above
+     has already turned into KaTeX markup, leaving every later formula raw. Render the rest here. */
+  if (window.katex) {
+    document.querySelectorAll(".math").forEach(function (el) {
+      if (!el.querySelector(".katex")) {
+        var t = el.textContent.replace(/^\s*\\[\(\[]/, "").replace(/\\[\)\]]\s*$/, "");
+        try { katex.render(t, el, { displayMode: el.classList.contains("display"), throwOnError: false }); } catch (e) {}
+      }
+      /* Quarto's loop would still visit this span and wipe it (firstChild is now an element, not text):
+         take it out of its sight. No stylesheet of the site depends on the class; KaTeX's own output carries the layout. */
+      el.classList.remove("math"); el.classList.add("math-done");
+    });
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="../../assets/styles/theme.css">
+<link rel="stylesheet" href="../../assets/styles/site.css">
+<link rel="stylesheet" href="../../assets/styles/project.css">
+</head>
+
+<body>
+
+<!-- Site header, family kit. Root-absolute hrefs are rewritten by Quarto to
+     page-relative links at render time. -->
+<div class="topline"></div>
+<header class="site-head">
+  <div class="site-head__inner">
+    <a href="../../index.html" class="wordmark">diff <span class="accent">ref</span> struct
+      <span class="wordmark-sub">Rietveld refinement for the Mac · powder diffraction with X-rays, synchrotron and neutrons · started October 2026</span>
+    </a>
+    <!-- The entries are the groups of data/nav.yml, in the same order; the two navigations say the same thing. -->
+    <nav class="site-nav">
+      <a href="../../index.html">Overview</a>
+      <a href="../../brief/index.html">Brief</a>
+      <a href="../../background/index.html">Background</a>
+      <span class="nav-pair"><a href="../../design/index.html">Design</a><span class="sl">/</span><a href="../../roadmap/index.html">Roadmap</a></span>
+      <a href="../../ideas/index.html" class="nav-ideas">Ideas</a>
+      <a href="../../manual/index.html">Manual</a>
+      <span class="nav-right">
+        <span class="nav-pair"><a href="../../about/index.html">Method</a><span class="sl">/</span><a href="../../log/index.html">Log</a></span>
+        <a href="../../releases/index.html">Release notes</a>
+      </span>
+    </nav>
+  </div>
+</header>
+<!-- generated by tools/build.py: left navigation + opening of the reading column -->
+<div class="docs">
+<nav class="docs-nav" aria-label="Site sections">
+<button class="docs-fold" type="button" data-fold="nav" aria-label="Hide the navigation" title="Hide the navigation">‹</button>
+<details class="group" open=""><summary class="t">Overview</summary><ul><li><a href="../../index.html">Overview</a></li></ul></details>
+<details class="group" open=""><summary class="t">Brief</summary><ul><li><a href="../../brief/index.html">The brief, organised</a></li></ul></details>
+<details class="group" open=""><summary class="t">Background</summary><ul><li><a href="../../background/index.html">The programs that inspire</a></li><li><a href="../../background/fullprof/index.html">FullProf, the baseline</a></li><li><a href="../../background/gsas2/index.html">GSAS-II</a></li></ul></details>
+<details class="group" open=""><summary class="t">Design / Roadmap</summary><ul><li><a href="../../design/index.html">Design: open questions</a></li><li><a href="../../design/results-file/index.html">The results file: the choice</a></li><li><a href="../../design/proposal/index.html">Proposal (draft)</a></li><li><a href="../../design/inference/index.html">Inference and the family (assessed)</a></li><li><a href="../../roadmap/index.html">Roadmap: the phases</a></li></ul></details>
+<details class="group" open=""><summary class="t">Ideas</summary><ul><li><a href="../../ideas/index.html">The seed-place</a></li><li><a href="../../ideas/I01/index.html">I01 · Themes and skins for the app's appearance</a></li><li><a href="../../ideas/I02/index.html">I02 · Extensions: modules installed from outside the app, and where their numbers come from</a></li><li><a href="../../ideas/I03/index.html">I03 · The seed-place: a home for ideas, in every project's site and later for the family</a></li><li><a href="../../ideas/I04/index.html">I04 · Inference for magnetic structures, with MAGNDATA as the family and the test bed</a></li><li><a href="../../ideas/I05/index.html">I05 · Maximum entropy: what became of it, and what of it belongs in the inference</a></li><li><a href="../../ideas/I06/index.html">I06 · The minimisation itself: what molecular dynamics, DFT relaxations, Monte Carlo and machine learning can lend to the Rietveld engine, with the same results</a></li></ul></details>
+<details class="group" open=""><summary class="t">Manual</summary><ul><li><a href="../../manual/index.html">About the manual</a></li><li><a href="../../manual/parameters/index.html">Parameters: the theory</a></li><li><a href="../../manual/operations/index.html">Data operations: the settings</a></li><li><a href="../../manual/files/index.html">Files</a></li></ul></details>
+<details class="group" open=""><summary class="t">Method / Log</summary><ul><li><a href="../../about/index.html">How this site works</a></li><li><a href="../../log/index.html">The log, every dated step</a></li></ul></details>
+<details class="group" open=""><summary class="t">Release notes</summary><ul><li><a href="../../releases/index.html">Release notes</a></li></ul></details>
+</nav>
+<div class="docs-main">
+
+<header id="title-block-header">
+<h1 class="title">The minimisation itself: what molecular dynamics, DFT relaxations, Monte Carlo and machine learning can lend to the Rietveld engine, with the same results</h1>
+
+</header>
+
+
+<article class="page-article ideas">
+<h1>The minimisation itself: what molecular dynamics, DFT relaxations, Monte Carlo and machine learning can lend to the Rietveld engine, with the same results <span class="status idea-status idea-discussed">discussed</span></h1>
+<p class="sub"><span class="num">I06</span> · an idea of the <a href="../index.html">seed-place</a>, on its way to the core.</p>
+<div class="facts"><div class="k">Said</div><div>2026-10-19, Josu</div><div class="k">Status</div><div><span class="status idea-status idea-discussed">discussed</span></div><div class="k">Home</div><div>core <span class="m">(where it migrates)</span></div><div class="k">Needs</div><div><a href="../I05/index.html">I05</a></div></div>
+<h2 id="idea" class="anchored">The idea</h2><p>Beyond reproducing FullProf and GSAS-II, innovate in the minimisation, not only in the information it uses (as mode crystallography does). The Rietveld method is fixed; is its least-squares minimisation the best one can do, in reliability and in speed? Molecular dynamics and DFT codes (SIESTA, for one) relax structures into energy minima with algorithms of their own; Monte Carlo might approach the minimum of a many-parameter problem faster. The application differs, but think about what could be borrowed, and propose another possible way of refining that still lands on the very same results. And, asked straight after: machine learning, neural networks, physically informed models?</p>
+<h2 id="assessment" class="anchored">Assessment</h2><p><strong>1. The first answer, the one that orders everything else: locally, the core already has the better minimiser.</strong> A DFT relaxation knows the energy and its gradient (the forces, by Hellmann–Feynman) and almost never the Hessian, which costs a phonon calculation. That is why SIESTA relaxes with conjugate gradients, Broyden's quasi-Newton or FIRE (its <code>MD.TypeOfRun</code>, documented in its tutorials; L-BFGS through its Lua engine): all three build curvature from successive gradients because nothing better is affordable. The Rietveld problem is the opposite case. The core computes the exact Jacobian \(J\) of the pattern by dual numbers (L053), and \(J^{\mathsf T}WJ\) is the Gauss–Newton approximation to the Hessian of \(\chi^2\), exact when the residuals are small; near the minimum Gauss–Newton converges quadratically, which no first-order method and no Monte Carlo can match. A Monte Carlo walk approaches a smooth minimum by diffusion, far more slowly; FIRE or conjugate gradients on \(\chi^2\) would throw away the curvature the core already pays for. So the honest answer to "is there a faster algorithm for the last stretch" is no, not by replacing Levenberg–Marquardt; and that is good news, because it means FullProf's result is kept by the engine as it is and the innovation goes where the time is really lost. A refinement loses its time in six places:</p><ul><li>(i) the start lies outside the basin: calculated and observed peaks do not overlap, the gradient with respect to the cell or the zero is nearly zero, and nothing moves (the reason every manual says "start close");</li><li>(ii) false minima: a wrong sign of a tilt or of a mode amplitude, occupancy traded against displacement, two species exchanged, a profile asymmetry absorbed by the zero;</li><li>(iii) sloppy directions: the eigenvalues of the scaled normal matrix spread over many decades (the core shows them, Explore §2.3), the steps zig-zag along a narrow valley and λ climbs;</li><li>(iv) large residuals: with \(\chi^2_\nu\) of 3–10, common on laboratory data, the term Gauss–Newton drops, \(\sum_i w_i r_i \nabla^2 r_i\), is no longer small;</li><li>(v) the human's plan: which parameters to free in which order, the main cost of a refinement in practice and the least formalised;</li><li>(vi) the cost of each cycle when the parameters are many (sequential, parametric and joint refinements).</li></ul><p>For each there is a tool from the neighbouring fields. They are grouped below by what they promise: the same minimum reached more reliably and in fewer cycles (A), the whole landscape and the posterior with the same machinery (B), the physics of the energy as extra information (C), and machine learning where its errors are corrected by the likelihood (D).</p><p><strong>A. The same minimum, more reliably and faster.</strong> Each of these changes the path, not the end point: the minimum it reaches is the least-squares minimum, so FullProf's result is the test.</p><ul><li><strong>A1. Variable projection for the linear parameters</strong> (Golub and Pereyra 1973). The calculated pattern is linear in the scale factors and in the background coefficients (and, in a Pawley fit, in the intensities). For any value of the non-linear parameters the optimal linear ones are a linear least-squares solve; variable projection eliminates them exactly at every evaluation and minimises over the non-linear parameters alone. Golub and Pereyra proved that the reduced functional has the same minima; in practice it converges in fewer iterations and from worse starts, because the problem is smaller and better conditioned. In Rietveld terms, the classical first step "refine the scale and the background" is done exactly at every evaluation. Not found in FullProf's or GSAS-II's manuals (believed, not searched exhaustively).</li><li><strong>A2. Geodesic acceleration</strong> (Transtrum, Machta and Sethna 2011, Phys. Rev. E 83, 036701; Transtrum and Sethna 2012, arXiv 1201.5885). Levenberg–Marquardt is a first-order (Euler) step along a geodesic of the model manifold; adding the second-order term, which needs only the second directional derivative of the residuals along the step, \(\partial^2 r / \partial v^2\), corrects for parameter-effect curvature. The authors report a large rise in the success rate and the speed on sloppy fits. In the core the directional second derivative is one more evaluation with dual numbers seeded along \(v\) (a second-order dual in one direction), the cost of about one extra column of \(J\). The sloppy-model picture (Gutenkunst et al. 2007) is also the right language for Explore's "directions the data cannot fix".</li><li><strong>A3. The large-residual term</strong> (Dennis, Gay and Welsch 1981, NL2SOL). A secant (quasi-Newton) estimate of \(\sum_i w_i r_i \nabla^2 r_i\) is built from successive Jacobians and added to \(J^{\mathsf T}WJ\) only when \(\chi^2_\nu\) is large; with small residuals it switches itself off. Broyden's update here is the same idea SIESTA's Broyden relaxation and its density mixing use, put where it belongs: on the part of the curvature the core does not compute.</li><li><strong>A4. Continuation: deform the landscape, not the walker.</strong> The DFT and MD counterpart is the soft-core potential and graduated non-convexity (Blake and Zisserman 1987). (a) <strong>Resolution continuation</strong>: convolve the observed and the calculated patterns with a Gaussian of width \(s\), refine, shrink \(s\), refine again, to \(s = 0\). At large \(s\) the peaks overlap even when the cell is wrong, the gradient is not zero and problem (i) disappears; at \(s = 0\) the functional is Rietveld's and so is the minimum. (b) <strong>Range continuation</strong>: low angles first, where fewer parameters matter, then the whole pattern. (c) <strong>Prior annealing in place of the plan</strong>: every parameter free from the first cycle, each held by a Gaussian prior around its start whose width grows cycle after cycle (a Tikhonov path); at the end the priors are gone and the minimum is the unrestrained one. It is the principled form of the human's staged plan (v): the data release each parameter when they can fix it, which the scaled normal matrix measures.</li><li><strong>A5. Reparameterisation as preconditioning.</strong> DFT codes relax in redundant internal coordinates (Pulay and Fogarasi 1992) because Cartesian coordinates are badly conditioned. The crystallographic equivalents are partly in the core (symmetry modes, rigid bodies) and partly not: the displacement tensor as its Cholesky factor (positive definite at every step, never a non-positive-definite \(U\) to stop on), \(\ln B\), occupancies through a logistic or on the simplex, the cell through the metric tensor. The minimum is invariant under a reparameterisation; the esd's transform with its Jacobian; the path and the bounds become smooth.</li><li><strong>A6. Robust likelihood.</strong> An impurity peak or a spike pulls every parameter. A Student-t likelihood is minimised by iteratively reweighted least squares, which is the core's engine with the weights recomputed each cycle (it already recomputes them for Iwg). TOPAS has a robust refinement ("Robust Refinement as Implemented in TOPAS", Mater. Sci. Forum 651, 27; seen by search, not read). On clean data it returns the least-squares result; that is its test.</li><li><strong>A7. The cost of a cycle.</strong> For the gradient of a scalar, reverse mode (the adjoint) costs a few forward passes whatever the number of parameters, where forward-mode duals cost one per parameter; it is what the samplers of B need. For very large problems, a matrix-free solve (LSQR) uses \(Jv\) and \(J^{\mathsf T}u\) without forming the normal matrix. In a sequential series, start each pattern from the extrapolation of the previous two, as MD extrapolates the wavefunctions from step to step: a predictor that the core's <code>sequential</code> can test in a day.</li></ul><p><strong>B. The landscape, and the posterior, with the tools of statistical mechanics.</strong> Here Monte Carlo and molecular dynamics come in, not to reach a minimum faster but to find all of them and to weigh them.</p><ul><li><strong>B1. Basin hopping with the core's engine as the relaxer</strong> (Wales and Doye 1997; minima hopping, Goedecker 2004). Perturb, relax with Levenberg–Marquardt, accept or reject by a Metropolis test on \(\chi^2\), keep a catalogue of the minima found. This is exactly how energy landscapes of clusters are searched, with the local minimiser doing the work and the Monte Carlo only choosing where to start. The moves should be crystallographic, not random: flip the sign of a mode amplitude, exchange two species, apply an operation of the Euclidean normaliser (which gives the same structure: to be folded, not counted, as L286 already folds the domain-equivalent amplitude sets), move to a neighbouring subgroup's description. Global search exists for structure solution: FOX by simulated annealing and parallel tempering (Favre-Nicolin and Černý 2002; its manual), DASH by simulated annealing (David et al. 2006), TOPAS by simulated annealing in the whole profile (Coelho 2000). What is new here is using it at the end of a refinement to answer "is this the minimum, how many others are there, how far above".</li><li><strong>B2. The temperature ladder: one engine, three products.</strong> Write \(p_\beta(\theta) \propto \pi(\theta)\, e^{-\beta \chi^2(\theta)/2}\). At \(\beta \to \infty\) it concentrates on the least-squares minimum: Rietveld's answer, FullProf's number. At \(\beta = 1\) it is the posterior of L286. At small \(\beta\) it explores. Parallel tempering runs a ladder of \(\beta\) at once and swaps states between rungs; and the same run gives the evidence by thermodynamic integration, \(\ln Z = \int_0^1 \langle -\chi^2/2 \rangle_\beta \, d\beta\) (Gelman and Meng 1998), which L286 needs to compare subgroups. Simulated annealing is the same ladder walked once, downwards. The minimisation, the search and the inference become one calculation, and its cold end is the result FullProf gives.</li><li><strong>B3. Hamiltonian Monte Carlo is molecular dynamics on \(\chi^2\)</strong> (Duane et al. 1987; Neal 2011). Give each parameter a momentum, take \(\chi^2/2 - \ln \pi\) as the potential energy, integrate with the leapfrog (velocity Verlet, the MD integrator), accept by the energy error. Josu's intuition is literally right here: the algorithm that samples a many-parameter posterior most efficiently is an MD code. And the core holds what makes it good: the normal matrix is the Fisher information, the natural metric of the problem; used as the mass matrix (Girolami and Calderhead 2011), stiff and sloppy directions move at comparable speed, which is what Gauss–Newton does for the minimum. Cooling the thermostat is annealing; NUTS (Hoffman and Gelman 2014) chooses the trajectory length. Bayesian powder analysis exists (Fancher et al. 2016, Sci. Rep. 6, 31625, with MCMC; BLAND, Lesniewski et al. 2016), not with the Fisher metric of a refinement engine.</li><li><strong>B4. A fast surrogate with an exact check.</strong> David and Sivia showed that the profile \(\chi^2\) near a Pawley fit equals, to second order, a \(\chi^2\) over the extracted intensities with their covariance matrix; DASH's annealing uses it and is about two orders of magnitude faster per evaluation (DASH's paper, as summarised by search). The core has Pawley fits (<code>pawley.rs</code>). Delayed-acceptance MCMC (Christen and Fox 2005) screens each proposal with the surrogate and confirms it with the exact profile; the chain samples the exact posterior. The hot rungs of B2 run on the surrogate, the cold ones on the profile.</li><li><strong>B5. The landscape as a picture</strong> (for Explore). Two refinements that end in different minima are joined by the minimum-\(\chi^2\) path found by the nudged elastic band (Henkelman, Uberuaga and Jónsson 2000, the DFT tool for reaction barriers): the barrier in \(\Delta\chi^2\) along it says whether the data really separate the two solutions or whether they are one broad basin. The minima of B1 drawn as a disconnectivity graph (Becker and Karplus 1997) show the whole landscape in one figure. Not found for Rietveld refinement (believed; not searched beyond this session).</li></ul><p><strong>C. The energy as information, which is what DFT can lend in earnest.</strong> Not its minimiser but its landscape. The structure measured at temperature \(T\) is a thermal state, so a physically meaningful prior over the positions is Boltzmann's, \(\pi(\theta) \propto e^{-E(\theta)/k_B T}\), and the posterior is \(\exp[-\chi^2/2 - E/k_B T_{\text{eff}}]\).</p><ul><li><strong>C1. Which energy.</strong> Now: the core's bond-valence table (<code>bv_table.rs</code>) gives a soft bond-valence energy (Adams' softBV and BVSE, believed, not re-read), cheap and with derivatives. Next: the universal machine-learned interatomic potentials (MACE-MP-0, CHGNet and others) give near-DFT energies and forces for any chemistry in milliseconds. The weight: an approximate energy must be tempered, and \(T_{\text{eff}}\) is inferred from the evidence, as MEM's \(\alpha\) is (I05): the same idea in another place.</li><li><strong>C2. What exists, checked by search on 19 October 2026.</strong> Scatter2xyz (Anker, Gardner, Rosset, Goodwin and Deringer, arXiv 2510.05938, October 2025) optimises populations of walkers against powder, small-angle, total scattering and PDF data together with a machine-learned potential's energy and chemical constraints, with automatic differentiation and the Adam optimiser: a unified differentiable loss, aimed at structure solution and autonomous laboratories. TOPAS adds potential-energy penalties (<code>grs_interaction</code>, electrostatic plus user terms; its forum). DFT-D validation of powder structures compares the refined structure with its energy minimum after the fact (van de Streek and Neumann 2010, believed). Hoser and Madsen (2016, 2017, Acta Cryst. A) refine the frequencies of ab initio normal modes against single-crystal data, so that the displacement parameters come from lattice dynamics. Not found: inside a refinement program, the energy as a Boltzmann prior of the posterior with its weight inferred, esd's from that posterior, and the result compared with the unrestrained refinement.</li><li><strong>C3. Displacement parameters from the Hessian.</strong> In the harmonic approximation the mean-square displacements follow from the phonons: \(U = \frac{\hbar}{2N}\sum_{\mathbf q,j} \frac{e e^{\dagger}}{m\,\omega}\coth\frac{\hbar\omega}{2k_BT}\), with the eigenvectors and frequencies of the potential's Hessian. Powder data fix ADPs worst of all parameters; refining one scale per group of modes in place of six numbers per atom (Hoser and Madsen's idea carried to powders and inorganic solids) gives physically consistent ADPs, the test being neutron data with known ADPs.</li><li><strong>C4. Modes and the Landau potential.</strong> For a distorted perovskite the energy over the amplitudes of a few irreps, \(E(Q_1, \dots, Q_k)\), is low-dimensional and can be tabulated once with the potential (frozen phonons in the parent). It is the measured prior over amplitudes that L286 lacks (its named weakness: the evidences depend on the prior's width, Lindley); its trilinear couplings tie amplitudes that the data fix poorly to those they fix well; in a temperature series, the amplitudes follow \(Q(T)\) from the same potential, a parametric refinement with physics in it (<code>parametric.rs</code>).</li><li><strong>C5. Forces as a diagnostic.</strong> After a plain refinement, the potential's forces on the refined atoms flag the positions the energy disputes: a view in Explore, with no change to the result, available as soon as an energy is.</li><li><strong>The caution.</strong> The energy is information the diffraction data do not contain; the result with it is not FullProf's, and must not be presented as if it were. It is shown beside the unrestrained refinement, with the evidence for including it.</li></ul><p><strong>D. Machine learning, neural networks and physics-informed models: the rule "the network proposes, the likelihood decides".</strong> A network's output carries an error that nobody can bound for a pattern unlike its training set; the exact likelihood, which the core computes, has no such error. So every learned piece goes where its error is corrected by the likelihood (a start, a proposal, a prior with an inferred weight, a model of the misfit) and never at the end point. Where that holds, the result is still the least-squares minimum or the exact posterior, and the network only makes it faster or surer.</p><ul><li><strong>D1. What exists, checked by search on 19 October 2026.</strong> Mun, Nam and Choi (J. Appl. Cryst. 2026, "Automation of Rietveld refinement through machine learning") train a convolutional network on simulated patterns; it predicts the structural and profile parameters in about 2 ms, and those are the start of an ordinary least-squares refinement, with \(R_{wp}\) within 1 % of the manual one on CeO\(_2\), Tb\(_2\)BaCoO\(_5\) and PbSO\(_4\). RADAR-PD (arXiv 2605.12478) identifies and quantifies phases with a network and verifies by Rietveld. Riesel et al. (2024) generate structures from patterns (67 % on RRUFF, L286). Scatter2xyz (C2) puts a learned potential in the loss. All of them use the network before or beside the refinement, none instead of it, and that is right.</li><li><strong>D2. Amortised inference: a network that has learned the posterior</strong> (simulation-based inference; neural posterior estimation, reviewed in "Simulation-Based Inference: A Practical Guide", arXiv 2508.12939). Train, once per family and instrument, a network on pairs (parameters, pattern) generated by the core's own forward model; for a new pattern it returns an approximate posterior in milliseconds. Used alone it is a guess; used as the proposal of importance sampling or of the samplers of B, it is corrected by the exact likelihood and the posterior is exact, which X-ray astronomy already does for spectral fits (arXiv 2512.16709, "deriving exact posteriors with dimension reduction and importance sampling"). For the core it answers problem (i) and part of (ii): many starts in the right basins, at once. Mun et al. is the one-point version of it.</li><li><strong>D3. A learned geometry for the sampler.</strong> A normalising flow trained on the posterior's samples maps it to a near-Gaussian, and HMC runs in the warped space (NeuTra, Hoffman et al. 2019, arXiv 1903.03704, which reports large gains in effective sample size). It changes the speed of B3, never its target. Across a sequential series, the flow of one pattern is the start of the next.</li><li><strong>D4. The machine-learned potentials are the physics-informed machine learning that matters here</strong> (C1): equivariant under rotations and translations by construction, trained on DFT, giving energies, forces and Hessians. They bring physics into the refinement as a prior with an inferred weight, which is where a learned model's error is acceptable.</li><li><strong>D5. A learned model of the misfit.</strong> Rietveld's \(\chi^2\) is not a likelihood because the residuals are structured (L286's first risk). A Gaussian process over \(2\theta\), with a kernel whose length follows the peak widths, models the systematic misfit (Kennedy and O'Hagan 2001); the parameters are then inferred with the misfit integrated out, and their esd's are no longer overconfident. This is machine learning in the statistical sense, small and interpretable, and it is what makes the posterior honest.</li><li><strong>D6. The core as a differentiable physics layer.</strong> "Physics-informed neural networks" in the narrow sense (Raissi, Perdikaris and Karniadakis 2019) put the residual of a differential equation into a network's loss; the refinement has no such equation, so that literal form does not apply. The sense that does apply: the physics in the architecture, not learned. The core's forward model with exact derivatives (and, with A7, its adjoint) is a differentiable layer; a network that outputs mode amplitudes, cell and profile parameters and is trained through the core's pattern and \(\chi^2\) learns on the true physics, not only on simulated pairs. The inductive biases are the crystallographer's: mode amplitudes rather than coordinates, invariance under the Euclidean normaliser, the subgroup tree.</li><li><strong>D7. Learning the plan.</strong> Which parameters to free and when (problem v) can be learned from the bench's runs (step 0), as black-box tuning of refinement settings was (Ozaki et al. 2020, L286). Prior annealing (A4 c) is the principled alternative; the two can be compared on the bench, and a learned plan must be explainable through the normal matrix to be accepted.</li><li><strong>Where machine learning is not worth it.</strong> A neural emulator of the forward model: the core's is exact and takes 5–40 ms, and the Pawley surrogate (B4) is exact to second order; an emulator would add error and gain little. A deep network trained on the Perovskite Atlas: 47 materials are a hierarchical Bayesian model's size, not a network's (L286). A network as the engine: its result cannot be traced to the data, and FullProf's number would no longer be the test.</li></ul><p><strong>What is not proposed.</strong> Monte Carlo, genetic algorithms or Adam as the local minimiser (slower than Gauss–Newton near the minimum, and their end points depend on settings); a network that maps patterns to structures as the engine (not reproducible, not traceable to the data); any method whose cold limit is not the least-squares minimum, presented as Rietveld refinement.</p>
+<h2 id="proposal" class="anchored">Proposal</h2><p>The engine of version 1 stays Levenberg–Marquardt and keeps FullProf's results. Everything below is an option, behind a test that it lands on the same minimum where it claims to.</p><ul><li><strong>Step 0. The bench, before any algorithm.</strong> The five runs in <code>manuals/fullprof/runs/</code> and Explore's two cases, each started from 100 perturbed starts (inside physical ranges, seeded); measured per method: the fraction that reach FullProf's minimum (\(\chi^2\) within its tolerance, every parameter within 0.01 esd), the cycles, the evaluations, the time. Without it "faster" and "more reliable" are guesses. A finding with the present engine's numbers.</li><li><strong>Step 1. Variable projection (A1)</strong> for the scale factors and the background coefficients, against step 0.</li><li><strong>Step 2. Geodesic acceleration (A2)</strong> with the second directional derivative by dual numbers, against step 0; then the large-residual term (A3) on the laboratory runs.</li><li><strong>Step 3. Continuation (A4)</strong>: resolution and prior annealing, measured as the size of the basin of attraction (how far a start can be and still arrive), and prior annealing against FullProf's plans.</li><li><strong>Step 4. Basin hopping with crystallographic moves (B1)</strong> on case A of the mode material: the catalogue of minima, and the nudged elastic band between two of them (B5); requests to Explore for the two views.</li><li><strong>Step 5. The ladder (B2–B4)</strong>: parallel tempering with Fisher-metric HMC, delayed acceptance on the Pawley surrogate; the sampler and the evidence of L286, checked by its calibration test (90 % regions hold the truth 90 % of the time) and its cold end checked against FullProf.</li><li><strong>Step 6. The energy (C)</strong>: first the bond-valence energy with its weight by the evidence; the machine-learned potential where Josu decides it lives (core or extension, I02); then C5, C3 and C4.</li><li><strong>Step 7.</strong> Robust likelihood (A6) and the reparameterisations (A5), each against step 0.</li><li><strong>Step 8. The learned pieces (D)</strong>, after step 5 exists to correct them: the misfit model (D5) first, since L286's calibration depends on it; then amortised starts and proposals (D2) for the double perovskites, trained on the core's forward model and judged by the bench (more starts in the right basin, the same end points); then the flow (D3) if the sampler is the bottleneck. Training happens outside the app; where a trained network is evaluated (core or extension) is Josu's call, as for the potential.</li></ul><p>Steps 0–3 are engine work for the core stream, a few versions each; 4 and 5 are research, and a paper (the ladder whose cold end is Rietveld's result and whose evidence chooses the subgroup); 6 is a second paper; 8 joins the first.</p>
+<h2 id="asks" class="anchored">For Josu to decide</h2><ul class="k-list"><li>Whether steps 0–2 (the bench, variable projection, geodesic acceleration) go to the core stream now, as engine options that keep the default.</li><li>Whether prior annealing (A4 c) may be offered in place of a hand-written plan, the plan staying available.</li><li>Where a machine-learned potential would live: in the core (a large dependency and every calculation in the core, L139) or as an extension (I02); and whether the bond-valence energy is enough to start.</li><li>Whether a result refined with an energy prior is shown in the app beside the unrestrained one, never instead of it (the session's proposal).</li><li>Whether Explore takes the landscape views (catalogue of minima, the path between two minima) as requests now or after step 4.</li><li>Whether the ladder (step 5) is written as a methods paper, and with whom (the inverse-problems project of L286).</li><li>Whether the rule for machine learning (the network proposes, the likelihood decides; never at the end point) is adopted as a standing rule of the project.</li></ul>
+<h2 id="log" class="anchored">The idea's log</h2><ul class="tline idea-log"><li><span class="d">2026-10-19 · <span class="kind idea-kind-said">said</span></span><p>Said by Josu in the ideas chat: beyond reproducing FullProf and GSAS-II, innovate in the minimisation itself; could algorithms from molecular dynamics, DFT relaxations (SIESTA) or Monte Carlo make the refinement more reliable or faster, with the same results; think further than mode crystallography's extra information. Then: and machine learning, neural networks, physically informed models?</p></li><li><span class="d">2026-10-19 · <span class="kind idea-kind-discussion">discussion</span></span><p>Assessed with the core's engine and the literature: locally, Gauss-Newton with exact derivatives beats the DFT relaxers and Monte Carlo, so the default stays; the time is lost in six other places, each with a borrowed tool: variable projection, geodesic acceleration, continuation, basin hopping, a temperature ladder with Fisher-metric HMC whose cold end is the Rietveld minimum, and the energy as a Boltzmann prior; machine learning only where the exact likelihood corrects it (amortised starts and proposals, a learned sampler geometry, a misfit model, the potentials). Closest precedents: Scatter2xyz (Anker et al. 2025) and Mun, Nam and Choi (2026). A bench of perturbed starts comes first. <a class="ref" href="../../log/index.html#L358">L358</a></p></li></ul>
+</article>
+
+
+<!-- Closes the reading column opened by _gen/docs-nav.html, adds the right
+     "On this page" list, and wires: current-page marking in the left nav,
+     breadcrumbs, the page TOC (from h2/h3 in the reading column) and a
+     scroll-spy. Pure DOM, no library. -->
+  </div>
+  <aside class="docs-toc"><button class="docs-fold" type="button" data-fold="toc" aria-label="Hide the page outline" title="Hide the page outline">›</button><div class="t">On this page</div><ol></ol></aside>
+</div>
+<script>
+(function () {
+  /* 0. The two side panels fold on their chevrons; the choice is remembered in this browser. */
+  var docs = document.querySelector('.docs');
+  if (docs) {
+    var store = {};
+    try { store = JSON.parse(localStorage.getItem('docs-fold') || '{}'); } catch (e) { store = {}; }
+    function apply() {
+      docs.classList.toggle('nav-folded', !!store.nav);
+      docs.classList.toggle('toc-folded', !!store.toc);
+      document.querySelectorAll('.docs-fold').forEach(function (b) {
+        var which = b.getAttribute('data-fold'), folded = !!store[which];
+        b.innerHTML = (which === 'nav') === folded ? '&rsaquo;' : '&lsaquo;';
+        var what = which === 'nav' ? 'the navigation' : 'the page outline';
+        b.title = (folded ? 'Show ' : 'Hide ') + what; b.setAttribute('aria-label', b.title);
+      });
+    }
+    document.querySelectorAll('.docs-fold').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var which = b.getAttribute('data-fold'); store[which] = !store[which];
+        try { localStorage.setItem('docs-fold', JSON.stringify(store)); } catch (e) {}
+        apply();
+      });
+    });
+    apply();
+  }
+  /* 0b. The header ribbon: mark the entry whose section holds this page. Quarto rewrites the hrefs to
+     relative paths, so folders are read from the resolved URLs; the Overview link gives the site root. */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+    if (!links.length) return;
+    /* a served URL may end in '/' (GitHub Pages: …/about/); read it as …/about/index.html */
+    function folder(path) { if (/\/$/.test(path)) path += 'index.html'; var s = path.split('/').filter(Boolean); return s.length > 1 ? s[s.length - 2] : ''; }
+    var wm = document.querySelector('a.wordmark');            // the wordmark links to the site root
+    var root = folder((wm || links[0]).pathname);
+    var map = { 'focus-literature': 'validation', user: 'manual', theory: 'manual' };
+    function key(path) { var f = folder(path); if (f === root) return 'overview'; if (/^I\d\d$/.test(f)) return 'ideas'; return map[f] || f; }
+    var here = key(location.pathname);
+    links.forEach(function (a) { a.classList.toggle('current', key(a.pathname) === here); });
+  })();
+
+  var main = document.querySelector('.docs-main');
+  var nav = document.querySelector('.docs-nav');
+  var toc = document.querySelector('.docs-toc ol');
+  if (!main || !nav || !toc) return;
+
+  /* 1. Left nav: mark the current page (and section, if the hash matches). */
+  var here = location.pathname.replace(/\/index\.html$/, '/');
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var pageLink = null, hashLink = null;
+  links.forEach(function (a) {
+    var p = a.pathname.replace(/\/index\.html$/, '/');
+    if (p !== here) return;
+    if (!a.hash && !pageLink) pageLink = a;
+    if (a.hash && a.hash === location.hash) hashLink = a;
+  });
+  var cur = hashLink || pageLink;
+  if (cur) {
+    cur.classList.add('current');
+    var det = cur.closest('details.group');
+    if (det) { det.open = true; det.classList.add('has-current'); }
+    /* Breadcrumbs: group title › page (› section). */
+    var crumbs = document.createElement('div');
+    crumbs.className = 'docs-crumbs';
+    var g = det ? det.querySelector('summary.t') : null;
+    var parts = [];
+    function push(t) { if (t && parts[parts.length - 1] !== t) parts.push(t); }
+    if (g) push(g.textContent.trim());
+    if (pageLink && pageLink !== cur) push(pageLink.textContent.trim());
+    push(cur.textContent.trim());
+    crumbs.innerHTML = parts.map(function (t, i) {
+      return (i ? '<span class="sep">›</span>' : '') + '<span>' + t.replace(/</g, '&lt;') + '</span>';
+    }).join('');
+    main.insertBefore(crumbs, main.firstChild);
+  }
+
+  /* 2. Right "On this page": h2 and h3 of the reading column. */
+  var used = {};
+  var heads = Array.prototype.slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+    if (h.closest('.site-foot, .featured-band, .msg-grid, [data-toc="no"]')) return false;
+    if (h.classList.contains('unnumbered') || h.id === 'contenido') return false;
+    return h.textContent.trim().length > 0;
+  });
+  heads.forEach(function (h) {
+    if (!h.id) {
+      var s = h.textContent.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'sec';
+      while (used[s] || document.getElementById(s)) s += '-';
+      h.id = s;
+    }
+    used[h.id] = true;
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.className = 'l3';
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    /* This runs before KaTeX has rendered the headings, so a heading with mathematics still holds TeX
+       source: copy its markup, including the math spans, and let the page's KaTeX pass render the copy. */
+    var copy = h.cloneNode(true);
+    copy.querySelectorAll('.katex-mathml, annotation, .anchorjs-link').forEach(function (n) { n.remove(); });
+    var label = copy.textContent.trim().replace(/\s+/g, ' ');
+    if (copy.querySelector('.math, .math-done, .katex')) a.innerHTML = copy.innerHTML.trim();
+    else a.textContent = label.length > 72 ? label.slice(0, 70).replace(/[\s,;:]+\S*$/, '') + '…' : label;
+    a.title = label;
+    li.appendChild(a);
+    toc.appendChild(li);
+  });
+  if (!heads.length) { document.querySelector('.docs-toc').hidden = true; return; }
+
+  /* 3. Scroll-spy. */
+  var items = Array.prototype.slice.call(toc.querySelectorAll('a'));
+  function spy() {
+    var y = window.scrollY + 120, best = null;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h; });
+    items.forEach(function (a) { a.classList.toggle('current', best && a.getAttribute('href') === '#' + best.id); });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('hashchange', spy);
+  spy();
+})();
+</script>
+<footer class="site-foot">
+  <div class="site-foot__inner">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <h4 class="anchored">What this is</h4>
+        <p>The working site of one project: to build a Mac app for Rietveld refinement of powder diffraction data, after a study of the programs the community uses for it. It holds the brief, that study, the design, a dated log of every step, the release notes and the manuals of the core and the app.</p>
+        <div class="cite-block">Josu M. Igartua · Departamento de Física, UPV/EHU<br>josu.igartua@ehu.eus</div>
+      </div>
+      <div><h4 class="anchored">This site</h4><ul>
+        <li><a href="../../index.html">Overview</a></li><li><a href="../../brief/index.html">Brief</a></li><li><a href="../../background/index.html">Background</a></li><li><a href="../../design/index.html">Design</a></li><li><a href="../../roadmap/index.html">Roadmap</a></li><li><a href="../../ideas/index.html">Ideas</a></li><li><a href="../../log/index.html">Log</a></li><li><a href="../../about/index.html">Method</a></li></ul></div>
+      <div><h4 class="anchored">Sources</h4><ul>
+        <li><a href="https://doi.org/10.1107/S0021889869006558">Rietveld 1969</a></li>
+        <li><a href="https://www.ill.eu/sites/fullprof/">FullProf Suite</a></li>
+        <li><a href="https://advancedphotonsource.github.io/GSAS-II-tutorials/">GSAS-II</a></li>
+        <li><a href="https://it.iucr.org/A/">International Tables, Vol. A</a></li></ul></div>
+      <div><h4 class="anchored">Status</h4><ul>
+        <li>Published at <a href="https://jmigartua.github.io/diff-ref-struct-site/">jmigartua.github.io/diff-ref-struct-site</a>; the sources are private</li>
+        <li>Rebuilt from <code>data/*.yml</code> on every render</li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Josu M. Igartua · work in progress</span>
+      <span>Quarto · family design kit</span>
+    </div>
+  </div>
+</footer>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
