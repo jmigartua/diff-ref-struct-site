@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <h1>Parameters: the theory</h1>
 <p class="lede">The parameter dictionary (<a href="../../log/index.html#L044">L044</a>, <a href="../../log/index.html#L046">L046</a>): every parameter the core reads or will refine, under a readable name, with the equation it enters and where that equation comes from. The core's names, the app's help and this page are generated from the same file, so they cannot drift apart.</p>
 <p class="sub">The papers' own equations have not yet been read against these: the session that wrote the dictionary could not reach the journals, so each equation is cited to the page where FullProf's manual or the microstructure paper prints it, and each paper's reference was checked against bibliographic records only. Where FullProf computes something other than its manual prints, the core's default follows the manual and the FullProf convention keeps FullProf's rule (<a href="../../log/index.html#L046">L046</a>).</p>
-<p class="sub">92 entries, 81 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
+<p class="sub">95 entries, 83 refinable. Each gives the parameter's name in the core, its symbol, unit and meaning, the equation it enters with the paper behind it and the page where the equation is printed, its FullProf and GSAS-II equivalents, the range measured on the 240 <code>.pcr</code> files of the FullProf material that the core reads, the default, when to refine it (after FullProf's manual, p. 14) and the limits the engine holds it within. Generated from <code>data/parameters.yml</code>; do not edit by hand.</p>
 <h2 id="radiation" class="anchored">Radiation and instrument</h2>
 <section class="param" id="wavelength_1"><h3 class="anchored">Wavelength λ₁</h3><p class="param-meta"><code>wavelength_1</code> · <span class="math inline">\(\lambda_1\)</span> · Å · refinable</p><p>The wavelength of the main line; with d it sets each Bragg angle.</p><p class="eq"><span class="math inline">\(\lambda_1 = 2 d_{hkl} \sin\theta_{hkl}\)</span></p><p class="cite">Equation as printed in: FullProf_Manual.pdf, p. 75. Paper: J. Rodríguez-Carvajal (2001). An introduction to the program FullProf 2000. Laboratoire Léon Brillouin, CEA-CNRS (manuals/fullprof/FullProf_Manual.pdf)</p>
 <table class="inventory caption-top">
@@ -2497,6 +2497,124 @@ document.addEventListener("DOMContentLoaded", function () {
 <tr class="even">
 <th data-quarto-table-cell-role="th">In the core</th>
 <td><code>Phase.pref_direction</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="po_axis_ratio"><h3 class="anchored">March ratio of a preferred-orientation axis</h3><p class="param-meta"><code>po_axis_ratio</code> · <span class="math inline">\(r_j\)</span> · 1 · refinable</p><p>March's ratio r_j of axis j of a phase textured along several axes: the crystallites with that axis are distributed about the sample's axis by March's density, below 1 for plates, above 1 for needles, 1 for none.</p><p class="eq"><span class="math inline">\(P_h = \frac{1}{m}\sum_{i=1}^{m} \sum_j f_j\, \left(r_j^2\cos^2\rho_{ij} + \frac{\sin^2\rho_{ij}}{r_j}\right)^{-3/2}\)</span></p><p class="cite">Equation as printed in: Dollase_1986.pdf, p. 268 · March_1932.pdf, p. 291 · Fullprof_News_2003.htm L310–340 · yb_nor2.out L440–445. Paper: W. A. Dollase (1986). Correction of intensities for preferred orientation in powder diffractometry: application of the March model. J. Appl. Cryst. 19, 267–272. doi:10.1107/S0021889886089458</p><p class="m">ρ_ij is the angle between axis j and the sample's axis for the i-th of the m reflections equivalent to h: its angle α to h in reflection (Nor = 2, FullProf's G2 does not enter: yb_nor2_g2 has yb_nor2's CORR, L360); in an anvil cell with the beam along the force (Nor = 3), averaged over the cone cos ρ = cos α cos ψ + sin α sin ψ cos φ, ψ = 90° − <span class="math inline">\(\theta\)</span> (Wright et al. 1996, believed: FullProf's yb_nor3 CORR is up to 3.6 % below it, L360).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>MD-r of each direction's line after line 30-1 (Nor = 2, 3; the News of 12 October 2003)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none: one March–Dollase axis per phase</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.85 and 1.2 in runs/texture/yb_nor2.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>As G₁, one axis at a time; with the fractions after the ratios.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td><span class="math inline">\(\ge\)</span> <span class="math inline">\(10^{-3}\)</span> (undefined at 0).</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>0.5 1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.texture</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="po_axis_fraction"><h3 class="anchored">Fraction of a preferred-orientation axis</h3><p class="param-meta"><code>po_axis_fraction</code> · <span class="math inline">\(f_j\)</span> · 1 · refinable</p><p>The fraction f_j of a phase's crystallites oriented about axis j; the fractions sum to 1, and the last is 1 minus the others.</p><p class="eq"><span class="math inline">\(f_n = 1 - \sum_{j&lt;n} f_j\)</span></p><p class="cite">Equation as printed in: Fullprof_News_2003.htm L310–320</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>Fraction of each direction's line after line 30-1 (Nor = 2, 3); the last direction's is not refined</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>0.6 and 0.4 in runs/texture/yb_nor2.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>1 for one axis</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>After the ratios; a fraction near 0 or 1 makes its axis's ratio undetermined.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Limits</th>
+<td>0 to 1.</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Class</th>
+<td>profile (FullProf's relaxation class; FullProf_Manual.pdf, p. 77)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Largest shift per cycle</th>
+<td>0.2 1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Correlated with</th>
+<td><a href="#po_axis_ratio"><code>po_axis_ratio</code></a>: An axis's share of P_h is f_j D_j: a small fraction with a strong ratio and a large one with a weak ratio change the intensities alike. <em>Tip:</em> Refine the ratios first, the fractions after them. <span class="cite">believed: from the product f_j D_j, not measured</span></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.texture</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="param" id="po_axis_steps"><h3 class="anchored">Steps of the anvil cell's texture integration</h3><p class="param-meta"><code>po_axis_steps</code> · <span class="math inline">\(N_\varphi\)</span> · steps · read, not refined</p><p>For an anvil cell with the beam along the force: the steps over the azimuth φ of each axis's cone about the scattering vector; 0 for a flat sample in reflection.</p><p class="eq"><span class="math inline">\(\bar D_j = \frac{1}{N_\varphi}\sum_{k=1}^{N_\varphi} D\!\left(r_j, \cos\alpha\cos\psi + \sin\alpha\sin\psi\cos\varphi_k\right),\ \varphi_k = \pi\frac{k - 1/2}{N_\varphi}\)</span></p><p class="cite">Equation as printed in: Fullprof_News_2003.htm L326–340 · Fullprof_News_2003.htm L408–412</p><p class="m">The form is believed (Wright, Nelmes, Belmonte &amp; McMahon 1996, eqs. 4–6, which the News names; the paper is not in manuals/papers): FullProf's yb_nor3 CORR is up to 3.6 % below it, frozen in test texture and listed for Josu (L360).</p>
+<table class="inventory caption-top">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">FullProf</th>
+<td>NOrstep after NPOD (Nor = 3), 20 when it is not given</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GSAS-II</th>
+<td>none</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Range</th>
+<td>20 in runs/texture/yb_nor3.pcr</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Default</th>
+<td>0 (a flat sample)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">When to refine</th>
+<td>Never: chosen.</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">In the core</th>
+<td><code>Phase.texture</code></td>
 </tr>
 </tbody>
 </table>
