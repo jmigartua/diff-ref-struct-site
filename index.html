@@ -146,10 +146,10 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="net-stats net-stats-grid">
   <div class="net-stat"><div class="v">34</div><div class="k">requirements in the brief</div></div>
   <div class="net-stat"><div class="v">9</div><div class="k">programs on the long list (2 shortlisted)</div></div>
-  <div class="net-stat"><div class="v">432</div><div class="k">log entries</div></div>
+  <div class="net-stat"><div class="v">433</div><div class="k">log entries</div></div>
   <div class="net-stat"><div class="v">79</div><div class="k">decisions recorded</div></div>
 </div>
-<div class="updated">Site last built 2026-10-26 07:11</div>
+<div class="updated">Site last built 2026-10-26 07:18</div>
     </div>
   </div>
 </section>
@@ -175,11 +175,11 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="sec-head"><h2 class="anchored">Latest in the log</h2><a class="more" href="log/index.html">All entries →</a></div>
     <p class="sec-intro">Findings, decisions with their reasons, and the work done. Newest first.</p>
 <ul class="home-log">
+<li><span class="d">2026-10-26</span><div><a href="log/index.html#L433">On the public web page the strips still do not take the map's frame, and the unit is still said twice: step 23's fix acts in the app and not in the browser host</a><span class="s">finding · https://jmigartua.github.io/diff-ref-struct-web/ (web a1c308d, core 0.81.0) · ~/Downloads/interceptor-capture-20261026-081600-60098.png · app/ui/viewer/map.js · L431, L432</span></div></li>
 <li><span class="d">2026-10-26</span><div><a href="log/index.html#L432">Plots step 23 merged: the strips' frames are the map's, the unit said once (L431)</a><span class="s">work · plots branch 6770438c (README twenty-third step, PL13s) · app/ui/viewer/map.js · app/ui/plot.js · app/ui/mapclip.js (stripFrames) · L431</span></div></li>
 <li><span class="d">2026-10-26</span><div><a href="log/index.html#L431">In the Map view's row strip the profile's frame is wider than the map's, so a peak does not sit under its column (Josu, on the web app); the column strip the same way</a><span class="s">finding · Josu's capture of the web app, 26 October 2026 · app/ui/viewer/map.js:151–166 (the strips' createPlot) · app/ui/plot.js (the measured margins, PL30) · L406, L412</span></div></li>
 <li><span class="d">2026-10-25</span><div><a href="log/index.html#L430">App 0.54.0 on core 0.81.0 built, self-checked and installed: Plots' steps 20 to 22 in the Mac app</a><span class="s">work · scratchpad self0540 (run.log) · app/src-tauri/target/release/bundle/macos · data/releases.yml app 0.54.0 · L418, L421, L429</span></div></li>
 <li><span class="d">2026-10-25</span><div><a href="log/index.html#L429">Core 0.81.0, Plots' step 22 and the web host's steps 4 and 5 merged; diff-ref-struct Web published by its Action; the 101 ESRF files on the public page: the three sets proposed, the hold mapped in a second; I10 migrated</a><span class="s">work · core branch f0cc2149 (L428) · plots branch 616a660d (README twenty-second step) · web branch 6fbc5632 (README steps 4 and 5) · .github/workflows/publish-web.yml · app/ui/host-web/host.js · core/wasm/tests/map.test.mjs · https://jmigartua.github.io/diff-ref-struct-web/version.json · data/ideas.yml I10 · L427</span></div></li>
-<li><span class="d">2026-10-25</span><div><a href="log/index.html#L428">Core 0.81.0: the ESRF run's three sets found by `drs plots propose` as they were built by hand (W2, W8), the exposure classes by the counts' scale σ²/y, a large set rebinned on opening and its patterns out of every SetView (W9)</a><span class="s">work · core/src/plots.rs (propose, counts_scale, CLASS_STEP, LARGE_SCAN, LARGE_STEP, Proposal::reader, ExposureClass::median_scale, temperature_in_name, elapsed_in_name, Found::unit, Variable::in_unit, PlotSet::temperatures_in, PlotSet::rebin, SetFile::rebin) · core/src/formats/table.rs (layout) · core/src/data_ops.rs (rebin_step public) · core/src/main.rs (drs plots propose) · core/tests/plots_esrf.rs, plots_propose.rs · core/wasm/src/host.rs, lib.rs, tests/map.test.mjs, tests/commands.rs · jmigartua/esrf-hc6528-400-4 downloads/files (file_index.csv, xye/, hc6528_400_4_drs-sets.zip) · web/REQUESTS.md W8, W9 · L021, F02 of esrf-datuak-irene · L427</span></div></li>
 </ul>
   </div>
 </section>
